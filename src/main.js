@@ -1,0 +1,5 @@
+import('./features/load-content-page')
+import('./features/load-page')
+import('./features/change-planet')
+import('./features/menu-animation')
+import('./features/transition-page')
