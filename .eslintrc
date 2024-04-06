@@ -12,7 +12,7 @@
     "browser": true
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-  "plugins": ["import", "sort-imports-es6-autofix"],
+  "plugins": ["import", "sort-imports-es6-autofix", "vitest"],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "import/order": [
