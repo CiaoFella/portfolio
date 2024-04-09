@@ -1,3 +1,5 @@
+@import url('./cursor.scss');
+
 .js-badge {
   position: fixed;
   top: 32px;
@@ -19,4 +21,31 @@
 
 .js-badge:hover {
   background-color: rgb(228, 137, 193);
+}
+
+[data-animate=letter-switch] .char-wrap {
+  display: inline-block;
+  position: relative;
+}
+
+[data-animate=letter-switch] .char {
+  position: relative;
+}
+
+[data-animate=letter-switch] .swap-letter {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+[data-animate=font-weight] {
+    cursor: none;
+}
+
+a [data-animate=font-weight] {
+  cursor: inherit;
+}
+
+[data-animate=project-teaser-wrap] [data-animate=project-teaser-img] {
+  visibility: hidden;
 }

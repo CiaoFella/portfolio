@@ -1,5 +1,14 @@
-import('./features/load-content-page')
-import('./features/load-page')
-import('./features/change-planet')
-import('./features/menu-animation')
-import('./features/transition-page')
+import beforeAfterSlider from './features/detailPage/beforeAfterSlider'
+import animateMenu from './features/general/animateMenu'
+import button from './features/general/button'
+import './styles/style.scss'
+import customCursor from './utils/customCursor'
+import initBarba from './utils/pageTransition'
+import lenis from './utils/smoothScroll'
+
+animateMenu()
+beforeAfterSlider()
+button()
+customCursor()
+initBarba.initBarba()
+lenis.start()
