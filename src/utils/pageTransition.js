@@ -30,6 +30,7 @@ function initBarba() {
 
   barba.hooks.after((data) => {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
+    initPage(currentPage)
     $(window).scrollTop(0)
     resetWebflow(data)
     matchMedia.add(isDesktop, () => {
@@ -45,11 +46,17 @@ function initBarba() {
 
   barba.init({
     preventRunning: true,
-    views: [
+    views: [{}],
+    transitions: [
+      {},
       {
-        namespace: 'home-page',
-        afterEnter(data) {
-          homePage()
+        once: () => {
+          customCursor()
+          currentPage = $('[data-barba-namespace]').data('barbaNamespace')
+          initPage(currentPage)
+          matchMedia.add(isDesktop, () => {
+            customCursor()
+          })
         },
       },
     ],

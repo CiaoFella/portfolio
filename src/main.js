@@ -9,6 +9,5 @@ import lenis from './utils/smoothScroll'
 animateMenu()
 beforeAfterSlider()
 button()
-customCursor()
 initBarba.initBarba()
 lenis.start()
