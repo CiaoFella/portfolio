@@ -15,10 +15,10 @@ function customCursor() {
   // Init magnetic
   $('[data-magnetic]').each(function () {
     new Magnetic(this, {
-      y: 0.2, // horizontal delta
-      x: 0.2, // vertical delta
+      y: 0.5, // horizontal delta
+      x: 0.5, // vertical delta
       s: 0.2, // speed
-      rs: 0.7, // release speed
+      rs: 0.25, // release speed
     })
   })
 
