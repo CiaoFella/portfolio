@@ -70,10 +70,10 @@ function setLetterSwitch(item) {
   })
 }
 
-function animateLetter(item) {
+function animateLetter(item, delay) {
   const originalLetter = $(item).find('.char')
 
-  const letterTl = gsap.timeline({ paused: true })
+  const letterTl = gsap.timeline({ paused: true, delay: delay })
 
   const randomLetter = $(item).find('.swap-letter')
   const randomDelay = gsap.utils.random(0.1, 0.125, 0.15, 0.175, 0.2)
