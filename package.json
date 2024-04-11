@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@barba/core": "^2.9.7",
-    "@splinetool/runtime": "^1.0.82",
+    "@splinetool/runtime": "^1.0.93",
     "@studio-freight/lenis": "^1.0.42",
     "dat.gui": "^0.7.9",
     "eslint-plugin-vitest": "^0.4.1",

@@ -106,10 +106,10 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.14.0.tgz"
   integrity sha512-LDyFB9GRolGN7XI6955aFeI3wCdCUszFWumWU0deHA8VpR3nWRrjG6GtGjBrQxQKFevnUTHKCfPR4IvrW3kCgQ==
 
-"@splinetool/runtime@^1.0.82":
-  version "1.0.82"
-  resolved "https://registry.npmjs.org/@splinetool/runtime/-/runtime-1.0.82.tgz"
-  integrity sha512-4B6/LxxJloG7iYPpoiRDBLTJtyfBn/CVDnWy3wAZoJCrtFfVC9mb9LQVZKChnWHj9pH7yW6k2hUSL2UFhja1qA==
+"@splinetool/runtime@^1.0.93":
+  version "1.0.93"
+  resolved "https://registry.npmjs.org/@splinetool/runtime/-/runtime-1.0.93.tgz"
+  integrity sha512-hNe9VVcUjLSxKsxTaGmSwhC0RQzkNlpz44unCh7EINMugqZGZ+PDpZw36st14NHdnZ7Lmz13y6Mj4Koln53wgg==
   dependencies:
     on-change "^4.0.0"
     semver-compare "^1.0.0"
