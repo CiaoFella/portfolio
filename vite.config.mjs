@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite'
 import glsl from 'vite-plugin-glsl'
-import babel from 'vite-plugin-babel'
 
 // vite.config.js
 export default defineConfig({
-  plugins: [glsl(), babel()],
+  plugins: [glsl()],
   server: {
     host: 'localhost',
     port: 3000,
