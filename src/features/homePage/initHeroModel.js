@@ -1,7 +1,7 @@
 import { Application } from '@splinetool/runtime'
 
 export default function initHeroModel() {
-  const heroModel = document.querySelector('[data-animate=hero-model] canvas')
+  const heroModel = document.querySelector('[data-animate=hero-model]')
   const spline = new Application(heroModel)
 
   if (heroModel) {

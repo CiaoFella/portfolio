@@ -10,7 +10,7 @@ import initHeroModel from '../homePage/initHeroModel'
 export default function animateHero() {
   const sectionHero = document.querySelector('.section--hero')
   const heroText = $('[data-animate=letter-switch]')
-  const heroModel = document.querySelector('[data-animate=hero-model] canvas')
+  const heroModel = document.querySelector('[data-animate=hero-model]')
   const heroItemRight = $(sectionHero).find(
     '[data-animate=hero-item-move][data-move=right]'
   )
