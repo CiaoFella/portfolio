@@ -12,6 +12,10 @@ export default defineConfig({
           src: './src/utils/unicornStudio/imageHover.json',
           dest: 'unicornStudio',
         },
+        {
+          src: './_headers',
+          dest: '',
+        },
       ],
     }),
   ],
