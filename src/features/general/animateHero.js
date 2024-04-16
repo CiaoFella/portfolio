@@ -5,14 +5,12 @@ import letterSwitch from './animateLetterSwitch'
 import gsap from 'gsap'
 import SplitType from 'split-type'
 import { bottomClipPath } from '../../utils/variables'
-import app from '../homePage/initHeroModel'
+import initHeroModel from '../homePage/initHeroModel'
 
 export default function animateHero() {
   const sectionHero = document.querySelector('.section--hero')
   const heroText = $('[data-animate=letter-switch]')
-  const heroModel = sectionHero.querySelector(
-    '[data-animate=hero-model] canvas'
-  )
+  const heroModel = document.querySelector('[data-animate=hero-model] canvas')
   const heroItemRight = $(sectionHero).find(
     '[data-animate=hero-item-move][data-move=right]'
   )
@@ -26,33 +24,39 @@ export default function animateHero() {
     '[data-animate=hero-decorative-item]'
   )
   const heroDetailWrap = $(sectionHero).find('[data-animate=hero-detail-wrap]')
+  const heroLocationWrap = $(sectionHero).find(
+    '[data-animate=hero-location-wrap]'
+  )
   const heroDetailText = heroDetailWrap.find('p')
   const heroDetailButtons = heroDetailWrap.find('.button')
+  const heroLocationText = heroLocationWrap.find('p')
 
   const heroTl = gsap.timeline()
 
   letterSwitch.setLetterSwitch(heroText)
-  heroTl.call(() => letterSwitch.animateLetter(heroText, 1).play())
 
   if (heroModel) {
-    heroTl.call(() => app.emitEvent('keyDown', 'Main'), [], 0.5)
+    const spline = initHeroModel()
+    heroTl.call(() => spline.emitEvent('keyDown', 'Main'), [], 2)
   }
+
+  heroTl.call(() => letterSwitch.animateLetter(heroText, 1).play(), [], 1)
 
   heroTl
     .from(
       heroItemRight,
-      { xPercent: -25, duration: 2, ease: 'expo.inOut' },
+      { xPercent: -50, duration: 2, ease: 'expo.inOut' },
       '>+1'
     )
     .from(
       heroItemLeft,
-      { xPercent: 25, duration: 2, ease: 'expo.inOut' },
+      { xPercent: 50, duration: 2, ease: 'expo.inOut' },
       '<+0.1'
     )
     .from(
       heroItemRightDecorativeItem.children(),
       {
-        yPercent: -100,
+        yPercent: -150,
         duration: 1.5,
         stagger: 0.1,
         ease: 'expo.out',
@@ -61,7 +65,7 @@ export default function animateHero() {
     )
     .from(
       heroItemLeftDecorativeItem.children(),
-      { yPercent: 100, duration: 1.5, stagger: 0.1, ease: 'expo.out' },
+      { yPercent: 150, duration: 1.5, stagger: 0.1, ease: 'expo.out' },
       '<'
     )
 
@@ -92,6 +96,19 @@ export default function animateHero() {
         ease: 'expo.out',
       },
       '<+0.5'
+    )
+  }
+
+  if (heroLocationWrap.length > 0) {
+    heroTl.from(
+      heroLocationText,
+      {
+        yPercent: 110,
+        duration: 1,
+        stagger: 0.05,
+        ease: 'expo.out',
+      },
+      '<'
     )
   }
 

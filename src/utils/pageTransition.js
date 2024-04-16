@@ -10,6 +10,7 @@ import { isDesktop } from './variables'
 import aboutPage from '../pages/aboutPage'
 import homePage from '../pages/homePage'
 import listPage from '../pages/listPage'
+import callOnceComponents from '../pages/callOnceComponents'
 
 const matchMedia = gsap.matchMedia()
 
@@ -53,6 +54,7 @@ function initBarba() {
         once: () => {
           customCursor()
           currentPage = $('[data-barba-namespace]').data('barbaNamespace')
+          callOnceComponents()
           initPage(currentPage)
           matchMedia.add(isDesktop, () => {
             customCursor()
@@ -84,8 +86,6 @@ function killPage(currentPage) {
 }
 
 function initPage(currentPage) {
-  console.log(currentPage)
-
   if (currentPage) {
     if (currentPage === 'home-page') {
       homePage()

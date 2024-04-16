@@ -1,10 +1,12 @@
 import { Application } from '@splinetool/runtime'
 
-const sectionHero = document.querySelector('.section--hero')
+export default function initHeroModel() {
+  const heroModel = document.querySelector('[data-animate=hero-model] canvas')
+  const spline = new Application(heroModel)
 
-const heroModel = sectionHero.querySelector('[data-animate=hero-model] canvas')
+  if (heroModel) {
+    spline.load('https://prod.spline.design/sogcTIRLlh-VFitF/scene.splinecode')
+  }
 
-const app = new Application(heroModel)
-app.load('https://prod.spline.design/sogcTIRLlh-VFitF/scene.splinecode')
-
-export default app
+  return spline
+}

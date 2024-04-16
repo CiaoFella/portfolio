@@ -11,19 +11,17 @@ export default function animateList() {
   const listOutlineTl = gsap.timeline()
   listSections.each((index, section) => {
     const listChildren = $(section).find('.list_list-item-inner')
-    const outlineWrap = $(section).find('.outline-wrap')
     const headline = $(section).find('h2')
 
     const listTl = gsap.timeline()
-    listItemsTl.add(listTl)
 
     ScrollTrigger.create({
       animation: listTl,
       trigger: section,
       start: 'top bottom',
-      end: 'bottom top',
-      // toggleActions: 'restart pause resume pause',
+      end: 'bottom 25%',
       scrub: 0.5,
+      // toggleActions: 'play none none none',
     })
 
     listTl.from([headline, listChildren], {
@@ -33,6 +31,8 @@ export default function animateList() {
       ease: 'expo.out',
       delay: 0.5,
     })
+    listItemsTl.add(listTl)
+
   })
 
   return [listItemsTl, listOutlineTl]

@@ -8,7 +8,23 @@ function setLetterSwitch(item) {
 
   // prettier-ignore
   const possibleLetters = [
-    'B', 'C', 'D', 'E', 'F', 'K', 'L', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'
+    'A',
+    'B',
+    'E',
+    'F',
+    'H',
+    'K',
+    'L',
+    'N',
+    'P',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'X',
+    'Y',
+    'Z',
   ]
 
   const switchElementSplit = new SplitType(letterSwitchElement, {
@@ -34,15 +50,15 @@ function setLetterSwitch(item) {
       case 'V':
         randomLetter = 'V'
         break
+      case 'd':
+      case 'D':
+        randomLetter = 'D'
+        break
       case 'a':
       case 'A':
       case 'r':
       case 'R':
         randomLetter = 'A'
-        break
-      case 't':
-      case 'T':
-        randomLetter = 'T'
         break
       case 'l':
       case 'L':
@@ -55,6 +71,10 @@ function setLetterSwitch(item) {
       case 'w':
       case 'W':
         randomLetter = 'W'
+        break
+      case 'c':
+      case 'C':
+        randomLetter = 'C'
         break
     }
 
@@ -73,7 +93,11 @@ function setLetterSwitch(item) {
 function animateLetter(item, delay) {
   const originalLetter = $(item).find('.char')
 
-  const letterTl = gsap.timeline({ paused: true, delay: delay })
+  const letterTl = gsap.timeline({
+    paused: true,
+    delay: delay,
+    immediateRender: false,
+  })
 
   const randomLetter = $(item).find('.swap-letter')
   const randomDelay = gsap.utils.random(0.1, 0.125, 0.15, 0.175, 0.2)

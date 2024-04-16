@@ -1,11 +1,11 @@
 import * as THREE from 'three'
-import vertexShader from './shader/vertexShader.glsl'
-import fragmentShader from './shader/fragmentShader.glsl'
+import vertexShader from './shader/vertex.glsl'
+import fragmentShader from './shader/fragment.glsl'
 import lenis from './smoothScroll'
 
 export default class ListCanvas {
   constructor() {
-    this.container = document.querySelector('.list-canvas-wrap')
+    this.container = document.querySelector('.canvas-wrap')
     this.images = Array.from(
       document.querySelectorAll('[data-animate=project-teaser-img]')
     )

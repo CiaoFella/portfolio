@@ -39,21 +39,22 @@ export default class Magnetic {
       const y = (e.clientY - this.y - this.height / 2) * this.options.y
       const x = (e.clientX - this.x - this.width / 2) * this.options.x
 
-      this.move(x, y, this.options.s)
+      this.move(x, y, this.options.s, 'power1.out')
     })
 
     this.el.on('mouseleave', () => {
-      this.move(0, 0, this.options.rs)
+      this.move(0, 0, this.options.rs, 'elastic.out(1,0.75)')
     })
   }
 
-  move(x, y, speed) {
+  move(x, y, speed, ease) {
     gsap.to(this.el, {
       y: y,
       x: x,
       force3D: true,
       overwrite: true,
       duration: speed,
+      ease: ease,
     })
   }
 }

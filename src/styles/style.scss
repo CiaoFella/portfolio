@@ -49,3 +49,27 @@ a [data-animate=font-weight] {
 [data-animate=project-teaser-wrap] [data-animate=project-teaser-img] {
   visibility: hidden;
 }
+
+.line {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.nav_logo-wrap {
+  .text-size-logo::first-letter {
+    transform: translateX(50px);
+  }
+}
+
+[data-img=threejs-hover-main] {
+  visibility: hidden;
+}
+
+[data-img] canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+}
