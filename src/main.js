@@ -4,17 +4,17 @@ import button from './features/general/button'
 import './styles/style.scss'
 import initBarba from './utils/pageTransition'
 import lenis from './utils/smoothScroll'
-import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
+// import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
+import initThreeJs from './utils/initThree';
+import hoverScene from './utils/Scene'
 
 let json
 fetch('https://julianfella.netlify.app/unicornStudio/imageHover.json').then(
   (response) => (json = response)
 )
 
-// new initThreeJs({
-//   wrapper: document.querySelector('.canvas-wrap'),
-//   container: [...document.querySelectorAll('[data-img=threejs-hover-wrap]')],
-//   images: [...document.querySelectorAll('[data-img=threejs-hover-main]')],
+// new hoverScene({
+//   container: document.querySelector('.canvas-wrap'),
 // })
 UnicornStudio.addScene({
   elementId: 'us-hover', // id of the HTML element to render your scene in (the scene will use its dimensions)
