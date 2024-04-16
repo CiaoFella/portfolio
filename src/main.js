@@ -8,7 +8,7 @@ import lenis from './utils/smoothScroll'
 import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
 import * as jsonData from './utils/unicornStudio/imageHover.json'
 let json
-fetch('/src/utils/unicornStudio/imageHover.json', {
+fetch('https://julianfella.netlify.app/unicornStudio/imageHover.json', {
   cache: 'no-cache',
 }).then((response) => (json = response))
 

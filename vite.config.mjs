@@ -9,7 +9,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: './src/utils/unicornStudio/unicornStudio.json',
+          src: './src/utils/unicornStudio/imageHover.json',
           dest: 'unicornStudio',
         },
       ],
