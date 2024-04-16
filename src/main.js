@@ -9,9 +9,9 @@ import initThreeJs from './utils/initThree';
 import hoverScene from './utils/Scene'
 
 let json
-fetch('https://julianfella.netlify.app/unicornStudio/imageHover.json').then(
-  (response) => (json = response)
-)
+fetch('https://julianfella.netlify.app/unicornStudio/imageHover.json', {
+  cache: 'no-cache',
+}).then((response) => (json = response))
 
 // new hoverScene({
 //   container: document.querySelector('.canvas-wrap'),
