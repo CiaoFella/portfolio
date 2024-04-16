@@ -1,9 +1,20 @@
 import { defineConfig } from 'vite'
 import glsl from 'vite-plugin-glsl'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 // vite.config.js
 export default defineConfig({
-  plugins: [glsl()],
+  plugins: [
+    glsl(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: './src/utils/unicornStudio/unicornStudio.json',
+          dest: 'unicornStudio',
+        },
+      ],
+    }),
+  ],
   server: {
     host: 'localhost',
     port: 3000,

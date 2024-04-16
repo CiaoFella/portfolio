@@ -6,6 +6,11 @@ import initThreeJs from './utils/initThree'
 import initBarba from './utils/pageTransition'
 import lenis from './utils/smoothScroll'
 import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
+import * as jsonData from './utils/unicornStudio/imageHover.json'
+let json
+fetch('/src/utils/unicornStudio/imageHover.json', {
+  cache: 'no-cache',
+}).then((response) => (json = response))
 
 // new initThreeJs({
 //   wrapper: document.querySelector('.canvas-wrap'),
@@ -14,11 +19,11 @@ import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
 // })
 UnicornStudio.addScene({
   elementId: 'us-hover', // id of the HTML element to render your scene in (the scene will use its dimensions)
-  fps: 60, // frames per second (0-120) [optional]
+  fps: 120, // frames per second (0-120) [optional]
   scale: 1, // rendering scale, use smaller values for performance boost (0.25-1) [optional]
   dpi: 1, // pixel ratio [optional]
   projectId: 'myNdurW6zb8lw4aVaq0f', // the id string for your embed (get this from "embed" export)
-  filePath: 'src/utils/unicornStudio/unicornStudio.json', // if youre hosting your own exported json code, point to it here
+  filePath: json, // if youre hosting your own exported json code, point to it here
   interactivity: {
     // [optional]
     mouse: {
