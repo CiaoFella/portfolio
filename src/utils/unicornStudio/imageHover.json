@@ -20,7 +20,7 @@
     },
     {
       "local": {
-        "id": "d9e7a7fc-3743-411a-8830-0f53ccbc24fb",
+        "id": "12f6580c-3316-4ed8-8efa-a98abbc2cdc7",
         "canvas": {},
         "ctx": {}
       },
@@ -38,7 +38,7 @@
       "layerType": "image",
       "imageLoaded": false,
       "effects": [],
-      "size": 0.56,
+      "size": 0.5710000000000001,
       "rotation": 0,
       "height": 1600,
       "repeat": 0,
@@ -59,8 +59,25 @@
       ]
     },
     {
+      "visible": true,
+      "aspectRatio": 1,
+      "layerType": "effect",
+      "type": "vignette",
+      "texture": false,
+      "parentLayer": "94dc7b54-df3b-4820-b1c1-af8f4356943e",
+      "animating": false,
+      "isMask": 0,
+      "compiledFragmentShaders": [
+        "#version 300 es\nprecision mediump float; in vec3 vVertexPosition; in vec2 vTextureCoord; uniform sampler2D uTexture; uniform sampler2D uMaskTexture; uniform float uAspectRatio; uniform vec2 uMousePos; uniform vec2 uResolution; vec3 blend (int blendMode, vec3 src, vec3 dst) { return src; }out vec4 fragColor; void main() { vec2 uv = vTextureCoord;vec4 color = texture(uTexture, uv); float luma = dot(color.rgb, vec3(0.299, 0.587, 0.114)); float displacement = (luma - 0.5) * 0.00 * 0.5; vec2 aspectRatio = vec2(uResolution.x/uResolution.y, 1.) * vec2(0.50, 1.-0.50); float scaledRadius = 0.10 * 0.5;float adjustedRadius = scaledRadius + 0.00 * scaledRadius; float innerEdge = scaledRadius - 0.00 * scaledRadius * 0.5; float outerEdge = scaledRadius + 0.00 * scaledRadius * 0.5;vec2 pos = vec2(0.5, 0.5) + mix(vec2(0), (uMousePos-0.5), 1.00);float radius = length(uv * aspectRatio - pos * aspectRatio); float falloff = smoothstep(innerEdge + displacement, outerEdge + displacement, radius);if(0 > 0) { vec3 blended = blend(0, vec3(0, 0, 0), color.rgb); color.rgb = mix(color.rgb, blended, falloff * 1.00); } else { color.rgb = mix(color.rgb, mix(color.rgb, vec3(0, 0, 0), 1.00), falloff); } if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}"
+      ],
+      "compiledVertexShaders": [
+        "#version 300 es\nprecision mediump float;in vec3 aVertexPosition; in vec2 aTextureCoord;uniform mat4 uMVMatrix; uniform mat4 uPMatrix; uniform mat4 uTextureMatrix;out vec2 vTextureCoord; out vec3 vVertexPosition;void main() { gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0); vTextureCoord = (uTextureMatrix * vec4(aTextureCoord, 0.0, 1.0)).xy; }"
+      ],
+      "data": {}
+    },
+    {
       "local": {
-        "id": "d01f9e57-97af-4cfa-88f4-06855ca8ed0c",
+        "id": "8ff2d30b-0915-4d87-9541-2d9890c0365b",
         "canvas": {},
         "ctx": {}
       },
@@ -86,7 +103,8 @@
       "effects": [
         "94dc7b54-df3b-4820-b1c1-af8f4356943e",
         "a3cb0e44-87ac-4b27-8362-99f24577f6e9",
-        "b6f84fdc-55f1-44cb-9de3-b59761d9be88"
+        "b6f84fdc-55f1-44cb-9de3-b59761d9be88",
+        "8e2ce0bc-3878-48f9-857e-f40027a4b0aa"
       ],
       "fill": ["#FFFFFF"],
       "gradientAngle": 0,
@@ -126,48 +144,14 @@
       "visible": true,
       "aspectRatio": 1,
       "layerType": "effect",
-      "type": "vignette",
-      "texture": false,
-      "parentLayer": "94dc7b54-df3b-4820-b1c1-af8f4356943e",
-      "animating": false,
-      "isMask": 0,
-      "compiledFragmentShaders": [
-        "#version 300 es\nprecision mediump float; in vec3 vVertexPosition; in vec2 vTextureCoord; uniform sampler2D uTexture; uniform sampler2D uMaskTexture; uniform float uAspectRatio; uniform vec2 uMousePos; uniform vec2 uResolution; vec3 blend (int blendMode, vec3 src, vec3 dst) { return src; }out vec4 fragColor; void main() { vec2 uv = vTextureCoord;vec4 color = texture(uTexture, uv); float luma = dot(color.rgb, vec3(0.299, 0.587, 0.114)); float displacement = (luma - 0.5) * 0.00 * 0.5; vec2 aspectRatio = vec2(uResolution.x/uResolution.y, 1.) * vec2(0.50, 1.-0.50); float scaledRadius = 0.13 * 0.5;float adjustedRadius = scaledRadius + 0.00 * scaledRadius; float innerEdge = scaledRadius - 0.00 * scaledRadius * 0.5; float outerEdge = scaledRadius + 0.00 * scaledRadius * 0.5;vec2 pos = vec2(0.5, 0.5) + mix(vec2(0), (uMousePos-0.5), 1.00);float radius = length(uv * aspectRatio - pos * aspectRatio); float falloff = smoothstep(innerEdge + displacement, outerEdge + displacement, radius);if(0 > 0) { vec3 blended = blend(0, vec3(0, 0, 0), color.rgb); color.rgb = mix(color.rgb, blended, falloff * 1.00); } else { color.rgb = mix(color.rgb, mix(color.rgb, vec3(0, 0, 0), 1.00), falloff); } if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}"
-      ],
-      "compiledVertexShaders": [
-        "#version 300 es\nprecision mediump float;in vec3 aVertexPosition; in vec2 aTextureCoord;uniform mat4 uMVMatrix; uniform mat4 uPMatrix; uniform mat4 uTextureMatrix;out vec2 vTextureCoord; out vec3 vVertexPosition;void main() { gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0); vTextureCoord = (uTextureMatrix * vec4(aTextureCoord, 0.0, 1.0)).xy; }"
-      ],
-      "data": {}
-    },
-    {
-      "visible": true,
-      "aspectRatio": 1,
-      "layerType": "effect",
       "type": "fbm",
-      "speed": 0.2,
+      "speed": 0.25,
       "texture": false,
-      "parentLayer": "b6f84fdc-55f1-44cb-9de3-b59761d9be88",
+      "parentLayer": "8e2ce0bc-3878-48f9-857e-f40027a4b0aa",
       "animating": true,
       "isMask": 0,
       "compiledFragmentShaders": [
-        "#version 300 es\nprecision mediump float;in vec2 vTextureCoord;uniform sampler2D uTexture; uniform float uTime;uniform sampler2D uMaskTexture; uniform float uAspectRatio; uniform vec2 uMousePos; uniform vec2 uResolution;float ease (int easingFunc, float t) { return t; }float hash31(vec3 p3) { p3 = fract(p3 * vec3(.1031,.11369,.13787)); p3 += dot(p3, p3.yzx + 19.19); return -1.0 + 2.0 * fract((p3.x + p3.y) * p3.z); } vec3 hash33(vec3 p3) { p3 = fract(p3 * vec3(.1031,.11369,.13787)); p3 += dot(p3, p3.yxz+19.19); return -1.0 + 2.0 * fract(vec3((p3.x + p3.y)*p3.z, (p3.x+p3.z)*p3.y, (p3.y+p3.z)*p3.x)); }float perlin_noise(vec3 p) { vec3 pi = floor(p); vec3 pf = p - pi; vec3 w = pf * pf * (3.0 - 2.0 * pf); return mix( mix( mix(dot(pf - vec3(0, 0, 0), hash33(pi + vec3(0, 0, 0))), dot(pf - vec3(1, 0, 0), hash33(pi + vec3(1, 0, 0))), w.x), mix(dot(pf - vec3(0, 0, 1), hash33(pi + vec3(0, 0, 1))), dot(pf - vec3(1, 0, 1), hash33(pi + vec3(1, 0, 1))), w.x), w.z), mix( mix(dot(pf - vec3(0, 1, 0), hash33(pi + vec3(0, 1, 0))), dot(pf - vec3(1, 1, 0), hash33(pi + vec3(1, 1, 0))), w.x), mix(dot(pf - vec3(0, 1, 1), hash33(pi + vec3(0, 1, 1))), dot(pf - vec3(1, 1, 1), hash33(pi + vec3(1, 1, 1))), w.x), w.z), w.y); }const int OCTAVES = 6; const float PI = 3.14159265359; mat2 rot(float a) { return mat2(cos(a),-sin(a),sin(a),cos(a)); }float fbm (in vec3 st) { float value = 0.0; float amp = .25; float frequency = 0.; float aM = (0.1 + 0.80 * .65); vec2 shift = vec2(100.0); mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5)); for (int i = 0; i < OCTAVES; i++) { value += amp * perlin_noise(st); st.xy *= rot * 2.5; st.xy += shift; amp *= aM; } return value; }out vec4 fragColor;void main() { vec2 uv = vTextureCoord; float aspectRatio = uResolution.x/uResolution.y; float multiplier = 6.0 * (0.37 / ((aspectRatio + 1.) / 2.));vec2 mPos = vec2(0.5057800374632058, 0.5749385749385749) + mix(vec2(0), (uMousePos-0.5), 0.00); vec2 pos = vec2(0.5057800374632058, 0.5749385749385749); float dist = ease(0, max(0.,1.-distance(uv * vec2(aspectRatio, 1), mPos * vec2(aspectRatio, 1)) * 4. * (1. - 0.51)));if(dist < distance(uv, mPos)) { vec4 color = texture(uTexture, uv); if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}vec2 st = (uv * vec2(aspectRatio, 1) + (1. - pos) - vec2(1)) * multiplier * aspectRatio; st = rot(0.00 * -1. * 2.0 * PI) * st; vec2 drift = vec2(uTime * 0.005);float time = uTime * 0.025;vec2 r = vec2( fbm(vec3(st - drift + vec2(1.7, 9.2), 0.09*25. + time)), fbm(vec3(st - drift + vec2(8.2, 1.3), 0.09*25. + time)) );float f = fbm(vec3(st + r - drift, 0.09*25. + time)) * 0.53;vec2 offset = (f * 2. + (r * 0.53));vec4 color = texture(uTexture, uv + offset * dist); if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}"
-      ],
-      "compiledVertexShaders": [
-        "#version 300 es\nprecision mediump float;in vec3 aVertexPosition; in vec2 aTextureCoord;uniform mat4 uMVMatrix; uniform mat4 uPMatrix; uniform mat4 uTextureMatrix;out vec2 vTextureCoord; out vec3 vVertexPosition;void main() { gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0); vTextureCoord = (uTextureMatrix * vec4(aTextureCoord, 0.0, 1.0)).xy; }"
-      ],
-      "data": {}
-    },
-    {
-      "visible": true,
-      "aspectRatio": 1,
-      "layerType": "effect",
-      "type": "vignette",
-      "texture": false,
-      "parentLayer": "94dc7b54-df3b-4820-b1c1-af8f4356943e",
-      "animating": false,
-      "isMask": 0,
-      "compiledFragmentShaders": [
-        "#version 300 es\nprecision mediump float; in vec3 vVertexPosition; in vec2 vTextureCoord; uniform sampler2D uTexture; uniform sampler2D uMaskTexture; uniform float uAspectRatio; uniform vec2 uMousePos; uniform vec2 uResolution; vec3 blend (int blendMode, vec3 src, vec3 dst) { return src; }out vec4 fragColor; void main() { vec2 uv = vTextureCoord;vec4 color = texture(uTexture, uv); float luma = dot(color.rgb, vec3(0.299, 0.587, 0.114)); float displacement = (luma - 0.5) * 0.00 * 0.5; vec2 aspectRatio = vec2(uResolution.x/uResolution.y, 1.) * vec2(0.50, 1.-0.50); float scaledRadius = 0.10 * 0.5;float adjustedRadius = scaledRadius + 0.00 * scaledRadius; float innerEdge = scaledRadius - 0.00 * scaledRadius * 0.5; float outerEdge = scaledRadius + 0.00 * scaledRadius * 0.5;vec2 pos = vec2(0.5, 0.5) + mix(vec2(0), (uMousePos-0.5), 1.00);float radius = length(uv * aspectRatio - pos * aspectRatio); float falloff = smoothstep(innerEdge + displacement, outerEdge + displacement, radius);if(0 > 0) { vec3 blended = blend(0, vec3(0, 0, 0), color.rgb); color.rgb = mix(color.rgb, blended, falloff * 1.00); } else { color.rgb = mix(color.rgb, mix(color.rgb, vec3(0, 0, 0), 1.00), falloff); } if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}"
+        "#version 300 es\nprecision mediump float;in vec2 vTextureCoord;uniform sampler2D uTexture; uniform float uTime;uniform sampler2D uMaskTexture; uniform float uAspectRatio; uniform vec2 uMousePos; uniform vec2 uResolution;float ease (int easingFunc, float t) { return t; }float hash31(vec3 p3) { p3 = fract(p3 * vec3(.1031,.11369,.13787)); p3 += dot(p3, p3.yzx + 19.19); return -1.0 + 2.0 * fract((p3.x + p3.y) * p3.z); } vec3 hash33(vec3 p3) { p3 = fract(p3 * vec3(.1031,.11369,.13787)); p3 += dot(p3, p3.yxz+19.19); return -1.0 + 2.0 * fract(vec3((p3.x + p3.y)*p3.z, (p3.x+p3.z)*p3.y, (p3.y+p3.z)*p3.x)); }float perlin_noise(vec3 p) { vec3 pi = floor(p); vec3 pf = p - pi; vec3 w = pf * pf * (3.0 - 2.0 * pf); return mix( mix( mix(dot(pf - vec3(0, 0, 0), hash33(pi + vec3(0, 0, 0))), dot(pf - vec3(1, 0, 0), hash33(pi + vec3(1, 0, 0))), w.x), mix(dot(pf - vec3(0, 0, 1), hash33(pi + vec3(0, 0, 1))), dot(pf - vec3(1, 0, 1), hash33(pi + vec3(1, 0, 1))), w.x), w.z), mix( mix(dot(pf - vec3(0, 1, 0), hash33(pi + vec3(0, 1, 0))), dot(pf - vec3(1, 1, 0), hash33(pi + vec3(1, 1, 0))), w.x), mix(dot(pf - vec3(0, 1, 1), hash33(pi + vec3(0, 1, 1))), dot(pf - vec3(1, 1, 1), hash33(pi + vec3(1, 1, 1))), w.x), w.z), w.y); }const int OCTAVES = 6; const float PI = 3.14159265359; mat2 rot(float a) { return mat2(cos(a),-sin(a),sin(a),cos(a)); }float fbm (in vec3 st) { float value = 0.0; float amp = .25; float frequency = 0.; float aM = (0.1 + 0.81 * .65); vec2 shift = vec2(100.0); mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5)); for (int i = 0; i < OCTAVES; i++) { value += amp * perlin_noise(st); st.xy *= rot * 2.5; st.xy += shift; amp *= aM; } return value; }out vec4 fragColor;void main() { vec2 uv = vTextureCoord; float aspectRatio = uResolution.x/uResolution.y; float multiplier = 6.0 * (0.23 / ((aspectRatio + 1.) / 2.));vec2 mPos = vec2(0.5, 0.5) + mix(vec2(0), (uMousePos-0.5), 0.00); vec2 pos = vec2(0.5, 0.5); float dist = ease(0, max(0.,1.-distance(uv * vec2(aspectRatio, 1), mPos * vec2(aspectRatio, 1)) * 4. * (1. - 1.00)));if(dist < distance(uv, mPos)) { vec4 color = texture(uTexture, uv); if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}vec2 st = (uv * vec2(aspectRatio, 1) + (1. - pos) - vec2(1)) * multiplier * aspectRatio; st = rot(0.00 * -1. * 2.0 * PI) * st; vec2 drift = vec2(uTime * 0.005);float time = uTime * 0.025;vec2 r = vec2( fbm(vec3(st - drift + vec2(1.7, 9.2), 0.00*25. + time)), fbm(vec3(st - drift + vec2(8.2, 1.3), 0.00*25. + time)) );float f = fbm(vec3(st + r - drift, 0.00*25. + time)) * 0.24;vec2 offset = (f * 2. + (r * 0.24));vec4 color = texture(uTexture, uv + offset * dist); if(0 == 1) { vec2 pos = mix(vec2(0), (uMousePos - 0.5), 0.00); vec4 maskColor = texture(uMaskTexture, vTextureCoord - pos); fragColor = color * (maskColor.a * maskColor.a); } else { fragColor = color; }}"
       ],
       "compiledVertexShaders": [
         "#version 300 es\nprecision mediump float;in vec3 aVertexPosition; in vec2 aTextureCoord;uniform mat4 uMVMatrix; uniform mat4 uPMatrix; uniform mat4 uTextureMatrix;out vec2 vTextureCoord; out vec3 vVertexPosition;void main() { gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0); vTextureCoord = (uTextureMatrix * vec4(aTextureCoord, 0.0, 1.0)).xy; }"
