@@ -36,8 +36,8 @@ export default function animateHero() {
   letterSwitch.setLetterSwitch(heroText)
 
   if (heroModel) {
-    const spline = initHeroModel()
-    heroTl.call(() => spline.emitEvent('keyDown', 'Main'), [], 2)
+    // const spline = initHeroModel()
+    // heroTl.call(() => spline.emitEvent('keyDown', 'Main'), [], 2)
   }
 
   heroTl.call(() => letterSwitch.animateLetter(heroText, 1).play(), [], 1)
