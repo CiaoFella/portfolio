@@ -1,12 +1,25 @@
+let $ = window.$
 import beforeAfterSlider from './features/detailPage/beforeAfterSlider'
 import animateMenu from './features/general/animateMenu'
 import button from './features/general/button'
 import './styles/style.scss'
 import initBarba from './utils/pageTransition'
 import lenis from './utils/smoothScroll'
+import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
 // import * as UnicornStudio from './utils/unicornStudio/unicornStudio.umd'
-import initThreeJs from './utils/initThree';
+import initThreeJs from './utils/initThree'
 import hoverScene from './utils/Scene'
+import setupFlipScroll from './features/homePage/setupFlipScroll'
+
+if (document.readyState !== 'loading') {
+  console.log('document is already ready, just execute code here')
+  setupFlipScroll()
+} else {
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('document was not ready, place code here')
+    setupFlipScroll()
+  })
+}
 
 let json
 fetch('https://julianfella.netlify.app/unicornStudio/imageHover.json', {
@@ -32,7 +45,8 @@ UnicornStudio.addScene({
   .catch((err) => {
     console.error(err)
   })
-initBarba.initBarba()
+
+// initBarba.initBarba()
 animateMenu()
 beforeAfterSlider()
 button()
