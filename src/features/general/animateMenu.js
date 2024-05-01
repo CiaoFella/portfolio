@@ -20,7 +20,7 @@ export default function animateMenu() {
     .set(flyoutWrap, { display: 'flex' })
     .set(flyoutBlur, { display: 'block' })
     .from(flyoutBlur, { opacity: 0, duration: 0.5 })
-    .from(flyoutWrap, { height: '0svh', duration: 0.75, ease: 'expo.out' }, '0')
+    .from(flyoutWrap, { height: '0svh', duration: 1, ease: 'expo.inOut' }, 0)
 
     .from(
       [flyoutIcon, menuItemsSplit.chars],
@@ -30,7 +30,7 @@ export default function animateMenu() {
         stagger: 0.03,
         ease: 'expo.out',
       },
-      '<+0.25'
+      '>-50%'
     )
     .from(
       contactItems,
