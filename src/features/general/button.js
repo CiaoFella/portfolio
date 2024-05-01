@@ -16,37 +16,18 @@ export default function button() {
     const buttonHoverTl = gsap.timeline({ paused: true })
     buttonHoverTl
       .to(textOutSplit.chars, {
-        y: '-100%',
+        y: '-120%',
         stagger: 0.01,
         ease: 'expo.out',
-        duration: 0.3,
+        duration: 0.5,
       })
       .to(
         textInSplit.chars,
-        { y: '-100%', stagger: 0.01, ease: 'expo.out', duration: 0.2 },
+        { y: '-100%', stagger: 0.01, ease: 'expo.out', duration: 0.4 },
         '<+0.1'
       )
 
     if ($(button).hasClass('is-background')) {
-      // buttonHoverTl.to(
-      //   buttonText,
-      //   {
-      //     color: varWhite,
-      //     duration: 0.2,
-      //     ease: 'expo.out',
-      //   },
-      //   '<'
-      // )
-      // buttonHoverTl.to(
-      //   button,
-      //   {
-      //     background: varBlack,
-      //     duration: 0.2,
-      //     ease: 'expo.out',
-      //   },
-      //   '<'
-      // )
-      return
     } else {
       const buttonBackground = $(button).find('.button_background')
       if (buttonBackground) {
