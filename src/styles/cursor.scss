@@ -24,8 +24,14 @@
     transition: transform 0.3s ease-in-out, opacity 0.1s;
   }
 
-  &.-normal, .cb-cursor.-text {
-    mix-blend-mode: normal;
+  &.-normal, &.-text {
+    // mix-blend-mode: normal;
+    color: white;
+
+    .cb-cursor-text{
+      padding: 5px;
+      color: black;
+    }
   }
 
   &.-normal:before, .cb-cursor.-text:before {

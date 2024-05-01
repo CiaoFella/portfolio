@@ -13,7 +13,7 @@ export default class Magnetic {
         s: 0.2,
         rs: 0.7,
       },
-      this.el.data('magnetic') || options
+      options
     )
 
     this.y = 0
@@ -43,7 +43,7 @@ export default class Magnetic {
     })
 
     this.el.on('mouseleave', () => {
-      this.move(0, 0, this.options.rs, 'elastic.out(1,0.75)')
+      this.move(0, 0, this.options.rs, 'elastic.out(1.5,0.75)')
     })
   }
 
