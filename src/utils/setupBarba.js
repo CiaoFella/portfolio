@@ -5,12 +5,16 @@ import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 import closeMenu from './closeMenu'
-import customCursor from './customCursor'
 import { isDesktop } from './variables'
 import aboutPage from '../pages/aboutPage'
 import homePage from '../pages/homePage'
 import listPage from '../pages/listPage'
 import callOnceComponents from '../pages/callOnceComponents'
+import { cursor } from './customCursor/index'
+import transitions from './animatePageTransitions'
+import animateTransitions from './animatePageTransitions'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const matchMedia = gsap.matchMedia()
 
@@ -24,20 +28,27 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.require('ix2').init()
 }
 
-gsap.registerPlugin(ScrollTrigger)
+function resetGSAP() {
+  let existingScrollTriggers = ScrollTrigger.getAll()
+  for (let index = 0; index < existingScrollTriggers.length; index++) {
+    const singleTrigger = existingScrollTriggers[index]
+    singleTrigger.kill(false)
+  }
+  ScrollTrigger.refresh()
+  window.dispatchEvent(new Event('resize'))
+}
 
-function initBarba() {
+function setupBarba() {
   let currentPage
 
   barba.hooks.after((data) => {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     initPage(currentPage)
-    $(window).scrollTop(0)
     resetWebflow(data)
     matchMedia.add(isDesktop, () => {
       const $customCrusor = $('.cb-cursor')
       $customCrusor.remove()
-      customCursor()
+      cursor
     })
   })
   barba.hooks.beforeLeave(() => {
@@ -49,15 +60,25 @@ function initBarba() {
     preventRunning: true,
     views: [{}],
     transitions: [
-      {},
+      {
+        async leave(data) {
+          await transitions.transitionIn()
+          $(data.current).hide()
+          resetGSAP()
+        },
+        enter() {
+          transitions.transitionOut()
+          $(window).scrollTop(0)
+        },
+      },
       {
         once: () => {
-          customCursor()
+          animateTransitions.loader(5)
           currentPage = $('[data-barba-namespace]').data('barbaNamespace')
           callOnceComponents()
           initPage(currentPage)
           matchMedia.add(isDesktop, () => {
-            customCursor()
+            cursor
           })
         },
       },
@@ -102,4 +123,4 @@ function initPage(currentPage) {
     return
   }
 }
-export default { initBarba }
+export default { setupBarba }
