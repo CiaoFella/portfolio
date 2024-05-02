@@ -13,19 +13,13 @@ export default function button() {
     const buttonText = $(button).find('.button_text')
     const textOutSplit = new SplitType(textOut, { types: 'chars' })
     const textInSplit = new SplitType(textIn, { types: 'chars' })
-    const buttonHoverTl = gsap.timeline({ paused: true })
+    const buttonHoverTl = gsap.timeline({
+      paused: true,
+      defaults: { stagger: 0.005, ease: 'expo.out' },
+    })
     buttonHoverTl
-      .to(textOutSplit.chars, {
-        y: '-120%',
-        stagger: 0.01,
-        ease: 'expo.out',
-        duration: 0.5,
-      })
-      .to(
-        textInSplit.chars,
-        { y: '-100%', stagger: 0.01, ease: 'expo.out', duration: 0.4 },
-        '<+0.1'
-      )
+      .to(textOutSplit.chars, { y: '-120%', duration: 0.5 })
+      .to(textInSplit.chars, { y: '-100%', duration: 0.4 }, '<+0.1')
 
     if ($(button).hasClass('is-background')) {
     } else {

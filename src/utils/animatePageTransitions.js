@@ -11,6 +11,7 @@ const logoRotation = 30
 
 const transitionSection = $('[data-animate=transition]')
 const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
+const navBar = $('[data-animate=nav-bar]')
 
 function loader(duration) {
   const transitionInnerWrap = transitionSection.find(
@@ -128,6 +129,7 @@ async function transitionOut(isLoader) {
 
   gsap.set(transitionSection, { display: 'block' })
   gsap.set(transitionPageContent, { opacity: 0 })
+  gsap.set(navBar, { yPercent: -100 })
 
   if (isLoader !== true) {
     setPositions(transitionLogo)
@@ -175,6 +177,14 @@ async function transitionOut(isLoader) {
     )
     .to(transitionInnerWrap, { opacity: 0, duration: 0.5 }, '<')
     .to(transitionPageContent, { opacity: 1, duration: 1 }, '>')
+    .to(
+      navBar,
+      {
+        yPercent: 0,
+        ease: 'expo.inOut',
+      },
+      '<'
+    )
     .call(() => animateHero().play(), [], '<')
     .set(transitionSection, { display: 'none' })
 
@@ -205,7 +215,16 @@ function transitionIn() {
   transitionInTl.set(transitionSection, { display: 'block' })
 
   transitionInTl
-    // .to(transitionSection, { opacity: 1, duration: 0.25 })
+  // .to(transitionSection, { opacity: 1, duration: 0.25 })
+  transitionInTl
+    .to(
+      navBar,
+      {
+        yPercent: -100,
+        ease: 'expo.inOut',
+      },
+      0
+    )
     .fromTo(
       transitionLogo,
       {
@@ -218,7 +237,8 @@ function transitionIn() {
         duration: 1,
         ease: 'expo.inOut',
         // immediateRender: true,
-      }
+      },
+      0
     )
     .to(transitionPageContent, { opacity: 0, duration: 0.5 }, '<+0.25')
     .to(transitionLogoLeft, {

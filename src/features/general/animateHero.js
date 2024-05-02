@@ -5,23 +5,19 @@ import letterSwitch from './animateLetterSwitch'
 import gsap from 'gsap'
 import SplitType from 'split-type'
 import { bottomClipPath } from '../../utils/variables'
-import initHeroModel from '../homePage/initHeroModel'
 
 export default function animateHero() {
-  const sectionHero = document.querySelector('.section--hero')
-  const heroText = $('[data-animate=letter-switch]')
-  const heroModel = document.querySelector('[data-animate=hero-model]')
+  const sectionHero = $('.section--hero')
+  const heroVideoWrap = sectionHero.find(
+    '[data-animate=hero-video-target-wrap]'
+  )
+  const heroVideo = sectionHero.find('[data-animate=hero-video-target]')
+  const heroText = sectionHero.find('[data-animate=letter-switch]')
   const heroItemRight = $(sectionHero).find(
     '[data-animate=hero-item-move][data-move=right]'
   )
   const heroItemLeft = $(sectionHero).find(
     '[data-animate=hero-item-move][data-move=left]'
-  )
-  const heroItemRightDecorativeItem = heroItemRight.find(
-    '[data-animate=hero-decorative-item]'
-  )
-  const heroItemLeftDecorativeItem = heroItemLeft.find(
-    '[data-animate=hero-decorative-item]'
   )
   const heroDetailWrap = $(sectionHero).find('[data-animate=hero-detail-wrap]')
   const heroLocationWrap = $(sectionHero).find(
@@ -29,43 +25,42 @@ export default function animateHero() {
   )
   const heroDetailText = heroDetailWrap.find('p')
   const heroDetailButtons = heroDetailWrap.find('.button')
-  const heroLocationText = heroLocationWrap.find('p')
+  const heroLocationText = heroLocationWrap.children()
 
-  const heroTl = gsap.timeline()
+  const heroTl = gsap.timeline({
+    paused: true,
+    defaults: { immediateRender: true },
+  })
+
+  // set defaults
 
   letterSwitch.setLetterSwitch(heroText)
-
-  if (heroModel) {
-    // const spline = initHeroModel()
-    // heroTl.call(() => spline.emitEvent('keyDown', 'Main'), [], 2)
-  }
-
-  heroTl.call(() => letterSwitch.animateLetter(heroText, 1).play(), [], 1)
+  heroTl.call(() => letterSwitch.animateLetter(heroText, 1).play(), [], 0)
 
   heroTl
+    .fromTo(
+      heroVideo,
+      { scale: 1.3 },
+      {
+        scale: 1,
+        duration: 1.5,
+        ease: 'expo.inOut',
+      },
+      0 - 0.5
+    )
     .from(
       heroItemRight,
       { xPercent: -50, duration: 2, ease: 'expo.inOut' },
-      '>+1'
+      '>'
     )
+    .from(heroItemLeft, { xPercent: 50, duration: 2, ease: 'expo.inOut' }, '<')
     .from(
-      heroItemLeft,
-      { xPercent: 50, duration: 2, ease: 'expo.inOut' },
-      '<+0.1'
-    )
-    .from(
-      heroItemRightDecorativeItem.children(),
+      heroVideoWrap,
       {
-        yPercent: -150,
-        duration: 1.5,
-        stagger: 0.1,
-        ease: 'expo.out',
+        xPercent: -20,
+        duration: 2,
+        ease: 'expo.inOut',
       },
-      '>-1'
-    )
-    .from(
-      heroItemLeftDecorativeItem.children(),
-      { yPercent: 150, duration: 1.5, stagger: 0.1, ease: 'expo.out' },
       '<'
     )
 
@@ -82,7 +77,7 @@ export default function animateHero() {
         stagger: 0.1,
         ease: 'expo.out',
       },
-      '<+0.5'
+      '>'
     )
   }
 
@@ -112,5 +107,5 @@ export default function animateHero() {
     )
   }
 
-  return []
+  return heroTl
 }

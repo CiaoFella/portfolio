@@ -10,7 +10,7 @@ import aboutPage from '../pages/aboutPage'
 import homePage from '../pages/homePage'
 import listPage from '../pages/listPage'
 import callOnceComponents from '../pages/callOnceComponents'
-import { cursor } from './customCursor/index'
+import { cursor, magneticCursor } from './customCursor/index'
 import transitions from './animatePageTransitions'
 import animateTransitions from './animatePageTransitions'
 
@@ -48,7 +48,8 @@ function setupBarba() {
     matchMedia.add(isDesktop, () => {
       const $customCrusor = $('.cb-cursor')
       $customCrusor.remove()
-      cursor
+      cursor.init()
+      magneticCursor()
     })
   })
   barba.hooks.beforeLeave(() => {
@@ -78,7 +79,8 @@ function setupBarba() {
           callOnceComponents()
           initPage(currentPage)
           matchMedia.add(isDesktop, () => {
-            cursor
+            cursor.init()
+            magneticCursor()
           })
         },
       },

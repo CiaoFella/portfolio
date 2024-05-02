@@ -13,25 +13,28 @@ export const cursor = new Cursor({
 })
 
 
-const allMagnetic = $('[data-magnetic]')
-allMagnetic.each(function (index, magnetic) {
-  const dataAttr = $(magnetic).data('magnetic')
-  switch (dataAttr) {
-    case 'light':
-      new Magnetic(this, {
-        y: 0.3, // horizontal delta
-        x: 0.3, // vertical delta
-        s: 0.2, // speed
-        rs: 1, // release speed
-      })
-      break
-    case 'strong':
-      new Magnetic(this, {
-        y: 0.5, // horizontal delta
-        x: 0.5, // vertical delta
-        s: 0.2, // speed
-        rs: 1, // release speed
-      })
-      break
-  }
-})
+export const magneticCursor = () => {
+  const allMagnetic = $('[data-magnetic]')
+  allMagnetic.each(function (index, magnetic) {
+    const dataAttr = $(magnetic).data('magnetic')
+    switch (dataAttr) {
+      case 'light':
+        new Magnetic(this, {
+          y: 0.3, // horizontal delta
+          x: 0.3, // vertical delta
+          s: 0.2, // speed
+          rs: 1, // release speed
+        })
+        break
+      case 'strong':
+        new Magnetic(this, {
+          y: 0.5, // horizontal delta
+          x: 0.5, // vertical delta
+          s: 0.2, // speed
+          rs: 1, // release speed
+        })
+        break
+    }
+  })
+}
+

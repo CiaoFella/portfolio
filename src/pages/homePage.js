@@ -16,7 +16,6 @@ export default function homePage() {
   }).then((response) => (json = response))
 
   return [
-    // animateHeroModel(),
     animateHeroVideo(),
     animateTextElements.animateTextOnScroll(),
     animateMarquee(),
@@ -24,7 +23,6 @@ export default function homePage() {
     animateFontWeight(),
     animateListHover(),
     animateProjectTeaser(),
-    // syncAwardsList(),
     sharedComponents(),
     handleVideos(),
 
