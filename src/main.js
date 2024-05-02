@@ -6,8 +6,8 @@ import lenis from './utils/smoothScroll'
 import domLoaded from 'dom-loaded'
 
 
-  setupBarba.setupBarba()
-  animateMenu()
-  beforeAfterSlider()
-  lenis.start()
+setupBarba.setupBarba()
+animateMenu()
+beforeAfterSlider()
+lenis.start()
 

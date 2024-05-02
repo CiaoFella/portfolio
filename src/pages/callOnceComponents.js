@@ -1,5 +1,5 @@
-import aniamteLogo from '../features/general/aniamteLogo'
+import animateLogo from '../features/general/animateLogo'
 
 export default function callOnceComponents() {
-  return aniamteLogo()
+  return animateLogo()
 }
