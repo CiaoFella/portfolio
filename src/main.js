@@ -5,9 +5,9 @@ import setupBarba from './utils/setupBarba'
 import lenis from './utils/smoothScroll'
 import domLoaded from 'dom-loaded'
 
-await domLoaded.then(() => {
+
   setupBarba.setupBarba()
   animateMenu()
   beforeAfterSlider()
   lenis.start()
-})
+
