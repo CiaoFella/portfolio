@@ -18,7 +18,6 @@ export default function animateHeadlineScroll() {
     ScrollTrigger.create({
       animation: scrollTl,
       trigger: section,
-      // markers: true,
       start: 'top bottom',
       end: 'top 60%',
       toggleActions: 'none play none reset',
