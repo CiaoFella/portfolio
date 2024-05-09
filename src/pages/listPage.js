@@ -1,5 +1,5 @@
-import ListCanvas from '../utils/threeListScroll'
+// import ListCanvas from '../utils/threeListScroll'
 
 export default function listPage() {
-  return [new ListCanvas()]
+  // return [new ListCanvas()]
 }
