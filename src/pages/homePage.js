@@ -34,21 +34,21 @@ export default function homePage() {
     animateFooter(),
     animateAwardList(),
 
-    UnicornStudio.addScene({
-      elementId: 'us-canvas-wrap', // id of the HTML element to render your scene in (the scene will use its dimensions)
-      fps: 90, // frames per second (0-120) [optional]
-      scale: 1, // rendering scale, use smaller values for performance boost (0.25-1) [optional]
-      dpi: 1, // pixel ratio [optional]
-      projectId: 'myNdurW6zb8lw4aVaq0f', // the id string for your embed (get this from "embed" export)
-      filePath: json, // if youre hosting your own exported json code, point to it here
-    })
-      .then((scene) => {
-        // Scene is ready
-        // To remove a scene, you can use:
-        // scene.destroy()
-      })
-      .catch((err) => {
-        console.error(err)
-      }),
+    // UnicornStudio.addScene({
+    //   elementId: 'us-canvas-wrap', // id of the HTML element to render your scene in (the scene will use its dimensions)
+    //   fps: 90, // frames per second (0-120) [optional]
+    //   scale: 1, // rendering scale, use smaller values for performance boost (0.25-1) [optional]
+    //   dpi: 1, // pixel ratio [optional]
+    //   projectId: 'myNdurW6zb8lw4aVaq0f', // the id string for your embed (get this from "embed" export)
+    //   filePath: json, // if youre hosting your own exported json code, point to it here
+    // })
+    //   .then((scene) => {
+    //     // Scene is ready
+    //     // To remove a scene, you can use:
+    //     // scene.destroy()
+    //   })
+    //   .catch((err) => {
+    //     console.error(err)
+    //   }),
   ]
 }
