@@ -3,8 +3,9 @@ let $ = window.$
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
-import { bottomClipPath, centerClipPath, fullClipPath, leftClipPath } from '../../utils/variables'
-import animateCountdown from './animateCountdown'
+import { bottomClipPath, fullClipPath, leftClipPath } from '../../utils/variables'
+import helperFunctions from '../../utils/helperFunctions'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,8 +23,13 @@ export default function animateAwardList() {
   awardTl
     .from(items, { yPercent: 100, delay: 0.2, stagger: 0.025 })
     .fromTo(divider, { clipPath: leftClipPath }, { clipPath: fullClipPath, duration: 1.5 }, '<')
-    .fromTo(headlineSplit.lines, { yPercent: 100, clipPath: bottomClipPath }, { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 }, '<')
-    .call(() => animateCountdown(count, 5), [], 0)
+    .fromTo(
+      headlineSplit.lines,
+      { yPercent: 100, clipPath: bottomClipPath },
+      { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 },
+      '<'
+    )
+    .call(() => helperFunctions.animateCountdown(count, 5), [], 0)
 
   ScrollTrigger.create({
     animation: awardTl,
