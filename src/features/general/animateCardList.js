@@ -114,7 +114,7 @@ export default function animateCardList() {
         itemTl.play()
       })
       $(item).on('mouseleave', (event) => {
-        const mouseDirection = getMouseEnterDirection(event, item)
+        const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
         if (mouseDirection === 'left') {
           const start = svgStartToLeft
           const end = svgEndToLeft
