@@ -27,7 +27,7 @@ import {
   centerHorizontalClipPath,
   bottomClipPath,
 } from '../../utils/variables'
-import getMouseEnterDirection from '../../utils/helperFunctions'
+import helperFunctions from '../../utils/helperFunctions'
 import SplitType from 'split-type'
 
 export default function animateCardList() {
@@ -93,7 +93,7 @@ export default function animateCardList() {
       }
 
       $(item).on('mouseenter', (event) => {
-        const mouseDirection = getMouseEnterDirection(event, item)
+        const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
         if (mouseDirection === 'left') {
           const start = svgStartFromLeft
           const end = svgEndFromLeft
@@ -156,7 +156,12 @@ export default function animateCardList() {
       scrollTl
         .fromTo(dividerVertical, { clipPath: centerVerticalClipPath }, { clipPath: fullClipPath })
         .fromTo(dividerHorizontal, { clipPath: centerHorizontalClipPath }, { clipPath: fullClipPath }, '<')
-        .fromTo(textSplit.lines, { clipPath: bottomClipPath, yPercent: 100 }, { clipPath: fullClipPath, yPercent: 0, stagger: 0.05 }, '<+0.25')
+        .fromTo(
+          textSplit.lines,
+          { clipPath: bottomClipPath, yPercent: 100 },
+          { clipPath: fullClipPath, yPercent: 0, stagger: 0.05 },
+          '<+0.25'
+        )
         .from(headlines, { yPercent: 100, stagger: 0.1 }, '<')
         .from(testiomnialNames, { yPercent: 100, stagger: 0.25 }, '<+0.25')
 
