@@ -17,8 +17,12 @@ export default function animateConnectScroll() {
   connectTl
     .from(leftHeadline, { x: '-15rem' })
     .from(rightHeadline, { x: '15rem' }, '<')
-    .from(leftPath, { x: '-5rem', duration: 0.75 }, '<')
-    .from(rightPath, { x: '5rem', duration: 0.75 }, '<')
+    if (leftPath.length > 0 && rightPath.length > 0) {
+      connectTl.from(leftPath, { x: '-5rem', duration: 0.75 }, '<').from(rightPath, { x: '5rem', duration: 0.75 }, '<')
+    }
+    connectTl.to(leftHeadline, { yPercent: 100, duration: 0.1 })
+    connectTl.to(rightHeadline, { yPercent: 100, duration: 0.1 }, '<')
+
 
   ScrollTrigger.create({
     animation: connectTl,
