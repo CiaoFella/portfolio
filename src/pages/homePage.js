@@ -1,7 +1,6 @@
 import sharedComponents from './sharedComponents'
 import animateFontWeight from '../features/general/animateFontWeight'
 import animateList from '../features/general/animateList'
-import animateListHover from '../features/general/animateListHover'
 import animateProjectTeaser from '../features/general/animateProjectTeaser'
 import animateTextElements from '../features/general/animateTextElements'
 import animateHeroVideo from '../features/homePage/animateHeroVideo'
@@ -12,6 +11,7 @@ import animateHeadlineScroll from '../features/general/animateHeadlineScroll'
 import animateConnectScroll from '../features/general/animateConnectScroll'
 import animateFooter from '../features/general/animateFooter'
 import animateAwardList from '../features/general/animateAwardList'
+import animateAwardListHover from '../features/general/animateAwardListHover'
 
 export default function homePage() {
   let json
@@ -24,7 +24,7 @@ export default function homePage() {
     animateTextElements.animateTextOnScroll(),
     animateList(),
     animateFontWeight(),
-    animateListHover(),
+    animateAwardListHover(),
     animateProjectTeaser(),
     sharedComponents(),
     handleVideos(),

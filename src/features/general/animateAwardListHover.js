@@ -13,7 +13,7 @@ import {
   svgEndToBottom,
 } from '../../utils/variables'
 
-export default function animateListHover() {
+export default function animateAwardListHover() {
   const listHoverWrap = $('[data-animate=list-hover-wrap]')
   const imageWrap = $('[data-animate=list-hover-image-wrap]')
   const imageList = $('[data-animate=list-hover-image-list]')
@@ -96,8 +96,8 @@ export default function animateListHover() {
 
       $(item).on('mouseleave', (event) => {
         const rect = item.getBoundingClientRect()
-        const mouseY = event.clientY
         const midpoint = rect.top + rect.height / 2
+        const mouseY = event.clientY
         if (mouseY < midpoint) {
           const start = svgStartToTop
           const end = svgEndToTop
