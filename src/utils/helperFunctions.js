@@ -1,3 +1,7 @@
+let $ = window.$
+
+import gsap from 'gsap'
+
 function getMouseEnterDirection(mouseEvent, item) {
   const rect = item.getBoundingClientRect()
 
@@ -23,4 +27,8 @@ function getMouseEnterDirection(mouseEvent, item) {
   }
 }
 
-export default getMouseEnterDirection
+function animateCountdown(item, duration) {
+  gsap.from(item, { textContent: 0, duration, ease: 'power3.out', snap: { textContent: 1 } })
+}
+
+export default { getMouseEnterDirection, animateCountdown }
