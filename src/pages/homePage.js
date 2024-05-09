@@ -2,12 +2,16 @@ import sharedComponents from './sharedComponents'
 import animateFontWeight from '../features/general/animateFontWeight'
 import animateList from '../features/general/animateList'
 import animateListHover from '../features/general/animateListHover'
-import animateMarquee from '../features/general/animateMarquee'
 import animateProjectTeaser from '../features/general/animateProjectTeaser'
 import animateTextElements from '../features/general/animateTextElements'
 import animateHeroVideo from '../features/homePage/animateHeroVideo'
 import * as UnicornStudio from '../utils/unicornStudio/unicornStudio.umd'
 import handleVideos from '../features/general/handleVideos'
+import animateCardList from '../features/general/animateCardList'
+import animateHeadlineScroll from '../features/general/animateHeadlineScroll'
+import animateConnectScroll from '../features/general/animateConnectScroll'
+import animateFooter from '../features/general/animateFooter'
+import animateAwardList from '../features/general/animateAwardList'
 
 export default function homePage() {
   let json
@@ -18,13 +22,17 @@ export default function homePage() {
   return [
     animateHeroVideo(),
     animateTextElements.animateTextOnScroll(),
-    animateMarquee(),
     animateList(),
     animateFontWeight(),
     animateListHover(),
     animateProjectTeaser(),
     sharedComponents(),
     handleVideos(),
+    animateCardList(),
+    animateHeadlineScroll(),
+    animateConnectScroll(),
+    animateFooter(),
+    animateAwardList(),
 
     UnicornStudio.addScene({
       elementId: 'us-canvas-wrap', // id of the HTML element to render your scene in (the scene will use its dimensions)
