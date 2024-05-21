@@ -13,6 +13,7 @@ import callOnceComponents from '../pages/callOnceComponents'
 import { cursor, magneticCursor } from './customCursor/index'
 import transitions from './animatePageTransitions'
 import animateTransitions from './animatePageTransitions'
+import awardsPage from '../pages/awardsPage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -74,7 +75,7 @@ function setupBarba() {
       },
       {
         once: () => {
-          animateTransitions.loader(5)
+          // animateTransitions.loader(5)
           currentPage = $('[data-barba-namespace]').data('barbaNamespace')
           callOnceComponents()
           initPage(currentPage)
@@ -118,6 +119,8 @@ function initPage(currentPage) {
       return
     } else if (currentPage === 'about-page') {
       aboutPage()
+    } else if (currentPage === 'awards-page') {
+      awardsPage()
     } else if (currentPage === 'overview-page') {
       return
     }
