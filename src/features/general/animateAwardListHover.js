@@ -14,25 +14,25 @@ import {
 } from '../../utils/variables'
 
 export default function animateAwardListHover() {
-  const listHoverWrap = $('[data-animate=list-hover-wrap]')
-  const imageWrap = $('[data-animate=list-hover-image-wrap]')
-  const imageList = $('[data-animate=list-hover-image-list]')
+  const hoverWrap = $('[data-animate=award-list-section]')
+  const imageWrap = $('[data-animate=award-list-image-wrap]')
+  const imageList = $('[data-animate=award-list-image-list]')
 
-  listHoverWrap.each((index, list) => {
+  hoverWrap.each((index, list) => {
     const imageTL = gsap.timeline({ paused: true })
 
     imageTL.fromTo(
       imageWrap,
-      { rotateZ: -15 },
+      { rotateZ: -15, scale: 0 },
       {
         scale: 1,
         rotateZ: 0,
-        duration: 0.5,
-        ease: 'expo.inOut',
+        duration: 0.25,
+        ease: 'power2.inOut',
       }
     )
 
-    const listItems = $(list).find('[data-animate=list-hover-item]')
+    const listItems = $(list).find('[data-animate=award-list-item]')
     $(list).on('mouseenter', function () {
       imageTL.play()
     })
@@ -41,8 +41,8 @@ export default function animateAwardListHover() {
     })
 
     listItems.each((index, item) => {
-      const bgFillPath = $(item).find('[data-animate=list-hover-filler-path]')
-      const itemContent = $(item).find('[data-animate=list-hover-content]')
+      const bgFillPath = $(item).find('[data-animate=award-list-filler-path]')
+      const itemContent = $(item).find('[data-animate=award-list-content]')
 
       const itemTl = gsap.timeline({ paused: true })
 
