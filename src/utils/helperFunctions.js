@@ -27,8 +27,8 @@ function getMouseEnterDirection(mouseEvent, item) {
   }
 }
 
-function animateCountdown(item, duration) {
-  gsap.from(item, { textContent: 0, duration, ease: 'power3.out', snap: { textContent: 1 } })
+function animateCountdown(item, duration, startNumber) {
+  gsap.from(item, { textContent: startNumber, duration, ease: 'power2.out', snap: { textContent: 1 } })
 }
 
 export default { getMouseEnterDirection, animateCountdown }
