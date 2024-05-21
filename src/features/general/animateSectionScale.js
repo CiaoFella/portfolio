@@ -11,31 +11,33 @@ export default function animateSectionScale() {
   const sectionInTl = gsap.timeline()
   const sectionOutlineTl = gsap.timeline()
   sectionsIn.each((index, section) => {
-    sectionInTl.from(section, { scale: 0.9, duration: 0.25 })
+    const singleSectionTl = gsap.timeline()
+    singleSectionTl.from(section, { scale: 0.9, duration: 0.25 })
     ScrollTrigger.create({
-      animation: sectionInTl,
+      animation: singleSectionTl,
       trigger: section,
-      start: 'top bottom',
+      start: 'top 90%',
       end: 'top center',
       scrub: 0.5,
     })
+    sectionInTl.add(singleSectionTl)
   })
   sectionsOutline.each((index, section) => {
-    const singleSectionTl = gsap.timeline()
+    const singleOutlineSectionTl = gsap.timeline()
     const outlineWrap = $(section).find('.outline-wrap')
-    singleSectionTl.from(outlineWrap, {
+    singleOutlineSectionTl.from(outlineWrap, {
       opacity: 0,
       scale: 1.2,
       ease: 'expo.out',
     })
     ScrollTrigger.create({
-      animation: singleSectionTl,
+      animation: singleOutlineSectionTl,
       trigger: section,
       start: 'top center',
       end: 'bottom 25%',
       scrub: 0.5,
     })
-    sectionOutlineTl.add(singleSectionTl)
+    sectionOutlineTl.add(singleOutlineSectionTl)
   })
   return [sectionInTl, sectionOutlineTl]
 }
