@@ -10,7 +10,7 @@ export default function animateHeadlineScroll() {
   const allScrollSections = $('[data-animate~=headline-scroll-section]')
 
   allScrollSections.each((index, section) => {
-    let delay = 0.2
+    let delay = 0
     const scrollItems = $(section).find('[data-animate=headline-scroll-item]')
 
     const scrollTl = gsap.timeline({ defaults: { duration: 0.75, ease: 'power2.out', stagger: 0.1 } })
@@ -28,13 +28,19 @@ export default function animateHeadlineScroll() {
       const dataMoveType = $(headline).data('move')
       const dataDelay = $(headline).data('delay')
 
-      delay = dataDelay
+      if (dataDelay) {
+        delay = dataDelay
+      }
 
       const split = createHeadlineSplit(headline, 'words')
 
       if (dataRevealType) {
         if (dataRevealType.includes('letter-bottom')) {
-          scrollTl.from(createHeadlineSplit(headline, 'words,chars').chars, { yPercent: 100, duration: 0.5, delay, rotateZ: 2.5, stagger: 0.02 }, '<')
+          scrollTl.from(
+            createHeadlineSplit(headline, 'words,chars').chars,
+            { yPercent: 100, duration: 0.5, delay, rotateZ: 2.5, stagger: 0.02 },
+            '<'
+          )
         }
         if (dataRevealType.includes('words-top')) {
           scrollTl.from(split.words, { yPercent: -100, delay, duration: 0.5 }, 0)
