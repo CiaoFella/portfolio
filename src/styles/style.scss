@@ -19,6 +19,8 @@
   transition: background-color .1s ease-out;
 }
 
+::selection {color: #cecbdc; background: #6f4bff}
+
 .js-badge:hover {
   background-color: rgb(228, 137, 193);
 }
@@ -61,7 +63,7 @@ a [data-animate=font-weight] {
 }
 
 [data-img=threejs-hover-main], [data-img=threejs-hover-reveal] {
-  visibility: hidden;
+  // visibility: hidden;
 }
 
 .img-wrap  {
