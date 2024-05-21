@@ -12,6 +12,7 @@ import animateConnectScroll from '../features/general/animateConnectScroll'
 import animateFooter from '../features/general/animateFooter'
 import animateAwardList from '../features/general/animateAwardList'
 import animateAwardListHover from '../features/general/animateAwardListHover'
+import animateAboutTeaser from '../features/general/animateAboutTeaser'
 
 export default function homePage() {
   let json
@@ -33,6 +34,7 @@ export default function homePage() {
     animateConnectScroll(),
     animateFooter(),
     animateAwardList(),
+    animateAboutTeaser(),
 
     // UnicornStudio.addScene({
     //   elementId: 'us-canvas-wrap', // id of the HTML element to render your scene in (the scene will use its dimensions)
