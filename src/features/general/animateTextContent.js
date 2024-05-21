@@ -1,0 +1,34 @@
+let $ = window.$
+
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import SplitType from 'split-type'
+import { bottomClipPath, fullClipPath } from '../../utils/variables'
+
+gsap.registerPlugin(ScrollTrigger)
+
+export default function animateTextContent() {
+  const section = $('[data-animate=text-content-section]')
+  const headline = section.find('[data-animate=text-content-headline]')
+  const text = section.find('[data-animate=text-content-text]')
+
+  const headlineSplit = new SplitType(headline, { types: 'chars' })
+  const textSplit = new SplitType(text, { types: 'lines' })
+
+  const tl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.out' } })
+
+  tl.from(headlineSplit.chars, { yPercent: 100, stagger: 0.025 }).fromTo(
+    textSplit.lines,
+    { yPercent: 100, clipPath: bottomClipPath },
+    { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 },
+    '<+0.2'
+  )
+
+  ScrollTrigger.create({
+    animation: tl,
+    trigger: section,
+    start: 'top bottom',
+    end: 'top center',
+    toggleActions: 'none play none reset',
+  })
+}
