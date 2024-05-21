@@ -2,11 +2,10 @@ let $ = window.$
 
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { bottomClipPath, fullClipPath, topClipPath } from '../../utils/variables'
+import { fullClipPath, topClipPath } from '../../utils/variables'
+gsap.registerPlugin(ScrollTrigger)
 
 export default function animateHeroVideo() {
-  gsap.registerPlugin(ScrollTrigger)
-
   const scrollContainer = $('[data-animate=main-video-wrapper]')
   const targetElement = $('[data-animate=hero-video-target-wrap]')
   const targetWrap = $('[data-animate=hero-video-wrap]')
@@ -46,30 +45,26 @@ export default function animateHeroVideo() {
   gsap.set([videoClipPathLeft, videoClipPathRight], { scale: 12 })
 
   const videoScrollTl = gsap.timeline({ defaults: { duration: 1 } })
-  videoScrollTl.to(targetWrap, { scale: 0.9, duration: 0.5 })
+  videoScrollTl.to(targetWrap, { scale: 0.8, duration: 1.5 })
+  videoScrollTl.to(targetWrap, { xPercent: -15, duration: 1 }, '>+0.5')
   videoScrollTl.to(targetElement, {
     scale: 1,
     duration: 0.25,
-    ease: 'back.inOut',
+    ease: 'power3.inOut',
   })
   videoScrollTl.to(
     [videoClipPathLeft, videoClipPathRight],
     {
       scale: 1,
-      duration: 2,
+      duration: 1,
     },
     '<-0.5'
   )
-  videoScrollTl.to(targetWrap, { xPercent: -15, duration: 1 })
-  videoScrollTl.to(
-    videoClipPathLeft,
-    {
-      xPercent: -75,
-      duration: 1,
-      ease: 'power2.out',
-    },
-    '<'
-  )
+  videoScrollTl.to(videoClipPathLeft, {
+    xPercent: -75,
+    duration: 1,
+    ease: 'power2.out',
+  })
   videoScrollTl.to(
     videoClipPathRight,
     {
@@ -106,7 +101,7 @@ export default function animateHeroVideo() {
       duration: 0.5,
       immediateRender: false,
     },
-    '>-0.5'
+    '<+0.3'
   )
 
   ScrollTrigger.create({
