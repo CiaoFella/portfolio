@@ -1,13 +1,8 @@
 import beforeAfterSlider from './features/detailPage/beforeAfterSlider'
-import animateMenu from './features/general/animateMenu'
+import initMenu from './features/general/menu'
 import './styles/style.scss'
 import setupBarba from './utils/setupBarba'
-import lenis from './utils/smoothScroll'
-import domLoaded from 'dom-loaded'
 
-
-setupBarba.setupBarba()
-animateMenu()
+setupBarba()
+initMenu()
 beforeAfterSlider()
-lenis.start()
-
