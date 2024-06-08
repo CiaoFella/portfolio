@@ -18,6 +18,14 @@ export const magneticCursor = () => {
   allMagnetic.each(function (index, magnetic) {
     const dataAttr = $(magnetic).data('magnetic')
     switch (dataAttr) {
+      case 'tiny':
+        new Magnetic(this, {
+          y: 0.09, // horizontal delta
+          x: 0.09, // vertical delta
+          s: 0.35, // speed
+          rs: 1, // release speed
+        })
+        break
       case 'light':
         new Magnetic(this, {
           y: 0.3, // horizontal delta
