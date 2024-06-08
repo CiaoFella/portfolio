@@ -1,4 +1,6 @@
 @import url('./cursor.scss');
+@import url('./hero.scss');
+@import url('./navigations.scss');
 
 .js-badge {
   position: fixed;
@@ -49,7 +51,7 @@ a [data-animate=font-weight] {
 }
 
 [data-animate=project-teaser-wrap] [data-animate=project-teaser-img] {
-  visibility: hidden;
+  // visibility: hidden;
 }
 
 .line {
@@ -98,4 +100,24 @@ body.scrollflip-relative [tr-scrollflip-sticky=true] {
 
 svg:not(:root) {
   overflow: visible;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.is-flipping {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+[data-flip-element=end].is-hidden {
+  opacity: 0;
 }

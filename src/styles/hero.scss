@@ -1,0 +1,15 @@
+[data-hero] {
+  [data-hero-element=headline] {
+    .char {
+      transform: translate(0px, 100%);
+    }
+  }
+}
+
+// Detail Hero
+
+[data-hero=detail] {
+  [data-flip-element=end]:not(.is-hidden) {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}

@@ -1,6 +1,8 @@
-let $ = window.$
-
 import gsap from 'gsap'
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import SplitType from 'split-type'
+
+let pageReady = false
 
 function getMouseEnterDirection(mouseEvent, item) {
   const rect = item.getBoundingClientRect()
@@ -31,4 +33,34 @@ function animateCountdown(item, duration, startNumber) {
   gsap.from(item, { textContent: startNumber, duration, ease: 'power2.out', snap: { textContent: 1 } })
 }
 
-export default { getMouseEnterDirection, animateCountdown }
+function slideInNavigations(navigation, detailNavigation, duration) {
+  const navigationTl = gsap.timeline({ paused: true, defaults: { duration: duration, ease: 'power2.out' } })
+
+  navigationTl.to(navigation, { yPercent: 0, ease: 'power2.out' }, '<')
+  if (detailNavigation) {
+    navigationTl.to(detailNavigation, { y: 0 }, '<-0.1')
+  }
+
+  return navigationTl
+}
+
+function createHeroSplitTypes(elements) {
+  new SplitType(elements, { types: 'chars' })
+}
+
+function refreshScrollTriggers() {
+  const allScrollTrigger = ScrollTrigger.getAll()
+  allScrollTrigger.forEach((trigger) => {
+    trigger.refresh()
+  })
+  window.dispatchEvent(new Event('resize'))
+}
+
+export default {
+  pageReady,
+  getMouseEnterDirection,
+  animateCountdown,
+  slideInNavigations,
+  createHeroSplitTypes,
+  refreshScrollTriggers,
+}
