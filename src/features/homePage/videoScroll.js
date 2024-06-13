@@ -2,7 +2,6 @@ let $ = window.$
 
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import SplitType from 'split-type'
 gsap.registerPlugin(ScrollTrigger)
 
 let ctx
@@ -17,6 +16,12 @@ export default function initHeroVideoScroll() {
     const videoClipPathRight = videoClip.find('[data-animate=hero-video-clip-path][data-direction=right]')
     const connectTextLeft = scrollContainer.find('[data-animate=connect-scroll-headline][data-direction=left]')
     const connectTextRight = scrollContainer.find('[data-animate=connect-scroll-headline][data-direction=right]')
+
+    // Ensure all elements are found
+    if (!scrollContainer.length || !targetElement.length || !targetWrap.length || !videoClip.length) {
+      console.error('One or more required elements are missing')
+      return
+    }
 
     function centerClipPath() {
       const wrapperHeight = targetElement.height()
@@ -52,6 +57,7 @@ export default function initHeroVideoScroll() {
     const videoScrollTl = gsap.timeline({
       defaults: { duration: 1 },
     })
+
     videoScrollTl
       .to(targetWrap, { scale: 0.8, duration: 1.5 })
       .to(targetWrap, { xPercent: -20, duration: 1 }, '>+0.5')
