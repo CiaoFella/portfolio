@@ -1,22 +1,28 @@
 let $ = window.$
 
 import gsap from 'gsap'
+import { fullClipPath, leftQuarterClipPath, rightQuarterClipPath } from '../../utils/variables'
 
 let ctx
 
 export default function initIcons() {
   ctx = gsap.context(() => {
     const allIcons = $('[data-animate-icon]')
-    allIcons.each((index, icon) => {
-      const iconName = $(icon).data('animateIcon')
+    allIcons.each((index, singleIcon) => {
+      let icon
+      if ($(singleIcon).children().length > 1) {
+        icon = $(singleIcon).find('[data-icon]')
+      } else {
+        icon = singleIcon
+      }
+
+      const iconName = $(singleIcon).data('animateIcon')
       const iconTl = gsap.timeline({ paused: true, defaults: { duration: 0.75 } })
       switch (iconName) {
         case 'star':
           iconTl.to(icon, { scale: 0.5, ease: 'back.inOut' })
           break
-        case 'external':
-          iconTl.to(icon, { xPercent: 10, ease: 'back.inOut' })
-          break
+
         case 'wheel':
           iconTl.to(icon, { rotateZ: 90, ease: 'back.inOut' })
           break
@@ -26,12 +32,22 @@ export default function initIcons() {
         case 'flower':
           iconTl.to(icon, { rotateZ: 45, ease: 'back.inOut' })
           break
+        case 'menu':
+          iconTl.fromTo(
+            icon,
+            { clipPath: fullClipPath },
+            { clipPath: leftQuarterClipPath, duration: 0.5, ease: 'back.inOut' }
+          )
+          break
+        case 'external':
+          iconTl.to(icon, { xPercent: 10, ease: 'back.inOut' })
+          break
       }
 
-      $(icon).on('mouseenter', function () {
+      $(singleIcon).on('mouseenter', function () {
         iconTl.play()
       })
-      $(icon).on('mouseleave', function () {
+      $(singleIcon).on('mouseleave', function () {
         iconTl.reverse()
       })
     })
