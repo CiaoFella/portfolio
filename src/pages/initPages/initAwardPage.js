@@ -4,6 +4,7 @@ import initSharedComponents from './initSharedComponents'
 import initFooter from '../../features/general/footer'
 import initConnectScroll from '../../features/general/connectScroll'
 import initHeadlineScroll from '../../features/general/headlineScroll'
+import initMatter from '../../utils/matter'
 
 export default function initAwardPage() {
   return [
@@ -12,6 +13,7 @@ export default function initAwardPage() {
     initHeadlineScroll(),
     initConnectScroll(),
     initFooter(),
+    initMatter(),
     initSharedComponents(),
   ]
 }
