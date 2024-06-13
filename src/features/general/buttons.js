@@ -51,10 +51,10 @@ export default function initButtons() {
       }
 
       $(button).on('mouseenter', () => {
-        buttonHoverTl.play()
+        buttonHoverTl.timeScale(1).play()
       })
       $(button).on('mouseleave', () => {
-        buttonHoverTl.reverse()
+        buttonHoverTl.timeScale(1.5).reverse()
       })
     })
 
