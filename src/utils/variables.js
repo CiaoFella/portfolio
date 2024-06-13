@@ -9,6 +9,7 @@ export let isMobile = '(max-width: 478px)'
 
 export let centerClipPath = 'polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)'
 export let centerHalfClipPath = 'polygon(25% 25%, 75% 25%, 75% 75%, 25% 75%)'
+export let leftQuarterClipPath = 'polygon(0 0, 75% 0, 75% 100%, 0% 100%)'
 export let rightQuarterClipPath = 'polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%)'
 export let rightSideClipPath = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
 export let rightClipPath = 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'
