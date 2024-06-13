@@ -8,12 +8,12 @@ import initNavScroll from '../../features/general/navScroll'
 
 export default function initSharedComponents() {
   return [
+    initNavScroll(),
     createInitialState(),
     initButtons(),
     initSectionScale(),
     initIcons(),
     initLogo(),
     initVariableFontWeight(),
-    initNavScroll(),
   ]
 }

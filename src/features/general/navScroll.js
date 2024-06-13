@@ -22,15 +22,20 @@ export default function initNavScroll(data) {
     navBarScrollTl = gsap.timeline({
       paused: true,
       defaults: { duration: 0.5, ease: 'power3.inOut' },
-      onStart: () => console.log(detailNav),
     })
     navBarScrollTl
-      .to(logo, { scale: 0.8 }, '<')
-      .to(navBarWrapInner, { padding: '0 2.5rem' }, '<')
+      .to(logo, { scale: 0.7 }, '<')
+
       .to(menuTriggerTextWrap, { width: 0 }, '<')
       .fromTo(navBarCta, { clipPath: fullClipPath }, { clipPath: rightSideClipPath }, '<')
-    if (detailNav) {
-      navBarScrollTl.to(detailLinkText, { xPercent: 100 }, '<').to(detailNav, { padding: '0 2.5rem' }, '<')
+
+    if (detailNav.length > 0) {
+      navBarScrollTl
+        .to(detailLinkText, { xPercent: 100 }, '<')
+        .to(detailNav, { padding: '0 1.5rem' }, '<')
+        .to(navBarWrapInner, { padding: '0 1.5rem' }, '<')
+    } else {
+      navBarScrollTl.to(navBarWrapInner, { padding: '0 1.5rem 0 0' }, '<')
     }
 
     lenis.on('scroll', ({ velocity }) => {
@@ -48,5 +53,6 @@ export default function initNavScroll(data) {
 export function killNavScroll() {
   if (ctx) {
     ctx.revert()
+    detailNav = null
   }
 }
