@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Set up email variables
-    $to = "your-email@example.com"; // Replace with your email address
+    $to = "ciao@julianfella.de"; // Replace with your email address
     $subject = "New Form Submission";
     $body = "Name: $name\nEmail: $email\nMessage:\n$message";
     $headers = "From: $email";
