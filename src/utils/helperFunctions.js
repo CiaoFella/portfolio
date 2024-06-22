@@ -1,6 +1,24 @@
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
+import {
+  svgEndFromBottom,
+  svgEndFromLeft,
+  svgEndFromRight,
+  svgEndFromTop,
+  svgEndToBottom,
+  svgEndToLeft,
+  svgEndToRight,
+  svgEndToTop,
+  svgStartFromBottom,
+  svgStartFromLeft,
+  svgStartFromRight,
+  svgStartFromTop,
+  svgStartToBottom,
+  svgStartToLeft,
+  svgStartToRight,
+  svgStartToTop,
+} from './variables'
 
 let pageReady = false
 
@@ -29,6 +47,79 @@ function getMouseEnterDirection(mouseEvent, item) {
   }
 }
 
+function handleCardHoverIn(mouseDirection, allDirections) {
+  let start
+  let end
+  if (allDirections === true) {
+    if (mouseDirection === 'top') {
+      start = svgStartFromTop
+      end = svgEndFromTop
+    } else if (mouseDirection === 'bottom') {
+      start = svgStartFromBottom
+      end = svgEndFromBottom
+    } else if (mouseDirection === 'left') {
+      start = svgStartFromLeft
+      end = svgEndFromLeft
+    } else if (mouseDirection === 'right') {
+      start = svgStartFromRight
+      end = svgEndFromRight
+    }
+  }
+  if (allDirections === false || !allDirections) {
+    if (mouseDirection === 'top') {
+      start = svgStartFromTop
+      end = svgEndFromTop
+    } else if (mouseDirection === 'bottom') {
+      start = svgStartFromBottom
+      end = svgEndFromBottom
+    }
+  }
+
+  return { start, end }
+}
+
+function handleCardHoverOut(mouseDirection, allDirections) {
+  let start
+  let end
+  if (allDirections === true) {
+    if (mouseDirection === 'top') {
+      start = svgStartToTop
+      end = svgEndToTop
+    } else if (mouseDirection === 'bottom') {
+      start = svgStartToBottom
+      end = svgEndToBottom
+    } else if (mouseDirection === 'left') {
+      start = svgStartToLeft
+      end = svgEndToLeft
+    } else if (mouseDirection === 'right') {
+      start = svgStartToRight
+      end = svgEndToRight
+    }
+  } else if (allDirections === false || !allDirections) {
+    if (mouseDirection === 'top') {
+      start = svgStartToTop
+      end = svgEndToTop
+    } else if (mouseDirection === 'bottom') {
+      start = svgStartToBottom
+      end = svgEndToBottom
+    }
+  }
+
+  return { start, end }
+}
+
+function animateCardHover(element, start, end) {
+  return gsap.fromTo(
+    element,
+    { attr: { d: start } },
+    {
+      attr: { d: end },
+      duration: 0.5,
+      ease: 'power3.out',
+    }
+  )
+}
+
 function animateCountdown(item, duration, startNumber) {
   gsap.from(item, { textContent: startNumber, duration, ease: 'power2.out', snap: { textContent: 1 } })
 }
@@ -37,7 +128,7 @@ function slideInNavigations(navigation, detailNavigation, duration) {
   const navigationTl = gsap.timeline({ paused: true, defaults: { duration: duration, ease: 'power2.out' } })
 
   navigationTl.to(navigation, { yPercent: 0, ease: 'power2.out' }, '<')
-  if (detailNavigation) {
+  if (detailNavigation.length > 0) {
     navigationTl.to(detailNavigation, { y: 0 }, '<-0.1')
   }
 
@@ -56,11 +147,24 @@ function refreshScrollTriggers() {
   window.dispatchEvent(new Event('resize'))
 }
 
+function fadeOutPage(delay) {
+  gsap.to($('[data-animate=inner-page-wrapper]'), { opacity: 0, duration: 0.5, delay })
+}
+
+function fadeInPage(delay) {
+  gsap.fromTo($('[data-animate=inner-page-wrapper]'), { opacity: 0 }, { opacity: 1, duration: 0.5, delay })
+}
+
 export default {
   pageReady,
   getMouseEnterDirection,
+  handleCardHoverIn,
+  handleCardHoverOut,
+  animateCardHover,
   animateCountdown,
   slideInNavigations,
   createHeroSplitTypes,
   refreshScrollTriggers,
+  fadeOutPage,
+  fadeInPage,
 }
