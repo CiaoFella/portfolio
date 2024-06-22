@@ -5,9 +5,9 @@ import SplitType from 'split-type'
 import lenis from '../../utils/smoothScroll'
 
 export default function initMenu() {
+  const navigationSection = $('[data-animate=navigation-section]')
   const flyoutWrap = $('.navigation-flyout')
-  const navbarWrap = $('.navbar_wrap')
-  const menuTrigger = navbarWrap.find('.js-menu-trigger')
+  const menuTrigger = navigationSection.find('.js-menu-trigger')
   const flyoutBlur = $('.navigation-blur')
   const menuItems = flyoutWrap.find('.navigation-flyout_menu-list-item').children()
   const contactItems = flyoutWrap.find('.contact-list_item-inner')
@@ -43,7 +43,7 @@ export default function initMenu() {
 
   document.addEventListener('click', function (e) {
     if ($(e.target).is(flyoutBlur) && $(menuTrigger).hasClass('is-active')) {
-      closeMenu()
+      closeMenu(false)
     }
   })
 
@@ -54,23 +54,24 @@ export default function initMenu() {
       lenis.stop()
     } else {
       await flyoutTl.timeScale(2.5).reverse()
+      lenis.start()
     }
   })
 
   $(document).keyup(function (e) {
     if (e.keyCode == 27 && $(menuTrigger).hasClass('is-active')) {
-      closeMenu()
+      closeMenu(false)
     }
     e.preventDefault()
   })
 }
 
 export function closeMenu(isTransition) {
-  const navbarWrap = $('.navbar_wrap')
-  const menuTrigger = navbarWrap.find('.js-menu-trigger')
+  const navigationSection = $('[data-animate=navigation-section]')
+  const menuTrigger = navigationSection.find('.js-menu-trigger')
   if (menuTrigger.hasClass('is-active')) {
-    menuTrigger.click()
-    if (isTransition) {
+    menuTrigger[0].click()
+    if (isTransition === true) {
       return
     } else {
       lenis.start()
