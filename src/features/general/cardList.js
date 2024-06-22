@@ -103,7 +103,7 @@ export default function initCardList() {
         const textSplit = new SplitType(texts, { types: 'lines' })
         let sectionHeadlineSplit
         if (sectionHeadline.length > 0) {
-          sectionHeadlineSplit = new SplitType(sectionHeadline, { types: 'chars' })
+          sectionHeadlineSplit = new SplitType(sectionHeadline, { types: 'chars,words' })
         }
 
         const scrollTl = gsap.timeline({ defaults: { duration: 1, ease: 'power2.out' } })
