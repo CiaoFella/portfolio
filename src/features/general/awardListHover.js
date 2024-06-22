@@ -1,19 +1,11 @@
 let $ = window.$
 
 import gsap from 'gsap'
-
-import {
-  svgStartFromTop,
-  svgEndFromTop,
-  svgStartFromBottom,
-  svgEndFromBottom,
-  svgStartToTop,
-  svgEndToTop,
-  svgStartToBottom,
-  svgEndToBottom,
-} from '../../utils/variables'
+import helperFunctions from '../../utils/helperFunctions'
+import { isDesktop } from '../../utils/variables'
 
 let ctx
+const mm = gsap.matchMedia()
 
 export default function initAwardListHover() {
   ctx = gsap.context(() => {
@@ -23,27 +15,29 @@ export default function initAwardListHover() {
     const imageList = $('[data-animate=award-list-image-list]')
 
     hoverWrap.each((index, list) => {
-      const imageTL = gsap.timeline({ paused: true })
+      mm.add(isDesktop, () => {
+        const imageTL = gsap.timeline({ paused: true })
 
-      imageTL.fromTo(
-        imageWrap,
-        { rotateZ: -15, scale: 0 },
-        {
-          scale: 1,
-          rotateZ: 0,
-          duration: 0.25,
-          ease: 'power2.inOut',
-        }
-      )
+        imageTL.fromTo(
+          imageWrap,
+          { rotateZ: -15, scale: 0 },
+          {
+            scale: 1,
+            rotateZ: 0,
+            duration: 0.25,
+            ease: 'power2.inOut',
+          }
+        )
+
+        $(awardListWrap).on('mouseenter', function () {
+          imageTL.play()
+        })
+        $(awardListWrap).on('mouseleave', function () {
+          imageTL.reverse()
+        })
+      })
 
       const listItems = $(list).find('[data-animate=award-list-item]')
-      $(awardListWrap).on('mouseenter', function () {
-        imageTL.play()
-      })
-      $(awardListWrap).on('mouseleave', function () {
-        imageTL.reverse()
-      })
-
       listItems.each((index, item) => {
         const bgFillPath = $(item).find('[data-animate=award-list-filler-path]')
         const itemContent = $(item).find('[data-animate=award-list-content]')
@@ -57,60 +51,20 @@ export default function initAwardListHover() {
           ease: 'power1.inOut',
         })
 
-        function playHoverIn(start, end) {
-          return gsap.fromTo(
-            bgFillPath,
-            { attr: { d: start } },
-            {
-              attr: { d: end },
-              duration: 0.5,
-              ease: 'power3.out',
-            }
-          )
-        }
-
-        function playHoverOut(start, end) {
-          return gsap.fromTo(
-            bgFillPath,
-            { attr: { d: start } },
-            {
-              attr: { d: end },
-              duration: 0.5,
-              ease: 'power3.out',
-            }
-          )
-        }
-
         $(item).on('mouseenter', (event) => {
-          const rect = item.getBoundingClientRect()
-          const mouseY = event.clientY
-          const midpoint = rect.top + rect.height / 2
-          if (mouseY < midpoint) {
-            const start = svgStartFromTop
-            const end = svgEndFromTop
-            playHoverIn(start, end)
-          } else {
-            const start = svgStartFromBottom
-            const end = svgEndFromBottom
-            playHoverIn(start, end)
-          }
+          const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
+          const pathDirection = helperFunctions.handleCardHoverIn(mouseDirection, false)
+          helperFunctions.animateCardHover(bgFillPath, pathDirection.start, pathDirection.end)
+
           imageAnimation(itemTl, index)
+
           itemTl.play()
         })
 
         $(item).on('mouseleave', (event) => {
-          const rect = item.getBoundingClientRect()
-          const midpoint = rect.top + rect.height / 2
-          const mouseY = event.clientY
-          if (mouseY < midpoint) {
-            const start = svgStartToTop
-            const end = svgEndToTop
-            playHoverOut(start, end)
-          } else {
-            const start = svgStartToBottom
-            const end = svgEndToBottom
-            playHoverOut(start, end)
-          }
+          const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
+          const pathDirection = helperFunctions.handleCardHoverOut(mouseDirection, false)
+          helperFunctions.animateCardHover(bgFillPath, pathDirection.start, pathDirection.end)
           itemTl.reverse()
         })
       })
