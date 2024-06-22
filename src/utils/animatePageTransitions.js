@@ -41,9 +41,6 @@ function loader(duration) {
 
   const loaderTl = gsap.timeline({
     defaults: { duration: loaderDuration, ease: 'expo.out' },
-    // onComplete: () => {
-    //   proxy.pageReady = true
-    // },
   })
 
   loaderTl.set(transitionSection, { display: 'block', immediateRender: true }, 0)
@@ -94,7 +91,6 @@ async function transitionOut(isLoader) {
   const transitionLogoLeft = transitionLogo.find('[data-animate=transition-logo-path][data-direction=left]')
   const transitionLogoRight = transitionLogo.find('[data-animate=transition-logo-path][data-direction=right]')
   const transitionInnerWrap = transitionSection.find('[data-animate=transition-inner-wrap]')
-  const transitionPageContent = $('[data-barba=container]')
   const detailNav = $('[data-animate=detail-nav-wrap]')
 
   const transitionOutTl = gsap.timeline({
@@ -112,7 +108,9 @@ async function transitionOut(isLoader) {
 
     gsap.set(transitionLogoLeft, { xPercent: -logoPathStartPercentage })
     gsap.set(transitionLogoRight, { xPercent: logoPathStartPercentage })
+
     transitionOutTl
+
       .to(transitionLogoLeft, {
         xPercent: 0,
         duration: 0.5,
@@ -138,7 +136,7 @@ async function transitionOut(isLoader) {
     )
     .to(transitionInnerWrap, { opacity: 0, duration: 0.5 }, '<')
     .call(() => helperFunctions.slideInNavigations(navBar, detailNav, 1).play(), [], '>')
-  transitionOutTl.set(transitionSection, { display: 'none' })
+    .set(transitionSection, { display: 'none' })
 
   return transitionOutTl
 }
@@ -173,7 +171,6 @@ function transitionIn() {
         rotateZ: 0,
         duration: 1,
         ease: 'expo.inOut',
-        // immediateRender: true,
       },
       0
     )
@@ -215,8 +212,8 @@ async function flipAnimation(start, end, firstTarget) {
     firstTarget.append(startElement)
 
     await Flip.from(firstState, {
-      duration: 1.25,
-      ease: 'power4.inOut',
+      duration: 1,
+      ease: 'power3.inOut',
       toggleClass: 'is-flipping',
       onStart: () => {
         proxy.pageReady = false
@@ -230,7 +227,7 @@ async function flipAnimation(start, end, firstTarget) {
 
         Flip.from(endState, {
           duration: 1.5,
-          ease: 'expo.inOut',
+          ease: 'power4.inOut',
           toggleClass: 'is-flipping',
           onComplete: () => {
             // cleanup
