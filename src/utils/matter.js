@@ -1,4 +1,8 @@
-import { Engine, Render, Runner, Bodies, Composite, Composites, Mouse, MouseConstraint, Events, Body } from 'matter-js'
+import gsap from 'gsap'
+import Matter, { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events, Body } from 'matter-js'
+import { isDesktop, isLandscape, isMobile, isTablet } from './variables'
+
+const mm = gsap.matchMedia()
 
 export default function initMatter() {
   const matterWrap = document.querySelector('[data-element=matter-wrap]')
@@ -6,7 +10,7 @@ export default function initMatter() {
   const engine = Engine.create()
   const world = engine.world
 
-  engine.world.gravity.y = 2 // Default gravity is 1 (downward)
+  engine.world.gravity.y = 1 // Default gravity is 2 (downward)
 
   const render = Render.create({
     element: matterWrap,
@@ -83,52 +87,96 @@ export default function initMatter() {
   ]
 
   function addParticlesWithStagger() {
+    console.log('Adding particles')
+
+    // Remove existing particles
+    const particles = world.bodies.filter((body) => !body.isStatic && !body.isBoundary)
+    Composite.remove(world, particles)
+
+    // Calculate the spacing between particles to fill the entire width and height
+    const particleSpacingX = 0
+    const particleSpacingY = 0
+
+    // Calculate maxParticles based on viewport dimensions
+    let maxParticles = 0
+
+    mm.add(isDesktop, () => {
+      maxParticles = 200
+    })
+    mm.add(isTablet, () => {
+      maxParticles = 150
+    })
+    mm.add(isLandscape, () => {
+      maxParticles = 100
+    })
+
+    const numParticlesX = Math.floor(Math.sqrt(maxParticles * (window.innerWidth / window.innerHeight)))
+    const numParticlesY = Math.floor(maxParticles / numParticlesX)
+
+    // Calculate interval duration to add all particles in 2 seconds
+    const intervalDuration = 5000 / maxParticles // Interval duration in milliseconds
+
+    // Function to create custom particle (icon)
+    function createParticle(x, y) {
+      const randomTexture = textures[Math.floor(Math.random() * textures.length)]
+      const particle = Bodies.circle(x, y, 20, {
+        restitution: 0.2,
+        render: {
+          sprite: {
+            texture: randomTexture,
+            xScale: 0.8,
+            yScale: 0.8,
+          },
+        },
+      })
+      return particle
+    }
+
+    // Add particles with setInterval
     const centerX = window.innerWidth / 2
     const centerY = window.innerHeight / 2
+    let particlesAdded = 0
 
-    let index = 0
-    for (let i = 0; i < numParticlesX; i++) {
-      for (let j = 0; j < numParticlesY; j++) {
-        const x = centerX + (i - (numParticlesX - 1) / 2) * particleSpacingX
-        const y = centerY + (j - (numParticlesY - 1) / 2) * particleSpacingY
-        setTimeout(() => {
-          const particle = createParticle(x, y)
-          Composite.add(world, particle)
-        }, index * delayBetweenParticles)
-        index++
+    const intervalId = setInterval(() => {
+      if (particlesAdded >= maxParticles) {
+        clearInterval(intervalId)
+        return
       }
-    }
+
+      const i = particlesAdded % numParticlesX
+      const j = Math.floor(particlesAdded / numParticlesX)
+
+      const x = centerX + (i - (numParticlesX - 1) / 2) * particleSpacingX
+      const y = centerY + (j - (numParticlesY - 1) / 2) * particleSpacingY
+
+      const particle = createParticle(x, y)
+      Composite.add(world, particle)
+
+      particlesAdded++
+    }, 1)
   }
 
-  // Function to create custom particle (icon)
-  function createParticle(x, y) {
-    const randomTexture = textures[Math.floor(Math.random() * textures.length)]
-    const particle = Bodies.circle(x, y, 20, {
-      restitution: 0.2,
-      render: {
-        sprite: {
-          texture: randomTexture,
-          xScale: 0.8,
-          yScale: 0.8,
-        },
-      },
-    })
-    return particle
-  }
-
-  // Calculate the spacing between particles to fill the entire width and height
-  const numParticlesX = 50 // Adjust as needed
-  const numParticlesY = 10 // Adjust as needed
-  const particleSpacingX = 15
-  const particleSpacingY = 5
-
-  // Calculate total particles and total spawn time
-  const totalParticles = numParticlesX * numParticlesY
-  const totalSpawnTime = 1000 // Total time in milliseconds (2 seconds)
-  const delayBetweenParticles = totalSpawnTime / totalParticles
-
-  // Add particles with staggered delay
+  // Add particles with staggered delay initially
   addParticlesWithStagger()
+
+  // Debounced function to handle window resize
+  let resizeTimeout
+  function handleWindowResize() {
+    clearTimeout(resizeTimeout)
+    resizeTimeout = setTimeout(() => {
+      render.options.width = window.innerWidth
+      render.options.height = window.innerHeight
+      render.canvas.width = window.innerWidth
+      render.canvas.height = window.innerHeight
+
+      // Update boundaries and particles on resize
+      updateBoundaries()
+      addParticlesWithStagger()
+    }, 200) // Adjust debounce delay as needed (200ms here)
+  }
+
+  // Add event listener for window resize using debounced function
+  window.addEventListener('resize', handleWindowResize)
 
   // Add mouse control
   const mouse = Mouse.create(render.canvas)
@@ -153,16 +201,6 @@ export default function initMatter() {
   })
   Composite.add(world, mouseBody)
 
-  // Make it responsive
-  window.addEventListener('resize', () => {
-    render.canvas.width = window.innerWidth
-    render.canvas.height = window.innerHeight
-    Render.lookAt(render, Composite.allBodies(world))
-
-    // Update boundaries on resize
-    updateBoundaries()
-  })
-
   // Add event listener for collision detection
   Events.on(engine, 'collisionStart', function (event) {
     const pairs = event.pairs
@@ -175,7 +213,7 @@ export default function initMatter() {
       }
 
       if (collidedBody) {
-        const velocityMagnitude = 25 // Adjust velocity magnitude as needed
+        const velocityMagnitude = 15 // Adjust velocity magnitude as needed
         Body.setVelocity(collidedBody, {
           x: collidedBody.velocity.x + velocityMagnitude,
           y: collidedBody.velocity.y - velocityMagnitude,
