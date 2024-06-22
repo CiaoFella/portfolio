@@ -221,7 +221,7 @@ export function animateContactForm() {
   const contactForm = $('#contact-form')
 
   const headlines = contactForm.find('[data-form=headline]')
-  new SplitType(headlines, { types: 'chars' })
+  new SplitType(headlines, { types: 'chars, words' })
 
   const inputs = contactForm.find('[data-focus=input]')
   const inputTexts = contactForm.find('[data-form=input-text]')
