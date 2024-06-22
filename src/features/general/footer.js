@@ -11,17 +11,23 @@ let ctx
 export default function initFooter() {
   ctx = gsap.context(() => {
     const footerSection = $('[data-animate=footer-section]')
+    const footerElement = footerSection[footerSection.length - 1]
     const footerGroups = footerSection.find('[data-animate=footer-group]')
-    const pageContent = $('[data-animate=page-content]')
+    const endOfPage = $('[data-animate=end-of-page]')
+    const endOfPageElement = endOfPage[endOfPage.length - 1]
 
     const footerTl = gsap.timeline({ defaults: { duration: 1, ease: 'expo.out' } })
-    const pageScaleTl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.inOut' } })
+    const pageScaleTl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.inOut' }, immediateRender: false })
 
-    pageScaleTl.to(pageContent, { scaleX: 0.95 })
+    gsap.set(endOfPageElement, { scaleX: 1 })
+
+    if (endOfPage.length > 0) {
+      pageScaleTl.to(endOfPageElement, { scaleX: 0.95 })
+    }
 
     ScrollTrigger.create({
       animation: pageScaleTl,
-      trigger: footerSection,
+      trigger: footerElement,
       start: 'top center',
       end: 'top top',
       scrub: 0.5,
@@ -29,7 +35,7 @@ export default function initFooter() {
 
     ScrollTrigger.create({
       animation: footerTl,
-      trigger: footerSection,
+      trigger: footerElement,
       start: 'top 25%',
       end: 'bottom bottom',
       toggleActions: 'play none none none',
@@ -59,5 +65,7 @@ export default function initFooter() {
 export function killFooter() {
   if (ctx) {
     ctx.revert()
+    endOfPage = null
+    footerTl = null
   }
 }
