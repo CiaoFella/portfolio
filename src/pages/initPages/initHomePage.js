@@ -1,4 +1,3 @@
-import initHeroVideoScroll from '../../features/homePage/videoScroll'
 import initTextOnScroll from '../../features/general/textOnScroll'
 import initList from '../../features/general/list'
 import initAwardListHover from '../../features/general/awardListHover'
@@ -11,10 +10,11 @@ import initFooter from '../../features/general/footer'
 import initAwardListScroll from '../../features/general/awardListScroll'
 import initAboutTeaser from '../../features/general/aboutTeaser'
 import initSharedComponents from './initSharedComponents'
+import initAchievement from '../../features/homePage/achievement'
 
 export default function initHomePage() {
   return [
-    initHeroVideoScroll(),
+    initAchievement(),
     initAwardListHover(),
     initAwardListScroll(),
     initProjectTeaser(),
