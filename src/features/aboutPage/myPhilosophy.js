@@ -42,7 +42,7 @@ export default function initMyPhilosophy() {
         animation: myPhilosophyTl,
         trigger: myPhilosophyWrap,
         start: '15% center',
-        end: 'bottom center',
+        end: 'bottom 25%',
         scrub: true,
       })
     })
