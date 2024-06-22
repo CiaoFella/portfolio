@@ -1,8 +1,35 @@
+@use 'variables';
+
 [data-hero] {
   [data-hero-element=headline] {
     .char {
       transform: translate(0px, 100%);
     }
+  }
+}
+
+// Home Hero
+
+[data-hero=home] {
+  [data-hero-element=paragraph]  {
+    .line {
+      clip-path: variables.$topClipPath;
+    }
+  }
+  [data-hero-element=video-outer] {
+    clip-path: variables.$bottomClipPath;
+  }
+  [data-hero-element=teaser-wrap] {
+    clip-path: variables.$centerHorizontalPath;
+    img {
+      scale: 0.95;
+    }
+  }
+  [data-hero-element=cta] {
+    clip-path: variables.$bottomClipPath;
+  }
+  [data-hero-element=scroll] {
+    transform: translate(0px, 100%);
   }
 }
 
