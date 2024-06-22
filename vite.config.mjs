@@ -16,10 +16,6 @@ export default defineConfig({
           src: './_headers',
           dest: '',
         },
-        {
-          src: './src/send-email.php',
-          dest: '',
-        },
       ],
     }),
   ],
