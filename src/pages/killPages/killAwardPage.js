@@ -4,6 +4,7 @@ import killHeadlineScroll from '../../features/general/headlineScroll'
 import killConnectScroll from '../../features/general/connectScroll'
 import killFooter from '../../features/general/footer'
 import killSharedComponents from './killSharedComponents'
+import { killMatter } from '../../utils/matter'
 
 export default function killAwardPage() {
   return [
@@ -12,6 +13,7 @@ export default function killAwardPage() {
     killHeadlineScroll(),
     killConnectScroll(),
     killFooter(),
+    killMatter(),
     killSharedComponents(),
   ]
 }
