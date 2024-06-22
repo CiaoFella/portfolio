@@ -14,6 +14,10 @@ export default function initMatter() {
 
   engine.world.gravity.y = 1 // Default gravity is 2 (downward)
 
+  mm.add(isMobile, () => {
+    engine.world.gravity.y = 0.25
+  })
+
   render = Render.create({
     element: matterWrap,
     engine: engine,
@@ -120,6 +124,14 @@ export default function initMatter() {
     // Calculate interval duration to add all particles in 2 seconds
     const intervalDuration = 1500 / maxParticles // Interval duration in milliseconds
 
+    let spriteScale = 0.8
+    let spriteRadius = 20
+
+    mm.add(isMobile, () => {
+      spriteScale = 0.6
+      spriteRadius = 10
+    })
+
     // Function to create custom particle (icon)
     function createParticle(x, y) {
       const randomTexture = textures[Math.floor(Math.random() * textures.length)]
@@ -128,8 +140,8 @@ export default function initMatter() {
         render: {
           sprite: {
             texture: randomTexture,
-            xScale: 0.8,
-            yScale: 0.8,
+            xScale: spriteScale,
+            yScale: spriteScale,
           },
         },
       })
@@ -211,7 +223,11 @@ export default function initMatter() {
   Composite.add(world, mouseConstraint)
 
   // Create an invisible body to represent the mouse cursor, positioned outside the visible area initially
-  const mouseValue = 75
+  let mouseValue = 75
+
+  mm.add(isMobile, () => {
+    mouseValue = 25
+  })
   mouseBody = Bodies.circle(mouseValue, mouseValue, mouseValue, {
     isStatic: true, // Make it static so it doesn't fall or move due to gravity
     render: {
@@ -232,7 +248,10 @@ export default function initMatter() {
       }
 
       if (collidedBody) {
-        const velocityMagnitude = 15 // Adjust velocity magnitude as needed
+        let velocityMagnitude = 15 // Adjust velocity magnitude as needed
+        mm.add(isMobile, () => {
+          velocityMagnitude = 10
+        })
         Body.setVelocity(collidedBody, {
           x: collidedBody.velocity.x + velocityMagnitude,
           y: collidedBody.velocity.y - velocityMagnitude,
