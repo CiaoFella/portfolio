@@ -4,15 +4,17 @@ import { isDesktop, isLandscape, isMobile, isTablet } from './variables'
 
 const mm = gsap.matchMedia()
 
+let engine, render, runner, mouseConstraint, mouseBody
+
 export default function initMatter() {
   const matterWrap = document.querySelector('[data-element=matter-wrap]')
 
-  const engine = Engine.create()
+  engine = Engine.create()
   const world = engine.world
 
   engine.world.gravity.y = 1 // Default gravity is 2 (downward)
 
-  const render = Render.create({
+  render = Render.create({
     element: matterWrap,
     engine: engine,
     options: {
@@ -22,6 +24,8 @@ export default function initMatter() {
       background: 'transparent',
     },
   })
+
+  runner = Runner.create()
 
   // Function to update boundaries
   function updateBoundaries() {
@@ -101,10 +105,10 @@ export default function initMatter() {
     let maxParticles = 0
 
     mm.add(isDesktop, () => {
-      maxParticles = 200
+      maxParticles = 300
     })
     mm.add(isTablet, () => {
-      maxParticles = 150
+      maxParticles = 200
     })
     mm.add(isLandscape, () => {
       maxParticles = 100
@@ -114,7 +118,7 @@ export default function initMatter() {
     const numParticlesY = Math.floor(maxParticles / numParticlesX)
 
     // Calculate interval duration to add all particles in 2 seconds
-    const intervalDuration = 5000 / maxParticles // Interval duration in milliseconds
+    const intervalDuration = 1500 / maxParticles // Interval duration in milliseconds
 
     // Function to create custom particle (icon)
     function createParticle(x, y) {
@@ -153,7 +157,7 @@ export default function initMatter() {
       Composite.add(world, particle)
 
       particlesAdded++
-    }, 1)
+    }, intervalDuration)
   }
 
   // Add particles with staggered delay initially
@@ -161,17 +165,32 @@ export default function initMatter() {
 
   // Debounced function to handle window resize
   let resizeTimeout
+  let previousWidth = window.innerWidth
+  let previousHeight = window.innerHeight
+
   function handleWindowResize() {
     clearTimeout(resizeTimeout)
     resizeTimeout = setTimeout(() => {
-      render.options.width = window.innerWidth
-      render.options.height = window.innerHeight
-      render.canvas.width = window.innerWidth
-      render.canvas.height = window.innerHeight
+      const currentWidth = window.innerWidth
+      const currentHeight = window.innerHeight
 
-      // Update boundaries and particles on resize
-      updateBoundaries()
-      addParticlesWithStagger()
+      const widthDifference = Math.abs(currentWidth - previousWidth)
+      const heightDifference = Math.abs(currentHeight - previousHeight)
+
+      // Check if the window was resized by at least 50 pixels in either direction
+      if (widthDifference >= 50 || heightDifference >= 50) {
+        previousWidth = currentWidth
+        previousHeight = currentHeight
+
+        render.options.width = currentWidth
+        render.options.height = currentHeight
+        render.canvas.width = currentWidth
+        render.canvas.height = currentHeight
+
+        // Update boundaries and particles on resize
+        updateBoundaries()
+        addParticlesWithStagger()
+      }
     }, 200) // Adjust debounce delay as needed (200ms here)
   }
 
@@ -180,7 +199,7 @@ export default function initMatter() {
 
   // Add mouse control
   const mouse = Mouse.create(render.canvas)
-  const mouseConstraint = MouseConstraint.create(engine, {
+  mouseConstraint = MouseConstraint.create(engine, {
     mouse: mouse,
     constraint: {
       stiffness: 0,
@@ -193,7 +212,7 @@ export default function initMatter() {
 
   // Create an invisible body to represent the mouse cursor, positioned outside the visible area initially
   const mouseValue = 75
-  const mouseBody = Bodies.circle(mouseValue, mouseValue, mouseValue, {
+  mouseBody = Bodies.circle(mouseValue, mouseValue, mouseValue, {
     isStatic: true, // Make it static so it doesn't fall or move due to gravity
     render: {
       visible: false, // Make it invisible
@@ -272,8 +291,43 @@ export default function initMatter() {
   })
 
   // Run the engine
-  Runner.run(engine)
+  Runner.run(runner, engine)
 
   // Run the renderer
   Render.run(render)
+}
+
+export function killMatter() {
+  if (engine && render && runner) {
+    // Stop the engine
+    Engine.clear(engine)
+
+    // Clear all event listeners
+    Events.off(engine)
+    Events.off(runner)
+    Events.off(mouseConstraint)
+
+    // Clear the world
+    Composite.clear(engine.world, false)
+
+    // Stop the runner
+    Runner.stop(runner)
+
+    // Clear the render
+    Render.stop(render)
+    render.canvas.remove()
+    render.canvas = null
+    render.context = null
+    render.textures = {}
+
+    // Remove resize event listener
+    window.removeEventListener('resize', handleWindowResize)
+
+    // Nullify all references
+    engine = null
+    render = null
+    runner = null
+    mouseConstraint = null
+    mouseBody = null
+  }
 }
