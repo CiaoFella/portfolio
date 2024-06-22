@@ -44,6 +44,7 @@ export default function initCardList() {
         const headline = $(item).find('.card-list_item-headline')
         const arrow = $(item).find('.arrow-icon-right')
         const arrowData = arrow.data('direction')
+        const animation = $(item).find('[data-animate=card-animation]')
 
         const itemTl = gsap.timeline({
           paused: true,
@@ -54,6 +55,9 @@ export default function initCardList() {
           itemTl.to(headline, {
             xPercent: 5,
           })
+        }
+        if (animation.length > 0) {
+          itemTl.from(animation, { opacity: 0, duration: 0.25, ease: 'none' }, '<')
         }
         if (arrowData === 'down') {
           itemTl.to(
@@ -73,75 +77,17 @@ export default function initCardList() {
           )
         }
 
-        function playHoverIn(start, end) {
-          if (bgFillPath.length > 0) {
-            return gsap.fromTo(
-              bgFillPath,
-              { attr: { d: start } },
-              {
-                attr: { d: end },
-                duration: 0.5,
-                ease: 'power3.out',
-              }
-            )
-          }
-        }
-
-        function playHoverOut(start, end) {
-          if (bgFillPath.length > 0) {
-            return gsap.fromTo(
-              bgFillPath,
-              { attr: { d: start } },
-              {
-                attr: { d: end },
-                duration: 0.5,
-                ease: 'power3.out',
-              }
-            )
-          }
-        }
-
         $(item).on('mouseenter', (event) => {
+          itemTl.timeScale(1).play()
           const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
-          if (mouseDirection === 'left') {
-            const start = svgStartFromLeft
-            const end = svgEndFromLeft
-            playHoverIn(start, end)
-          } else if (mouseDirection === 'right') {
-            const start = svgStartFromRight
-            const end = svgEndFromRight
-            playHoverIn(start, end)
-          } else if (mouseDirection === 'top') {
-            const start = svgStartFromTop
-            const end = svgEndFromTop
-            playHoverIn(start, end)
-          } else if (mouseDirection === 'bottom') {
-            const start = svgStartFromBottom
-            const end = svgEndFromBottom
-            playHoverIn(start, end)
-          }
-          itemTl.play()
+          const pathDirection = helperFunctions.handleCardHoverIn(mouseDirection, true)
+          helperFunctions.animateCardHover(bgFillPath, pathDirection.start, pathDirection.end)
         })
         $(item).on('mouseleave', (event) => {
+          itemTl.timeScale(1.5).reverse()
           const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
-          if (mouseDirection === 'left') {
-            const start = svgStartToLeft
-            const end = svgEndToLeft
-            playHoverOut(start, end)
-          } else if (mouseDirection === 'right') {
-            const start = svgStartToRight
-            const end = svgEndToRight
-            playHoverOut(start, end)
-          } else if (mouseDirection === 'top') {
-            const start = svgStartToTop
-            const end = svgEndToTop
-            playHoverIn(start, end)
-          } else if (mouseDirection === 'bottom') {
-            const start = svgStartToBottom
-            const end = svgEndToBottom
-            playHoverIn(start, end)
-          }
-          itemTl.reverse()
+          const pathDirection = helperFunctions.handleCardHoverOut(mouseDirection, true)
+          helperFunctions.animateCardHover(bgFillPath, pathDirection.start, pathDirection.end)
         })
       })
 
