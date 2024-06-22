@@ -1,0 +1,36 @@
+@use 'variables';
+
+#contact-form {
+  .just-validate-error-label {
+    font-size: 0.8rem;
+  }
+
+  [data-form] {
+    transition: 0.1s ease-out;
+    transition-property: color, background-color;
+  }
+
+  [data-form=select-wrap] {
+    [data-form=select-field]:checked + [data-form=select-text] {
+      background-color: variables.$color-purple;
+      color: variables.$color-white;
+      mix-blend-mode: normal;
+    }
+  }
+  [data-form=radio-wrap] {
+    [data-form=radio-field]:checked + [data-form=radio-text] {
+      background-color: variables.$color-purple;
+      color: variables.$color-white;
+      mix-blend-mode: normal;
+    }
+  }
+}
+
+[data-animate=form-feedback-wrap] {
+  [data-animate=feedback-logo-path-left] {
+    transform: translateX(-10rem);
+  }
+  [data-animate=feedback-logo-path-right] {
+    transform: translateX(10rem);
+  }
+}
