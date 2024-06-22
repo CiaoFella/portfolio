@@ -52,6 +52,6 @@ export default function initAchievement() {
 
 export function killAchievement() {
   if (ctx) {
-    ctx.kill()
+    ctx.revert()
   }
 }
