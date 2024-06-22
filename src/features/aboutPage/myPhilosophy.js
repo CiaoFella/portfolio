@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { isLandscape, isMobile } from '../../utils/variables'
+import { isDesktop, isLandscape, isMobile, isTablet } from '../../utils/variables'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,24 +27,23 @@ export default function initMyPhilosophy() {
 
     myPhilosophyTl.to(currentPath, { strokeDashoffset: 0, duration: 1 })
 
-    mm.add(isLandscape, () => {
+    mm.add(isDesktop, () => {
       ScrollTrigger.create({
         animation: myPhilosophyTl,
         trigger: myPhilosophyWrap,
         start: '2.5% top',
-        end: 'bottom bottom',
+        end: 'bottom center',
         scrub: true,
       })
     })
 
-    mm.add(isMobile, () => {
+    mm.add(isTablet, () => {
       ScrollTrigger.create({
         animation: myPhilosophyTl,
         trigger: myPhilosophyWrap,
         start: '15% center',
         end: 'bottom center',
         scrub: true,
-        markers: true,
       })
     })
   })
