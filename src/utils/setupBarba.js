@@ -23,6 +23,10 @@ import killAwardPage from '../pages/killPages/killAwardPage'
 import initListPage from '../pages/initPages/listPage'
 import killListPage from '../pages/killPages/killListPage'
 import { closeMenu } from '../features/general/menu'
+import lenis from './smoothScroll'
+import initContactPage from '../pages/initPages/initContactPage'
+import killContactPage from '../pages/killPages/killContactPage'
+import { animateContactForm } from '../features/contactPage/contactForm'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -62,20 +66,27 @@ function setupBarba() {
     })
   })
   barba.hooks.beforeLeave(() => {
-    closeMenu()
+    closeMenu(true)
   })
   barba.hooks.afterEnter(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' })
+    lenis.scrollTo(0, { duration: 0, immediate: true })
+    requestAnimationFrame(() => {
+      helperFunctions.refreshScrollTriggers()
+    })
   })
 
   barba.hooks.once(() => {
     document.addEventListener('onPageReady', (event) => {
+      currentPage = $('[data-barba-namespace]').data('barbaNamespace')
       if (event.detail === true) {
         animateHero().play()
         if (currentPage === 'detail-page') {
           const navBar = $('[data-animate=nav-bar]')
           const detailNav = $('[data-animate=detail-nav-wrap]')
           helperFunctions.slideInNavigations(navBar, detailNav, 1).play()
+        }
+        if (currentPage === 'contact-page') {
+          animateContactForm()
         }
       } else if (event.detail === false) {
       }
@@ -88,48 +99,69 @@ function setupBarba() {
       {
         namespace: 'home-page',
         beforeEnter() {
+          helperFunctions.fadeInPage(1)
           initHomePage()
         },
         beforeLeave() {
+          helperFunctions.fadeOutPage(0.5)
           killDetailPage()
         },
       },
       {
         namespace: 'about-page',
         beforeEnter() {
+          helperFunctions.fadeInPage(0.5)
           initAboutPage()
         },
         beforeLeave() {
+          helperFunctions.fadeOutPage(0.5)
           killAboutPage()
         },
       },
       {
         namespace: 'list-page',
         beforeEnter() {
+          helperFunctions.fadeInPage(0.5)
           initListPage()
         },
         beforeLeave() {
+          helperFunctions.fadeOutPage(0.5)
           killListPage()
         },
       },
       {
         namespace: 'award-page',
         beforeEnter() {
+          helperFunctions.fadeInPage(0.5)
           initAwardPage()
         },
         beforeLeave() {
+          helperFunctions.fadeOutPage(0.5)
           killAwardPage()
+        },
+      },
+      {
+        namespace: 'contact-page',
+        beforeEnter() {
+          helperFunctions.fadeInPage(0.5)
+          initContactPage()
+        },
+        beforeLeave() {
+          helperFunctions.fadeOutPage(0.5)
+          killContactPage()
         },
       },
       {
         namespace: 'detail-page',
         afterEnter() {
           requestAnimationFrame(() => {
+            // helperFunctions.fadeInPage(0.5)
             initDetailPage()
             helperFunctions.refreshScrollTriggers()
           })
         },
         beforeLeave() {
+          // helperFunctions.fadeOutPage(0.5)
           ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
           killDetailPage()
         },
@@ -138,20 +170,24 @@ function setupBarba() {
     transitions: [
       {
         to: {
-          namespace: ['about-page', 'home-page', 'list-page', 'award-page'],
+          namespace: ['about-page', 'home-page', 'list-page', 'award-page', 'contact-page'],
         },
         async leave(data) {
+          lenis.stop()
           await transitions.transitionIn()
           $(data.current).hide()
-          // resetGSAP()
         },
         enter() {
           transitions.transitionOut(false)
+        },
+        after() {
+          lenis.start()
         },
       },
       {
         once: () => {
           animateTransitions.loader(2)
+          lenis.scrollTo(0, { duration: 0.5 })
           matchMedia.add(isDesktop, () => {
             cursor.init()
             magneticCursor()
@@ -202,7 +238,6 @@ function setupBarba() {
         after() {
           requestAnimationFrame(() => {
             proxy.pageReady = true
-            window.scrollTo({ top: 0, behavior: 'auto' })
           })
         },
       },
