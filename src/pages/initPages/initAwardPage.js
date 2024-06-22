@@ -8,12 +8,12 @@ import initMatter from '../../utils/matter'
 
 export default function initAwardPage() {
   return [
+    initMatter(),
     initAwardListHover(),
     initAwardListScroll(),
     initHeadlineScroll(),
     initConnectScroll(),
     initFooter(),
-    initMatter(),
     initSharedComponents(),
   ]
 }
