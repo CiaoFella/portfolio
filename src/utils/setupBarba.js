@@ -236,7 +236,7 @@ function setupBarba() {
           proxy.pageReady = false
         },
         afterEnter() {
-
+          // Leave empty
         },
         after() {
           requestAnimationFrame(() => {
