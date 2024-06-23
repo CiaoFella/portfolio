@@ -236,9 +236,7 @@ function setupBarba() {
           proxy.pageReady = false
         },
         afterEnter() {
-          setTimeout(() => {
-            lenis.scrollTo(0, { duration: 0, immediate: true })
-          }, 10)
+
         },
         after() {
           requestAnimationFrame(() => {
