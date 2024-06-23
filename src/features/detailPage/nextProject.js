@@ -3,6 +3,7 @@ let $ = window.$
 import barba from '@barba/core'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import lenis from '../../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -38,6 +39,7 @@ export default function initNextProject() {
       })
       .to(indicatorBar, { width: 0 }, '<+0.5')
       .call(() => barba.go(nextProjectUrl), [], '>')
+      .call(() => lenis.scrollTo(0, { duration: 0, immediate: true }), [], '<+0.1')
 
     ScrollTrigger.create({
       animation: scrollTl,
