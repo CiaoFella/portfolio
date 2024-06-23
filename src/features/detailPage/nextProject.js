@@ -38,8 +38,6 @@ export default function initNextProject() {
         stagger: 0.1,
       })
       .to(indicatorBar, { width: 0 }, '<+0.5')
-      .call(() => barba.go(nextProjectUrl), [], '>')
-      .call(() => lenis.scrollTo(0, { duration: 0, immediate: true }), [], '<+0.1')
 
     ScrollTrigger.create({
       animation: scrollTl,
@@ -47,11 +45,14 @@ export default function initNextProject() {
       onUpdate: (self) => {
         gsap.to(progressBar, { width: `${self.progress * 100}%` })
       },
-      onLeave: () => {
+      onLeave: async () => {
         leaveTl.time(0)
-        leaveTl.play()
+        await leaveTl.play()
+        barba.go(nextProjectUrl)
+        setTimeout(() => {
+          lenis.scrollTo(0, { immediate: true })
+        }, 100)
       },
-      once: true,
       start: 'top center',
       end: '99% bottom',
       scrub: true,
