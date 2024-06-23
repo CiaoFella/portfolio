@@ -51,6 +51,7 @@ export default function initNextProject() {
         leaveTl.time(0)
         leaveTl.play()
       },
+      once: true,
       start: 'top center',
       end: '99% bottom',
       scrub: true,
