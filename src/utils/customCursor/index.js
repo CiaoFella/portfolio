@@ -1,16 +1,26 @@
 let $ = window.$
 
+import gsap from 'gsap'
+
 import Cursor from './cursor'
 import Magnetic from './magnetic'
+import { isDesktop } from '../variables'
 
+const mm = gsap.matchMedia()
+
+export let cursor
 
 // Init cursor
-export const cursor = new Cursor({
-  container: 'body', // container to attach
-  speed: 0.7, // default speed
-  ease: 'expo.out', // default ease (gsap)
-  visibleTimeout: 300, // disappear timeout
+
+mm.add(isDesktop, () => {
+  cursor = new Cursor({
+    container: 'body', // container to attach
+    speed: 0.7, // default speed
+    ease: 'expo.out', // default ease (gsap)
+    visibleTimeout: 300, // disappear timeout
+  })
 })
+
 
 
 export const magneticCursor = () => {
