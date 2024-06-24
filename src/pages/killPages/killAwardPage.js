@@ -8,12 +8,12 @@ import { killMatter } from '../../utils/matter'
 
 export default function killAwardPage() {
   return [
+    killMatter(),
     killAwardListHover(),
     killAwardListScroll(),
     killHeadlineScroll(),
     killConnectScroll(),
     killFooter(),
-    killMatter(),
     killSharedComponents(),
   ]
 }

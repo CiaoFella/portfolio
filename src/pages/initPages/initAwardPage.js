@@ -1,19 +1,72 @@
-import initAwardListHover from '../../features/general/awardListHover'
-import initAwardListScroll from '../../features/general/awardListScroll'
-import initSharedComponents from './initSharedComponents'
-import initFooter from '../../features/general/footer'
-import initConnectScroll from '../../features/general/connectScroll'
-import initHeadlineScroll from '../../features/general/headlineScroll'
-import initMatter from '../../utils/matter'
+const loadDesktopSharedComponents = () =>
+  Promise.all([
+    import('../../features/general/awardListHover'),
+    import('../../features/general/awardListScroll'),
+    import('../../features/general/footer'),
+    import('../../features/general/connectScroll'),
+    import('../../features/general/headlineScroll'),
+    import('../../utils/matter'),
+    import('./initSharedComponents'),
+  ])
+
+const loadMobileSharedComponents = () =>
+  Promise.all([
+    import('../../features/general/awardListHover'),
+    import('../../features/general/awardListScroll'),
+    import('../../features/general/footer'),
+    import('../../features/general/connectScroll'),
+    import('../../features/general/headlineScroll'),
+    import('../../utils/matter'),
+    import('./initSharedComponents'),
+  ])
+
+import gsap from 'gsap'
+import { isDesktop, isLandscape } from '../../utils/variables'
+
+const mm = gsap.matchMedia()
 
 export default function initAwardPage() {
-  return [
-    initMatter(),
-    initAwardListHover(),
-    initAwardListScroll(),
-    initHeadlineScroll(),
-    initConnectScroll(),
-    initFooter(),
-    initSharedComponents(),
-  ]
+  mm.add(isDesktop, async () => {
+    const [
+      { default: awardListHover },
+      { default: awardListScroll },
+      { default: footer },
+      { default: connectScroll },
+      { default: headlineScroll },
+      { default: matter },
+      { default: initSharedComponents },
+    ] = await loadDesktopSharedComponents()
+
+    return [
+      awardListHover(),
+      awardListScroll(),
+      footer(),
+      connectScroll(),
+      headlineScroll(),
+      matter(),
+      initSharedComponents(),
+    ]
+  })
+
+  mm.add(isLandscape, async () => {
+    const [
+      { default: awardListHover },
+      { default: awardListScroll },
+      { default: footer },
+      { default: connectScroll },
+      { default: headlineScroll },
+      { default: matter },
+      { default: initSharedComponents },
+    ] = await loadMobileSharedComponents()
+
+    return [
+      awardListHover(),
+      awardListScroll(),
+      footer(),
+      connectScroll(),
+      headlineScroll(),
+      matter(),
+      initSharedComponents(),
+    ]
+  })
 }
