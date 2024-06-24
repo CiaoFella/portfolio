@@ -1,4 +1,4 @@
-const loadDesktopSharedComponents = () =>
+const loadDesktopComponents = () =>
   Promise.all([
     import('../../features/detailPage/detailDescription'),
     import('../../features/general/cardList'),
@@ -8,7 +8,7 @@ const loadDesktopSharedComponents = () =>
     import('./initSharedComponents'),
   ])
 
-const loadMobileSharedComponents = () =>
+const loadMobileComponents = () =>
   Promise.all([
     import('../../features/detailPage/detailDescription'),
     import('../../features/general/cardList'),
@@ -32,7 +32,7 @@ export default function initDetailPage() {
       { default: textContent },
       { default: nextProject },
       { default: initSharedComponents },
-    ] = await loadDesktopSharedComponents()
+    ] = await loadDesktopComponents()
 
     return [detailDescription(), cardList(), imageScroll(), textContent(), nextProject(), initSharedComponents()]
   })
@@ -45,7 +45,7 @@ export default function initDetailPage() {
       { default: textContent },
       { default: nextProject },
       { default: initSharedComponents },
-    ] = await loadMobileSharedComponents()
+    ] = await loadMobileComponents()
 
     return [detailDescription(), cardList(), imageScroll(), textContent(), nextProject(), initSharedComponents()]
   })

@@ -1,5 +1,5 @@
 // Dynamic imports for desktop shared components
-const loadDesktopSharedComponents = () =>
+const loadDesktopComponents = () =>
   Promise.all([
     import('../../utils/createInitialState'),
     import('../../features/general/buttons'),
@@ -11,7 +11,7 @@ const loadDesktopSharedComponents = () =>
   ])
 
 // Dynamic imports for mobile shared components
-const loadMobileSharedComponents = () =>
+const loadMobileComponents = () =>
   Promise.all([
     import('../../utils/createInitialState'),
     import('../../features/general/sectionScale'),
@@ -34,7 +34,7 @@ export default function initSharedComponents() {
       { default: initLogo },
       { default: initVariableFontWeight },
       { default: initNavScroll },
-    ] = await loadDesktopSharedComponents()
+    ] = await loadDesktopComponents()
 
     return [
       initNavScroll(),
@@ -53,7 +53,7 @@ export default function initSharedComponents() {
       { default: initSectionScale },
       { default: initIcons },
       { default: initNavScroll },
-    ] = await loadMobileSharedComponents()
+    ] = await loadMobileComponents()
 
     return [initNavScroll(), createInitialState(), initSectionScale(), initIcons()]
   })

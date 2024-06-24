@@ -1,4 +1,4 @@
-const loadDesktopSharedComponents = () =>
+const loadDesktopComponents = () =>
   Promise.all([
     import('../../features/general/awardListHover'),
     import('../../features/general/awardListScroll'),
@@ -9,7 +9,7 @@ const loadDesktopSharedComponents = () =>
     import('./initSharedComponents'),
   ])
 
-const loadMobileSharedComponents = () =>
+const loadMobileComponents = () =>
   Promise.all([
     import('../../features/general/awardListHover'),
     import('../../features/general/awardListScroll'),
@@ -35,7 +35,7 @@ export default function initAwardPage() {
       { default: headlineScroll },
       { default: matter },
       { default: initSharedComponents },
-    ] = await loadDesktopSharedComponents()
+    ] = await loadDesktopComponents()
 
     return [
       awardListHover(),
@@ -57,7 +57,7 @@ export default function initAwardPage() {
       { default: headlineScroll },
       { default: matter },
       { default: initSharedComponents },
-    ] = await loadMobileSharedComponents()
+    ] = await loadMobileComponents()
 
     return [
       awardListHover(),

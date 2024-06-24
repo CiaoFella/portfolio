@@ -1,5 +1,5 @@
 // Dynamic imports for desktop shared components
-const loadDesktopHomeComponents = () =>
+const loadDesktopComponents = () =>
   Promise.all([
     import('../../features/general/textOnScroll'),
     import('../../features/general/awardListHover'),
@@ -15,7 +15,7 @@ const loadDesktopHomeComponents = () =>
   ])
 
 // Dynamic imports for mobile shared components
-const loadMobileSharedComponents = () =>
+const loadMobileComponents = () =>
   Promise.all([
     import('../../features/general/textOnScroll'),
     import('../../features/general/cardList'),
@@ -46,7 +46,7 @@ export default function initHomePage() {
       { default: initAchievement },
       { default: initReducedTeaser },
       { default: initSharedComponents },
-    ] = await loadDesktopSharedComponents()
+    ] = await loadDesktopComponents()
 
     return [
       initTextOnScroll(),
@@ -73,7 +73,7 @@ export default function initHomePage() {
       { default: initAboutTeaser },
       { default: initReducedTeaser },
       { default: initSharedComponents },
-    ] = await loadMobileSharedComponents()
+    ] = await loadMobileComponents()
 
     return [
       initTextOnScroll(),
