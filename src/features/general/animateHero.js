@@ -1,17 +1,9 @@
 let $ = window.$
 
-import letterSwitch from './animateLetterSwitch'
-
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
-import {
-  bottomClipPath,
-  centerHorizontalClipPath,
-  centerVerticalClipPath,
-  fullClipPath,
-  topClipPath,
-} from '../../utils/variables'
+import { bottomClipPath, centerVerticalClipPath, fullClipPath, topClipPath } from '../../utils/variables'
 
 gsap.registerPlugin(ScrollTrigger)
 
