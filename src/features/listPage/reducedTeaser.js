@@ -29,11 +29,11 @@ export default function initReducedTeaser() {
         .from(headlineSplit.chars, { yPercent: 100, duration: 0.5, stagger: 0.0075 }, '<')
 
       $(teaser).on('mouseenter', async () => {
-        await teaserTl.play()
+        await teaserTl.timeScale(1).play()
         video[0].play()
       })
       $(teaser).on('mouseleave', async () => {
-        await teaserTl.reverse()
+        await teaserTl.timeScale(1.5).reverse()
         video[0].pause()
       })
 
