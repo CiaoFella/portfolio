@@ -20,7 +20,7 @@ import initAboutPage from '../pages/initPages/initAboutPage'
 import killAboutPage from '../pages/killPages/killAboutPage'
 import initAwardPage from '../pages/initPages/initAwardPage'
 import killAwardPage from '../pages/killPages/killAwardPage'
-import initListPage from '../pages/initPages/listPage'
+import initListPage from '../pages/initPages/initListPage'
 import killListPage from '../pages/killPages/killListPage'
 import { closeMenu } from '../features/general/menu'
 import lenis from './smoothScroll'
@@ -200,7 +200,7 @@ function setupBarba() {
           namespace: ['detail-page'],
         },
         from: {
-          namespace: ['list-page'],
+          namespace: ['list-page', 'home-page'],
         },
         async enter(data) {
           helperFunctions.createHeroSplitTypes($('[data-hero-element=headline]'))
