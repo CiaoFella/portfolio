@@ -2,53 +2,50 @@ let $ = window.$
 
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { fullClipPath, isDesktop, topClipPath } from '../../utils/variables'
+import { fullClipPath, topClipPath } from '../../utils/variables'
 import SplitType from 'split-type'
 
 let ctx
-const mm = gsap.matchMedia()
 
 export default function initAchievement() {
   ctx = gsap.context(() => {
-    mm.add(isDesktop, () => {
-      const achievementSection = $('[data-animate=achievement-section]')
-      const achievementHeadline = achievementSection.find('[data-animate=achievement-headline]')
-      const achievementElements = achievementSection.find('[data-animate=achievement-element]')
+    const achievementSection = $('[data-animate=achievement-section]')
+    const achievementHeadline = achievementSection.find('[data-animate=achievement-headline]')
+    const achievementElements = achievementSection.find('[data-animate=achievement-element]')
 
-      const headlineSplit = new SplitType(achievementHeadline, { types: 'chars,words' })
+    const headlineSplit = new SplitType(achievementHeadline, { types: 'chars,words' })
 
-      const achievementTl = gsap.timeline({ defaults: { duration: 1, ease: 'power1.inOut' } })
+    const achievementTl = gsap.timeline({ defaults: { duration: 1, ease: 'power1.inOut' } })
 
-      achievementTl.fromTo(
-        headlineSplit.chars,
-        { clipPath: topClipPath, y: 100 },
-        { y: 0, clipPath: fullClipPath, duration: 1, stagger: 0.005 },
-        0
-      )
+    achievementTl.fromTo(
+      headlineSplit.chars,
+      { clipPath: topClipPath, y: 100 },
+      { y: 0, clipPath: fullClipPath, duration: 1, stagger: 0.005 },
+      0
+    )
 
-      achievementElements.each((index, element) => {
-        const value = $(element).find('[data-animate=achievement-value]')
-        const type = $(element).find('[data-animate=achievement-type]')
-        const unit = $(element).find('[data-animate=achievement-unit]')
-        const valueSplit = new SplitType(value, { types: 'chars' })
-        const typeSplit = new SplitType(type, { types: 'chars' })
-        const unitSplit = new SplitType(unit, { types: 'chars' })
-        achievementTl
-          .from(valueSplit.chars, { y: 125, duration: 1, stagger: 0.01 }, '<+0.5')
-          .from(typeSplit.chars, { y: 125, duration: 1, stagger: 0.001 }, '<')
-          .from(unitSplit.chars, { y: 125, duration: 1, stagger: 0.001 }, '<')
-          .to(unitSplit.chars, { y: -125, duration: 1, stagger: 0.001 }, '>+0.1')
-          .to(valueSplit.chars, { y: -125, duration: 1, stagger: 0.01 }, '<')
-          .to(typeSplit.chars, { y: -125, duration: 1, stagger: 0.001 }, '<')
-      })
+    achievementElements.each((index, element) => {
+      const value = $(element).find('[data-animate=achievement-value]')
+      const type = $(element).find('[data-animate=achievement-type]')
+      const unit = $(element).find('[data-animate=achievement-unit]')
+      const valueSplit = new SplitType(value, { types: 'chars' })
+      const typeSplit = new SplitType(type, { types: 'chars' })
+      const unitSplit = new SplitType(unit, { types: 'chars' })
+      achievementTl
+        .from(valueSplit.chars, { y: 125, duration: 1, stagger: 0.01 }, '<+0.5')
+        .from(typeSplit.chars, { y: 125, duration: 1, stagger: 0.001 }, '<')
+        .from(unitSplit.chars, { y: 125, duration: 1, stagger: 0.001 }, '<')
+        .to(unitSplit.chars, { y: -125, duration: 1, stagger: 0.001 }, '>+0.1')
+        .to(valueSplit.chars, { y: -125, duration: 1, stagger: 0.01 }, '<')
+        .to(typeSplit.chars, { y: -125, duration: 1, stagger: 0.001 }, '<')
+    })
 
-      ScrollTrigger.create({
-        animation: achievementTl,
-        trigger: achievementSection,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      })
+    ScrollTrigger.create({
+      animation: achievementTl,
+      trigger: achievementSection,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
     })
   })
 }
