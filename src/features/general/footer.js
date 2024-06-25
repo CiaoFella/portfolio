@@ -19,16 +19,16 @@ export default function initFooter() {
     const footerTl = gsap.timeline({ defaults: { duration: 1, ease: 'expo.out' } })
     const pageScaleTl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.inOut' }, immediateRender: false })
 
-    gsap.set(endOfPageElement, { scaleX: 1 })
+    gsap.set(endOfPageElement, { yPercent: 0 })
 
     if (endOfPage.length > 0) {
-      pageScaleTl.to(endOfPageElement, { scaleX: 0.95 })
+      pageScaleTl.to(endOfPageElement, { yPercent: 7.5 })
     }
 
     ScrollTrigger.create({
       animation: pageScaleTl,
       trigger: footerElement,
-      start: 'top center',
+      start: 'top bottom',
       end: 'top top',
       scrub: 0.5,
     })
