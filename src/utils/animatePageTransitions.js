@@ -5,11 +5,18 @@ import { Flip } from 'gsap/Flip'
 import animateTextSlide from '../features/general/animateTextSlide'
 import helperFunctions from './helperFunctions'
 import { proxy } from './pageReadyHandler'
+import { isDesktop, isMobile, isTablet } from './variables'
 
-const innerWrapStartGap = '70%'
-const logoPathStartPercentage = 50
-const logoScale = 25
-const logoRotation = 30
+let innerWrapStartGap = '70%'
+let logoPathStartPercentage = 35
+let logoScale = 30
+let logoRotation = 30
+
+const mm = gsap.matchMedia()
+
+mm.add(isMobile, () => {
+  logoPathStartPercentage = 20
+})
 
 const transitionSection = $('[data-animate=transition]')
 const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
@@ -45,7 +52,7 @@ function loader(duration) {
 
   loaderTl.set(transitionSection, { display: 'block', immediateRender: true }, 0)
 
-  setPositions(transitionLogo)
+  setTransitionLogoPositions(transitionLogo)
 
   loaderTl
     .from(
@@ -66,8 +73,8 @@ function loader(duration) {
       '<'
     )
     .from(transitionLogoRight, { xPercent: logoPathStartPercentage * 2, ease: 'expo.inOut' }, '<')
-    .call(() => animateTextSlide(textSlideWraps, 1), [], `>-25%`)
-    .call(() => transitionOut(true), [], loaderDuration)
+    .call(() => animateTextSlide(textSlideWraps, 1.5), [], `>-25%`)
+    .call(() => transitionOut(true), [], '>+1')
 
   if (loadingIndicator.length > 0) {
     loaderTl.from(loadingIndicator, { yPercent: 100, duration: 1, ease: 'expo.inOut' }, 0).to(
@@ -82,7 +89,51 @@ function loader(duration) {
     )
   }
 
-  return [loaderTl]
+  return loaderTl
+}
+
+function transitionIn() {
+  const transitionSection = $('[data-animate=transition]')
+  const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
+  const transitionLogoLeft = transitionLogo.find('[data-animate=transition-logo-path][data-direction=left]')
+  const transitionLogoRight = transitionLogo.find('[data-animate=transition-logo-path][data-direction=right]')
+  const transitionInnerWrap = transitionSection.find('[data-animate=transition-inner-wrap]')
+  const detailNav = $('[data-animate=detail-nav-wrap]')
+
+  const transitionInTl = gsap.timeline({
+    defaults: { duration: 1, ease: 'expo.out' },
+    onStart: () => {
+      proxy.pageReady = false
+    },
+  })
+
+  transitionInTl.set(transitionSection, { display: 'block' })
+
+  transitionInTl.call(() => helperFunctions.slideInNavigations(navBar, detailNav, 1).reverse(), [], 0)
+  transitionInTl
+    .call(() => setTransitionLogoPositions(transitionLogo), [], 0)
+    .fromTo(
+      transitionLogo,
+      {
+        scale: logoScale,
+        rotateZ: -logoRotation * 2,
+      },
+      {
+        scale: 1,
+        rotateZ: 0,
+        duration: 1,
+        ease: 'expo.inOut',
+      },
+      '>'
+    )
+    .to(transitionLogoLeft, {
+      xPercent: -logoPathStartPercentage,
+      duration: 0.5,
+    })
+    .to(transitionLogoRight, { xPercent: logoPathStartPercentage, duration: 0.5 }, '<')
+    .to(transitionInnerWrap, { columnGap: innerWrapStartGap, duration: 0.5 }, '<+0.1')
+
+  return transitionInTl
 }
 
 async function transitionOut(isLoader) {
@@ -96,7 +147,9 @@ async function transitionOut(isLoader) {
   const transitionOutTl = gsap.timeline({
     defaults: { duration: 1, ease: 'expo.out' },
     onComplete: () => {
-      proxy.pageReady = true
+      requestAnimationFrame(() => {
+        proxy.pageReady = true
+      })
     },
   })
 
@@ -104,13 +157,10 @@ async function transitionOut(isLoader) {
   gsap.set(navBar, { yPercent: -100 })
 
   if (isLoader !== true) {
-    setPositions(transitionLogo)
-
     gsap.set(transitionLogoLeft, { xPercent: -logoPathStartPercentage })
     gsap.set(transitionLogoRight, { xPercent: logoPathStartPercentage })
 
     transitionOutTl
-
       .to(transitionLogoLeft, {
         xPercent: 0,
         duration: 0.5,
@@ -141,49 +191,6 @@ async function transitionOut(isLoader) {
   return transitionOutTl
 }
 
-function transitionIn() {
-  const transitionSection = $('[data-animate=transition]')
-  const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
-  const transitionLogoLeft = transitionLogo.find('[data-animate=transition-logo-path][data-direction=left]')
-  const transitionLogoRight = transitionLogo.find('[data-animate=transition-logo-path][data-direction=right]')
-  const transitionInnerWrap = transitionSection.find('[data-animate=transition-inner-wrap]')
-  const detailNav = $('[data-animate=detail-nav-wrap]')
-
-  const transitionInTl = gsap.timeline({
-    defaults: { duration: 1, ease: 'expo.out' },
-    onStart: () => {
-      proxy.pageReady = false
-    },
-  })
-
-  transitionInTl.set(transitionSection, { display: 'block' })
-
-  transitionInTl.call(() => helperFunctions.slideInNavigations(navBar, detailNav, 1).reverse(), [], 0)
-  transitionInTl
-    .fromTo(
-      transitionLogo,
-      {
-        scale: logoScale,
-        rotateZ: -logoRotation * 2,
-      },
-      {
-        scale: 1,
-        rotateZ: 0,
-        duration: 1,
-        ease: 'expo.inOut',
-      },
-      0
-    )
-    .to(transitionLogoLeft, {
-      xPercent: -logoPathStartPercentage,
-      duration: 0.5,
-    })
-    .to(transitionLogoRight, { xPercent: logoPathStartPercentage, duration: 0.5 }, '<')
-    .to(transitionInnerWrap, { columnGap: innerWrapStartGap, duration: 0.5 }, '<+0.1')
-
-  return transitionInTl
-}
-
 function makeItemActive(data) {
   const nextFlipName = $('[data-barba-namespace=detail-page]').find('[data-flip-element=text-identifier]').text()
   const allOutgoingflipItems = $(data.current.container).find('[data-flip-element=teaser]')
@@ -206,13 +213,12 @@ async function flipAnimation(start, end, firstTarget) {
     const endElement = end.find('[data-flip-id=flip-img]')
     const startElement = start.find('[data-flip-id=flip-img]')
     const firstState = Flip.getState(startElement)
-    const detailNav = $('[data-animate=detail-nav-wrap]')
 
     endElement.addClass('is-hidden')
     firstTarget.append(startElement)
 
     await Flip.from(firstState, {
-      duration: 1,
+      duration: 1.5,
       ease: 'power3.inOut',
       toggleClass: 'is-flipping',
       onStart: () => {
@@ -226,14 +232,16 @@ async function flipAnimation(start, end, firstTarget) {
         endElement.remove()
 
         Flip.from(endState, {
-          duration: 1.5,
-          ease: 'power4.inOut',
+          duration: 1.25,
+          ease: 'expo.inOut',
           toggleClass: 'is-flipping',
           onComplete: () => {
             // cleanup
             const firstTargetWrap = $('[data-flip-element=first-target-wrap]')
             firstTargetWrap.remove()
-            proxy.pageReady = true
+            requestAnimationFrame(() => {
+              proxy.pageReady = true
+            })
           },
         })
       },
@@ -241,28 +249,51 @@ async function flipAnimation(start, end, firstTarget) {
   }
 }
 
-function setPositions(transitionLogo) {
-  const transitionLogoLeft = $(transitionLogo).find('[data-animate=transition-logo-path][data-direction=left]')
-  const transitionLogoRight = $(transitionLogo).find('[data-animate=transition-logo-path][data-direction=right]')
-  const logoLeftClientRect = transitionLogoLeft[0].getBoundingClientRect()
-  const logoRightClientRect = transitionLogoRight[0].getBoundingClientRect()
+function setTransitionLogoPositions(transitionLogo) {
+  let transitionLogoLeft
+  let transitionLogoRight
+
+  mm.add(isTablet, () => {
+    transitionLogoLeft = $(transitionLogo).find('[data-animate=transition-logo-path][data-direction=left][data-size=small]')
+    transitionLogoRight = $(transitionLogo).find(
+      '[data-animate=transition-logo-path][data-direction=right][data-size=small]'
+    )
+    console.log('istablet')
+  })
+
+  mm.add(isDesktop, () => {
+    console.log('isDesktop')
+    transitionLogoLeft = $(transitionLogo).find('[data-animate=transition-logo-path][data-direction=left][data-size=large]')
+    transitionLogoRight = $(transitionLogo).find(
+      '[data-animate=transition-logo-path][data-direction=right][data-size=large]'
+    )
+  })
+
+  // Use getBBox for SVG elements
+  const logoLeftBBox = transitionLogoLeft[0].getBBox()
+  const logoRightBBox = transitionLogoRight[0].getBBox()
 
   const viewportHeight = window.innerHeight
   const viewportWidth = window.innerWidth
 
   const positionLeftPath = {
-    y: (viewportHeight - logoLeftClientRect.height) / 2,
-    x: (viewportWidth - logoLeftClientRect.width) / 2 - 0.35 * logoLeftClientRect.width,
-  }
-  const positionRightPath = {
-    y: (viewportHeight - logoRightClientRect.height) / 2,
-    x: (viewportWidth - logoRightClientRect.width) / 2 + 0.35 * logoRightClientRect.width,
+    y: (viewportHeight - logoLeftBBox.height) / 2,
+    x: (viewportWidth - logoLeftBBox.width) / 2 - 0.35 * logoLeftBBox.width,
   }
 
-  transitionLogoLeft[0].style.transform = `translate(${positionLeftPath.x}px,${positionLeftPath.y}px)`
-  transitionLogoRight[0].style.transform = `translate(${positionRightPath.x}px,${positionRightPath.y}px)`
+  const positionRightPath = {
+    y: (viewportHeight - logoRightBBox.height) / 2,
+    x: (viewportWidth - logoRightBBox.width) / 2 + 0.35 * logoRightBBox.width,
+  }
+
+  transitionLogoLeft.css('transform', `translate(${positionLeftPath.x}px,${positionLeftPath.y}px)`)
+  transitionLogoRight.css('transform', `translate(${positionRightPath.x}px,${positionRightPath.y}px)`)
 }
 
-window.addEventListener('resize', () => setPositions(transitionLogo))
+window.addEventListener('resize', () =>
+  setTimeout(() => {
+    setTransitionLogoPositions(transitionLogo)
+  }, 100)
+)
 
-export default { loader, transitionOut, transitionIn, makeItemActive, flipAnimation, setPositions }
+export default { loader, transitionOut, transitionIn, makeItemActive, flipAnimation, setTransitionLogoPositions }

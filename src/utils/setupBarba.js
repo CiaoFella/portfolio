@@ -27,6 +27,7 @@ import lenis from './smoothScroll'
 import initContactPage from '../pages/initPages/initContactPage'
 import killContactPage from '../pages/killPages/killContactPage'
 import { animateContactForm } from '../features/contactPage/contactForm'
+import animatePageTransitions from './animatePageTransitions'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -42,15 +43,8 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.require('ix2').init()
 }
 
-function resetGSAP() {
-  let existingScrollTriggers = ScrollTrigger.getAll()
-  for (let index = 0; index < existingScrollTriggers.length; index++) {
-    const singleTrigger = existingScrollTriggers[index]
-    singleTrigger.kill()
-  }
-  ScrollTrigger.refresh()
-  window.dispatchEvent(new Event('resize'))
-}
+const transitionSection = $('[data-animate=transition]')
+const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
 
 function setupBarba() {
   let currentPage
@@ -66,9 +60,11 @@ function setupBarba() {
     })
   })
   barba.hooks.beforeLeave(() => {
+    animatePageTransitions.setTransitionLogoPositions(transitionLogo)
     closeMenu(true)
   })
   barba.hooks.afterEnter(() => {
+    animatePageTransitions.setTransitionLogoPositions(transitionLogo)
     lenis.scrollTo(0, { duration: 0, immediate: true })
     requestAnimationFrame(() => {
       helperFunctions.refreshScrollTriggers()
@@ -99,7 +95,7 @@ function setupBarba() {
       {
         namespace: 'home-page',
         beforeEnter() {
-          helperFunctions.fadeInPage(1)
+          helperFunctions.fadeInPage(0.5)
           initHomePage()
         },
         beforeLeave() {
@@ -155,13 +151,11 @@ function setupBarba() {
         namespace: 'detail-page',
         afterEnter() {
           requestAnimationFrame(() => {
-            // helperFunctions.fadeInPage(0.5)
             initDetailPage()
             helperFunctions.refreshScrollTriggers()
           })
         },
         beforeLeave() {
-          // helperFunctions.fadeOutPage(0.5)
           ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
           killDetailPage()
         },
@@ -174,11 +168,11 @@ function setupBarba() {
         },
         async leave(data) {
           lenis.stop()
-          await transitions.transitionIn()
-          $(data.current).hide()
+          await transitions.transitionIn() // Animate in the new page content
+          $(data.current.container).hide() // Hide the current page after animation in is complete
         },
-        enter() {
-          transitions.transitionOut(false)
+        async enter() {
+          await transitions.transitionOut(false) // Animate out the transition elements
         },
         after() {
           lenis.start()
@@ -186,7 +180,7 @@ function setupBarba() {
       },
       {
         once: () => {
-          animateTransitions.loader(2)
+          animateTransitions.loader(3)
           lenis.scrollTo(0, { duration: 0.5 })
           matchMedia.add(isDesktop, () => {
             cursor.init()
