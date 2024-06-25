@@ -20,7 +20,7 @@ export default function initAchievement() {
     achievementTl.fromTo(
       headlineSplit.chars,
       { clipPath: topClipPath, y: 100 },
-      { y: 0, clipPath: fullClipPath, duration: 1, stagger: 0.005 },
+      { y: 0, clipPath: fullClipPath, duration: 0.5, stagger: 0.005 },
       0
     )
 
@@ -43,7 +43,7 @@ export default function initAchievement() {
     ScrollTrigger.create({
       animation: achievementTl,
       trigger: achievementSection,
-      start: 'top top',
+      start: 'top center',
       end: 'bottom bottom',
       scrub: 1,
     })
