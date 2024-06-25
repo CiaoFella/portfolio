@@ -258,11 +258,9 @@ function setTransitionLogoPositions(transitionLogo) {
     transitionLogoRight = $(transitionLogo).find(
       '[data-animate=transition-logo-path][data-direction=right][data-size=small]'
     )
-    console.log('istablet')
   })
 
   mm.add(isDesktop, () => {
-    console.log('isDesktop')
     transitionLogoLeft = $(transitionLogo).find('[data-animate=transition-logo-path][data-direction=left][data-size=large]')
     transitionLogoRight = $(transitionLogo).find(
       '[data-animate=transition-logo-path][data-direction=right][data-size=large]'
