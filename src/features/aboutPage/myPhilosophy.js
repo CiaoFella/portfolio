@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { isDesktop, isLandscape, isMobile, isTablet } from '../../utils/variables'
+import { isDesktop, isMobile, isTablet } from '../../utils/variables'
 
 gsap.registerPlugin(ScrollTrigger)
 

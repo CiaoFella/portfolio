@@ -5,7 +5,7 @@ import axios from 'axios'
 import JustValidate from 'just-validate'
 import helperFunctions from '../../utils/helperFunctions'
 import SplitType from 'split-type'
-import { bottomClipPath, fullClipPath, rightClipPath, topClipPath } from '../../utils/variables'
+import { fullClipPath, rightClipPath, topClipPath } from '../../utils/variables'
 
 let ctx
 let validation
