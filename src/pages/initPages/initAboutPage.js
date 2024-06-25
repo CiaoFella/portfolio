@@ -44,6 +44,7 @@ export default function initAboutPage() {
       { default: initPassions },
       { default: initImages },
       { default: initScrollCounter },
+      { default: initHeadlineScroll },
       { default: initConnectScroll },
       { default: initFooter },
       { default: initSharedComponents },
