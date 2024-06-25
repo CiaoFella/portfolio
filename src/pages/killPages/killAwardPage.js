@@ -4,11 +4,11 @@ import killHeadlineScroll from '../../features/general/headlineScroll'
 import killConnectScroll from '../../features/general/connectScroll'
 import killFooter from '../../features/general/footer'
 import killSharedComponents from './killSharedComponents'
-import { killMatter } from '../../utils/matter'
+// import { killMatter } from '../../utils/matter'
 
 export default function killAwardPage() {
   return [
-    killMatter(),
+    // killMatter(),
     killAwardListHover(),
     killAwardListScroll(),
     killHeadlineScroll(),

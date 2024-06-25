@@ -5,7 +5,7 @@ const loadDesktopComponents = () =>
     import('../../features/general/footer'),
     import('../../features/general/connectScroll'),
     import('../../features/general/headlineScroll'),
-    import('../../utils/matter'),
+    // import('../../utils/matter'),
     import('./initSharedComponents'),
   ])
 
@@ -16,7 +16,7 @@ const loadMobileComponents = () =>
     import('../../features/general/footer'),
     import('../../features/general/connectScroll'),
     import('../../features/general/headlineScroll'),
-    import('../../utils/matter'),
+    // import('../../utils/matter'),
     import('./initSharedComponents'),
   ])
 
@@ -33,7 +33,7 @@ export default function initAwardPage() {
       { default: footer },
       { default: connectScroll },
       { default: headlineScroll },
-      { default: matter },
+      // { default: matter },
       { default: initSharedComponents },
     ] = await loadDesktopComponents()
 
@@ -43,7 +43,7 @@ export default function initAwardPage() {
       footer(),
       connectScroll(),
       headlineScroll(),
-      matter(),
+      // matter(),
       initSharedComponents(),
     ]
   })
@@ -55,7 +55,7 @@ export default function initAwardPage() {
       { default: footer },
       { default: connectScroll },
       { default: headlineScroll },
-      { default: matter },
+      // { default: initMatter },
       { default: initSharedComponents },
     ] = await loadMobileComponents()
 
@@ -65,7 +65,7 @@ export default function initAwardPage() {
       footer(),
       connectScroll(),
       headlineScroll(),
-      matter(),
+      // initMatter(),
       initSharedComponents(),
     ]
   })
