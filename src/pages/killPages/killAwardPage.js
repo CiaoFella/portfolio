@@ -8,7 +8,7 @@ import killSharedComponents from './killSharedComponents'
 
 export default function killAwardPage() {
   return [
-    // killMatter(),
+    killMatter(),
     killAwardListHover(),
     killAwardListScroll(),
     killHeadlineScroll(),

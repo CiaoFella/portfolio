@@ -76,21 +76,21 @@ function setupBarba() {
   })
 
   barba.hooks.once(() => {
-    // document.addEventListener('onPageReady', (event) => {
-    //   currentPage = $('[data-barba-namespace]').data('barbaNamespace')
-    //   if (event.detail === true) {
-    //     animateHero().play()
-    //     if (currentPage === 'detail-page') {
-    //       const navBar = $('[data-animate=nav-bar]')
-    //       const detailNav = $('[data-animate=detail-nav-wrap]')
-    //       helperFunctions.slideInNavigations(navBar, detailNav, 1).play()
-    //     }
-    //     if (currentPage === 'contact-page') {
-    //       animateContactForm()
-    //     }
-    //   } else if (event.detail === false) {
-    //   }
-    // })
+    document.addEventListener('onPageReady', (event) => {
+      currentPage = $('[data-barba-namespace]').data('barbaNamespace')
+      if (event.detail === true) {
+        animateHero().play()
+        if (currentPage === 'detail-page') {
+          const navBar = $('[data-animate=nav-bar]')
+          const detailNav = $('[data-animate=detail-nav-wrap]')
+          helperFunctions.slideInNavigations(navBar, detailNav, 1).play()
+        }
+        if (currentPage === 'contact-page') {
+          animateContactForm()
+        }
+      } else if (event.detail === false) {
+      }
+    })
   })
 
   barba.init({

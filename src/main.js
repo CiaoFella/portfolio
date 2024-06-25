@@ -5,4 +5,3 @@ import setupBarba from './utils/setupBarba'
 
   setupBarba()
   initMenu()
-

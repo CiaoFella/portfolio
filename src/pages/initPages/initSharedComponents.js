@@ -1,7 +1,7 @@
 // Dynamic imports for desktop shared components
 const loadDesktopComponents = () =>
   Promise.all([
-    // import('../../utils/createInitialState'),
+    import('../../utils/createInitialState'),
     import('../../features/general/buttons'),
     import('../../features/general/sectionScale'),
     import('../../features/general/icons'),
@@ -13,7 +13,7 @@ const loadDesktopComponents = () =>
 // Dynamic imports for mobile shared components
 const loadMobileComponents = () =>
   Promise.all([
-    // import('../../utils/createInitialState'),
+    import('../../utils/createInitialState'),
     import('../../features/general/sectionScale'),
     import('../../features/general/icons'),
     import('../../features/general/navScroll'),
@@ -27,7 +27,7 @@ const mm = gsap.matchMedia()
 export default function initSharedComponents() {
   mm.add(isDesktop, async () => {
     const [
-      // { default: createInitialState },
+      { default: createInitialState },
       { default: initButtons },
       { default: initSectionScale },
       { default: initIcons },
@@ -38,7 +38,7 @@ export default function initSharedComponents() {
 
     return [
       initNavScroll(),
-      // createInitialState(),
+      createInitialState(),
       initButtons(),
       initSectionScale(),
       initIcons(),
@@ -49,17 +49,12 @@ export default function initSharedComponents() {
 
   mm.add(isLandscape, async () => {
     const [
-      // { default: createInitialState },
+      { default: createInitialState },
       { default: initSectionScale },
       { default: initIcons },
       { default: initNavScroll },
     ] = await loadMobileComponents()
 
-    return [
-      initNavScroll(),
-      // createInitialState(),
-      initSectionScale(),
-      initIcons(),
-    ]
+    return [createInitialState(), initSectionScale(), initIcons(), initNavScroll()]
   })
 }
