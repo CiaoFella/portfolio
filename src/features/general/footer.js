@@ -3,6 +3,7 @@ let $ = window.$
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
+import initCurrentTime, { killCurrentTime } from './currentTime'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,6 +19,8 @@ export default function initFooter() {
 
     const footerTl = gsap.timeline({ defaults: { duration: 1, ease: 'expo.out' } })
     const pageScaleTl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.inOut' }, immediateRender: false })
+
+    initCurrentTime()
 
     gsap.set(endOfPageElement, { yPercent: 0 })
 
@@ -67,5 +70,6 @@ export function killFooter() {
     ctx.revert()
     endOfPage = null
     footerTl = null
+    killCurrentTime()
   }
 }
