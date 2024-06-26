@@ -4,7 +4,6 @@ import barba from '@barba/core'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
-
 import { isDesktop } from './variables'
 import { cursor, magneticCursor } from './customCursor/index'
 import transitions from './animatePageTransitions'
@@ -28,6 +27,10 @@ import initContactPage from '../pages/initPages/initContactPage'
 import killContactPage from '../pages/killPages/killContactPage'
 import { animateContactForm } from '../features/contactPage/contactForm'
 import animatePageTransitions from './animatePageTransitions'
+import initLegalPage from '../pages/initPages/initLegalPage'
+import killLegalPage from '../pages/killPages/killLegalPage'
+import init404Page from '../pages/initPages/init404Page'
+import kill404Page from '../pages/killPages/kill404Page'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -48,6 +51,8 @@ const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
 
 function setupBarba() {
   let currentPage
+
+  const is404Page = () => currentPage === '404-page'
 
   barba.hooks.after((data) => {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
@@ -72,8 +77,8 @@ function setupBarba() {
   })
 
   barba.hooks.once(() => {
+    currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     document.addEventListener('onPageReady', (event) => {
-      currentPage = $('[data-barba-namespace]').data('barbaNamespace')
       if (event.detail === true) {
         animateHero().play()
         if (currentPage === 'detail-page') {
@@ -88,7 +93,6 @@ function setupBarba() {
       }
     })
   })
-
   barba.init({
     preventRunning: true,
     views: [
@@ -148,6 +152,27 @@ function setupBarba() {
         },
       },
       {
+        namespace: 'legal-page',
+        beforeEnter() {
+          helperFunctions.fadeInPage(0.5)
+          initLegalPage()
+        },
+        beforeLeave() {
+          helperFunctions.fadeOutPage(0.5)
+          killLegalPage()
+          lenis.scrollTo(0, { immediate: true })
+        },
+      },
+      {
+        namespace: '404-page',
+        beforeEnter() {
+          init404Page()
+        },
+        beforeLeave() {
+          kill404Page()
+        },
+      },
+      {
         namespace: 'detail-page',
         afterEnter() {
           requestAnimationFrame(() => {
@@ -164,15 +189,15 @@ function setupBarba() {
     transitions: [
       {
         to: {
-          namespace: ['about-page', 'home-page', 'list-page', 'award-page', 'contact-page'],
+          namespace: ['about-page', 'home-page', 'list-page', 'award-page', 'contact-page', 'legal-page'],
         },
         async leave(data) {
           lenis.stop()
-          await transitions.transitionIn() // Animate in the new page content
-          $(data.current.container).hide() // Hide the current page after animation in is complete
+          await transitions.transitionIn()
+          $(data.current.container).hide()
         },
         async enter() {
-          await transitions.transitionOut(false) // Animate out the transition elements
+          await transitions.transitionOut(false)
         },
         after() {
           lenis.start()
@@ -180,6 +205,7 @@ function setupBarba() {
       },
       {
         once: () => {
+          if (is404Page()) return
           animateTransitions.loader(3)
           lenis.scrollTo(0, { duration: 0.5 })
           matchMedia.add(isDesktop, () => {
