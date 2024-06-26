@@ -21,12 +21,13 @@ mm.add(isMobile, () => {
 const transitionSection = $('[data-animate=transition]')
 const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
 const navBar = $('[data-animate=nav-bar]')
+const loadingIndicator = transitionSection.find('[data-animate=preload-indicator]')
 
 gsap.registerPlugin(Flip)
 
 function loader(duration) {
   const transitionInnerWrap = transitionSection.find('[data-animate=transition-inner-wrap]')
-  const loadingIndicator = transitionSection.find('[data-animate=preload-indicator]')
+
   const textSlideWraps = transitionSection.find('[data-animate=text-slide-wrap]')
   const transitionLogoLeft = transitionLogo.find('[data-animate=transition-logo-path][data-direction=left]')
   const transitionLogoRight = transitionLogo.find('[data-animate=transition-logo-path][data-direction=right]')
@@ -106,6 +107,14 @@ function transitionIn() {
       proxy.pageReady = false
     },
   })
+
+  if (loadingIndicator.length > 0) {
+    gsap.set(loadingIndicator, { yPercent: 100 }, 0)
+  }
+
+  if (transitionInnerWrap.length > 0) {
+    gsap.set(transitionInnerWrap, { opacity: 0 }, 0)
+  }
 
   transitionInTl.set(transitionSection, { display: 'block' })
 
@@ -219,7 +228,7 @@ async function flipAnimation(start, end, firstTarget) {
 
     await Flip.from(firstState, {
       duration: 1.5,
-      ease: 'power3.inOut',
+      ease: 'expo.inOut',
       toggleClass: 'is-flipping',
       onStart: () => {
         proxy.pageReady = false
