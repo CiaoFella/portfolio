@@ -51,10 +51,6 @@ a [data-animate=font-weight] {
   cursor: inherit;
 }
 
-[data-animate=project-teaser-wrap] [data-animate=project-teaser-img] {
-  // visibility: hidden;
-}
-
 .line {
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
@@ -63,10 +59,6 @@ a [data-animate=font-weight] {
   .text-size-logo::first-letter {
     transform: translateX(50px);
   }
-}
-
-[data-img=threejs-hover-main], [data-img=threejs-hover-reveal] {
-  // visibility: hidden;
 }
 
 .img-wrap  {
