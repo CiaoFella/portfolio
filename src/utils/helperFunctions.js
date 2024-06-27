@@ -155,6 +155,21 @@ function fadeInPage(delay) {
   gsap.fromTo($('[data-animate=inner-page-wrapper]'), { opacity: 0 }, { opacity: 1, duration: 0.5, delay })
 }
 
+function isGoogleAnalyticsCookieSet() {
+  // List of possible Google Analytics cookie names
+  const gaCookies = ['_ga', '_gid', '_gat']
+
+  // Iterate through the document cookies
+  const cookies = document.cookie.split('; ')
+  for (let i = 0; i < cookies.length; i++) {
+    const cookieName = cookies[i].split('=')[0]
+    if (gaCookies.includes(cookieName)) {
+      return true
+    }
+  }
+  return false
+}
+
 export default {
   pageReady,
   getMouseEnterDirection,
@@ -167,4 +182,5 @@ export default {
   refreshScrollTriggers,
   fadeOutPage,
   fadeInPage,
+  isGoogleAnalyticsCookieSet,
 }

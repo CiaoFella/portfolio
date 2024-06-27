@@ -5,6 +5,7 @@ import axios from 'axios'
 import JustValidate from 'just-validate'
 import helperFunctions from '../../utils/helperFunctions'
 import SplitType from 'split-type'
+import { gtag } from 'ga-gtag'
 import { fullClipPath, rightClipPath, topClipPath } from '../../utils/variables'
 
 let ctx
@@ -202,6 +203,17 @@ function initValidation() {
       loadingIndicator.hide() // Hide the loading indicator
 
       validation.lockForm(true) // Lock the form after successful submission
+
+      // Check if Google Analytics script is loaded
+      if (!helperFunctions.isGoogleAnalyticsCookieSet()) {
+        return // Exit function if GA script is not loaded
+      } else {
+        gtag('event', 'form_submission', {
+          event_category: 'Contact Form',
+          event_label: 'Contact Form Submission',
+          value: 1,
+        })
+      }
     } catch (error) {
       // Handle error if submission fails
       console.error('Submission failed:', error)
