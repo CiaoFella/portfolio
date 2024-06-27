@@ -12,10 +12,10 @@ export default function initMatter() {
   engine = Engine.create()
   const world = engine.world
 
-  engine.world.gravity.y = 1 // Default gravity is 2 (downward)
+  engine.world.gravity.y = 1.5 // Default gravity is 2 (downward)
 
   mm.add(isMobile, () => {
-    engine.world.gravity.y = 0.25
+    engine.world.gravity.y = 0.5
   })
 
   render = Render.create({
