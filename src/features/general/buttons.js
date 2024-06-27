@@ -24,32 +24,6 @@ export default function initButtons() {
         .to(textOutSplit.chars, { y: '-120%', duration: 0.5 })
         .to(textInSplit.chars, { y: '-100%', duration: 0.4 }, '<+0.1')
 
-      if ($(button).hasClass('is-background')) {
-      } else {
-        const buttonBackground = $(button).find('.button_background')
-        if (buttonBackground) {
-          buttonHoverTl.to(
-            buttonText,
-            {
-              color: varBlack,
-              duration: 0.2,
-              ease: 'expo.out',
-            },
-            '<'
-          )
-          buttonHoverTl.fromTo(
-            buttonBackground,
-            { scale: 0 },
-            {
-              scale: 1,
-              duration: 0.2,
-              ease: 'expo.out',
-            },
-            '<'
-          )
-        }
-      }
-
       $(button).on('mouseenter', () => {
         buttonHoverTl.timeScale(1).play()
       })
