@@ -26,6 +26,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "axios": "^1.7.2",
     "eslint-plugin-vitest": "^0.4.1",
+    "ga-gtag": "^1.2.0",
     "gsap": "^3.12.4",
     "just-validate": "^4.3.0",
     "matter-js": "^0.20.0",
