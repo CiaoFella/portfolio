@@ -9,7 +9,7 @@ export default function initVariableFontWeight() {
   ctx = gsap.context(() => {
     const fontWeightItems = $('[data-animate=font-weight]')
     const maxDistance = 350 // Adjust the maximum distance for font weight change as needed
-    const maxFontWeight = 500 // Maximum font weight
+    const maxFontWeight = 550 // Maximum font weight
     const minFontWeight = 200 // Minimum font weight
 
     const masterTl = gsap.timeline()
