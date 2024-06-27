@@ -95,8 +95,6 @@ export default function initMatter() {
   ]
 
   function addParticlesWithStagger() {
-    console.log('Adding particles')
-
     // Remove existing particles
     const particles = world.bodies.filter((body) => !body.isStatic && !body.isBoundary)
     Composite.remove(world, particles)

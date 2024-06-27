@@ -199,7 +199,6 @@ function initValidation() {
 
       // Hide loading indicator on successful submission
       animateSubmitFeedback(true)
-      console.log('Submission worked')
       loadingIndicator.hide() // Hide the loading indicator
 
       validation.lockForm(true) // Lock the form after successful submission
@@ -223,7 +222,6 @@ function initValidation() {
   })
 
   validation.onFail(async function (e) {
-    console.log('Validation failed')
     loadingIndicator.hide() // Hide the loading indicator
   })
 }
