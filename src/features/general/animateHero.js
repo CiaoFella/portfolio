@@ -12,9 +12,6 @@ export default function animateHero() {
   const heroType = sectionHero.data('hero')
   const heroHeadline = sectionHero.find('[data-hero-element=headline]')
 
-  const heroCta = sectionHero.find('[data-hero-element=cta]')
-  const heroScrollIndiator = sectionHero.find('[data-hero-element=scroll]')
-
   const heroParagraph = sectionHero.find('[data-hero-element=paragraph]')
   const heroTeaser = sectionHero.find('[data-hero-element=teaser-wrap]')
   const heroTeaserImg = sectionHero.find('[data-hero-element=teaser-img]')
@@ -47,17 +44,30 @@ export default function animateHero() {
           { clipPath: fullClipPath, yPercent: 0, duration: 1.5, stagger: 0.1 },
           '<+25%'
         )
+
+      heroTeaserImg.each((index, teaserImg) => {
+        const heroInteractionTl = gsap.timeline({ paused: true, defaults: { duration: 0.75, ease: 'power3.inOut' } })
+        heroInteractionTl.to(teaserImg, { scale: 1.1 })
+        $(teaserImg).on('mouseenter', function () {
+          heroInteractionTl.play()
+        })
+        $(teaserImg).on('mouseleave', function () {
+          heroInteractionTl.reverse()
+        })
+      })
       break
     case 'detail':
       const headlineDetailSplit = new SplitType(heroHeadline, { types: 'chars' })
-      heroTl
-        .to([headlineDetailSplit.chars, heroHeadline], { y: 0, duration: 1.5, delay: 0.2, stagger: 0.03 }, 0)
-        .fromTo(
-          $('[data-flip-element=end]:not(.is-hidden)'),
-          { clipPath: bottomClipPath },
-          { clipPath: fullClipPath, duration: 1.5 },
-          '<'
-        )
+      const endFlipElement = $('[data-flip-element=end]:not(.is-hidden)')
+      heroTl.to([headlineDetailSplit.chars, heroHeadline], { y: 0, duration: 1.5, delay: 0.2, stagger: 0.03 }, 0)
+      endFlipElement.length > 0
+        ? heroTl.fromTo(
+            $('[data-flip-element=end]:not(.is-hidden)'),
+            { clipPath: bottomClipPath },
+            { clipPath: fullClipPath, duration: 1.5 },
+            '<'
+          )
+        : null
       break
     default:
       break
