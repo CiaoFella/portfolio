@@ -8,6 +8,7 @@ const loadDesktopComponents = () =>
     import('../../features/general/logo'),
     import('../../features/general/variableFontWeight'),
     import('../../features/general/navScroll'),
+    import('../../features/general/currentTime'),
   ])
 
 // Dynamic imports for mobile shared components
@@ -17,6 +18,7 @@ const loadMobileComponents = () =>
     import('../../features/general/sectionScale'),
     import('../../features/general/icons'),
     import('../../features/general/navScroll'),
+    import('../../features/general/currentTime'),
   ])
 
 import gsap from 'gsap'
@@ -34,6 +36,7 @@ export default function initSharedComponents() {
       { default: initLogo },
       { default: initVariableFontWeight },
       { default: initNavScroll },
+      { default: initCurrentTime },
     ] = await loadDesktopComponents()
 
     return [
@@ -44,6 +47,7 @@ export default function initSharedComponents() {
       initIcons(),
       initLogo(),
       initVariableFontWeight(),
+      initCurrentTime(),
     ]
   })
 
@@ -53,8 +57,9 @@ export default function initSharedComponents() {
       { default: initSectionScale },
       { default: initIcons },
       { default: initNavScroll },
+      { default: initCurrentTime },
     ] = await loadMobileComponents()
 
-    return [createInitialState(), initSectionScale(), initIcons(), initNavScroll()]
+    return [createInitialState(), initSectionScale(), initIcons(), initNavScroll(), initCurrentTime()]
   })
 }
