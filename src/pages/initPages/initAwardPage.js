@@ -30,7 +30,7 @@ export default function initAwardPage() {
     const [
       { default: awardListHover },
       { default: awardListScroll },
-      { default: footer },
+      { default: initFooter },
       { default: connectScroll },
       { default: headlineScroll },
       { default: initMatter },
@@ -40,7 +40,7 @@ export default function initAwardPage() {
     return [
       awardListHover(),
       awardListScroll(),
-      footer(),
+      initFooter(),
       connectScroll(),
       headlineScroll(),
       initMatter(),
@@ -52,7 +52,7 @@ export default function initAwardPage() {
     const [
       { default: awardListHover },
       { default: awardListScroll },
-      { default: footer },
+      { default: initFooter },
       { default: connectScroll },
       { default: headlineScroll },
       { default: initMatter },
@@ -62,7 +62,7 @@ export default function initAwardPage() {
     return [
       awardListHover(),
       awardListScroll(),
-      footer(),
+      initFooter(),
       connectScroll(),
       headlineScroll(),
       initMatter(),
