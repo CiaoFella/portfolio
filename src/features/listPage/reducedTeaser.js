@@ -24,7 +24,7 @@ export default function initReducedTeaser() {
       const scrollTl = gsap.timeline()
 
       teaserTl
-        .to(img, { scale: 1.2, filter: 'blur(5px)' })
+        .to(img, { height: '120%', filter: 'blur(5px)' })
         .fromTo(videoWrap, { clipPath: bottomClipPath }, { clipPath: fullClipPath, duration: 1.5, ease: 'expo.inOut' }, '<')
         .from(headlineSplit.chars, { yPercent: 100, duration: 0.5, stagger: 0.0075 }, '<')
 
