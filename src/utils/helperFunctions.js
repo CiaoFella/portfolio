@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
 import {
+  isMobile,
   svgEndFromBottom,
   svgEndFromLeft,
   svgEndFromRight,
@@ -170,6 +171,15 @@ function isGoogleAnalyticsCookieSet() {
   return false
 }
 
+function removeElementOnMobile() {
+  if (window.matchMedia(isMobile).matches) {
+    var elements = document.querySelectorAll('.remove-mobile')
+    elements.forEach(function (element) {
+      element.remove()
+    })
+  }
+}
+
 export default {
   pageReady,
   getMouseEnterDirection,
@@ -183,4 +193,5 @@ export default {
   fadeOutPage,
   fadeInPage,
   isGoogleAnalyticsCookieSet,
+  removeElementOnMobile,
 }

@@ -77,6 +77,16 @@ function setupBarba() {
   })
 
   barba.hooks.once(() => {
+    let resizeTimeout
+    function handleResize() {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(function () {
+        helperFunctions.removeElementOnMobile()
+      }, 250)
+    }
+    helperFunctions.removeElementOnMobile()
+    window.addEventListener('resize', handleResize)
+
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     document.addEventListener('onPageReady', (event) => {
       if (event.detail === true) {
