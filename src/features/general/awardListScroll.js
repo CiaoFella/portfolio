@@ -33,14 +33,17 @@ export default function initAwardListScroll() {
         '<'
       )
     }
-    awardTl
-      .fromTo(
-        headlineSplit.lines,
-        { yPercent: 100, clipPath: bottomClipPath },
-        { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 },
-        '<'
-      )
-      .call(() => helperFunctions.animateCountdown(count, 3, 0), [], 0)
+    if (headline.length > 0) {
+      awardTl
+        .fromTo(
+          headlineSplit.lines,
+          { yPercent: 100, clipPath: bottomClipPath },
+          { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 },
+          '<'
+        )
+        .call(() => helperFunctions.animateCountdown(count, 3, 0), [], 0)
+    }
+
 
     if (scrollIcon.length > 0) {
       scrubTl.to(scrollIcon, { rotateZ: 720, duration: 1 })
