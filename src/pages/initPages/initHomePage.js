@@ -10,6 +10,7 @@ const loadDesktopComponents = () =>
     import('../../features/general/awardListScroll'),
     import('../../features/general/aboutTeaser'),
     import('../../features/homePage/achievement'),
+    import('../../features/homePage/pattern'),
     import('../../features/listPage/reducedTeaser'),
     import('./initSharedComponents'),
   ])
@@ -23,6 +24,7 @@ const loadMobileComponents = () =>
     import('../../features/general/footer'),
     import('../../features/general/awardListScroll'),
     import('../../features/general/aboutTeaser'),
+    import('../../features/homePage/pattern'),
     import('../../features/listPage/reducedTeaser'),
     import('./initSharedComponents'),
   ])
@@ -44,6 +46,7 @@ export default function initHomePage() {
       { default: initAwardListScroll },
       { default: initAboutTeaser },
       { default: initAchievement },
+      { default: initPattern },
       { default: initReducedTeaser },
       { default: initSharedComponents },
     ] = await loadDesktopComponents()
@@ -58,6 +61,7 @@ export default function initHomePage() {
       initAwardListScroll(),
       initAboutTeaser(),
       initAchievement(),
+      initPattern(),
       initReducedTeaser(),
       initSharedComponents(),
     ]
@@ -71,6 +75,7 @@ export default function initHomePage() {
       { default: initFooter },
       { default: initAwardListScroll },
       { default: initAboutTeaser },
+      { default: initPattern },
       { default: initReducedTeaser },
       { default: initSharedComponents },
     ] = await loadMobileComponents()
@@ -82,6 +87,7 @@ export default function initHomePage() {
       initFooter(),
       initAwardListScroll(),
       initAboutTeaser(),
+      initPattern(),
       initReducedTeaser(),
       initSharedComponents(),
     ]
