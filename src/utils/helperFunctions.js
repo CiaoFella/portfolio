@@ -2,7 +2,9 @@ import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
 import {
+  isLandscape,
   isMobile,
+  isTablet,
   svgEndFromBottom,
   svgEndFromLeft,
   svgEndFromRight,
@@ -179,9 +181,27 @@ function isGoogleAnalyticsCookieSet() {
   return false
 }
 
-function removeElementOnMobile() {
+function handleResponsiveElementRemoval() {
   if (window.matchMedia(isMobile).matches) {
-    var elements = document.querySelectorAll('.remove-mobile')
+    const elements = document.querySelectorAll('.remove-mobile')
+    elements.forEach(function (element) {
+      element.remove()
+    })
+  }
+  if (window.matchMedia(isLandscape).matches) {
+    const elements = document.querySelectorAll('.remove-landscape')
+    elements.forEach(function (element) {
+      element.remove()
+    })
+  }
+  if (window.matchMedia(isTablet).matches) {
+    const elements = document.querySelectorAll('.remove-tablet')
+    elements.forEach(function (element) {
+      element.remove()
+    })
+  }
+  if (window.matchMedia(isTablet).matches) {
+    const elements = document.querySelectorAll('.remove-desktop')
     elements.forEach(function (element) {
       element.remove()
     })
@@ -201,5 +221,5 @@ export default {
   fadeOutPage,
   fadeInPage,
   isGoogleAnalyticsCookieSet,
-  removeElementOnMobile,
+  handleResponsiveElementRemoval,
 }
