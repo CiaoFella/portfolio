@@ -2,10 +2,12 @@ let $ = window.$
 
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { bottomClipPath, centerHalfClipPath, fullClipPath } from '../../utils/variables'
+import { bottomClipPath, centerHalfClipPath, fullClipPath, isDesktop } from '../../utils/variables'
 import SplitType from 'split-type'
 
 let ctx
+
+const mm = gsap.matchMedia()
 
 export default function initReducedTeaser() {
   ctx = gsap.context(() => {
@@ -23,18 +25,28 @@ export default function initReducedTeaser() {
       const teaserTl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'power4.inOut' } })
       const scrollTl = gsap.timeline()
 
-      teaserTl
-        .to(img, { height: '120%', filter: 'blur(5px)' })
-        .fromTo(videoWrap, { clipPath: bottomClipPath }, { clipPath: fullClipPath, duration: 1.5, ease: 'expo.inOut' }, '<')
-        .from(headlineSplit.chars, { yPercent: 100, duration: 0.5, stagger: 0.0075 }, '<')
+      mm.add(isDesktop, () => {
+        teaserTl
+          .to(img, { height: '120%', filter: 'blur(5px)' })
+          .from(headlineSplit.chars, { yPercent: 100, duration: 0.5, stagger: 0.0075 }, '<')
 
-      $(teaser).on('mouseenter', async () => {
-        await teaserTl.timeScale(1).play()
-        video[0].play()
-      })
-      $(teaser).on('mouseleave', async () => {
-        await teaserTl.timeScale(1.5).reverse()
-        video[0].pause()
+        if (videoWrap.length > 0) {
+          teaserTl.fromTo(
+            videoWrap,
+            { clipPath: bottomClipPath },
+            { clipPath: fullClipPath, duration: 1.5, ease: 'expo.inOut' },
+            '<'
+          )
+        }
+
+        $(teaser).on('mouseenter', async () => {
+          await teaserTl.timeScale(1).play()
+          video[0].play()
+        })
+        $(teaser).on('mouseleave', async () => {
+          await teaserTl.timeScale(1.5).reverse()
+          video[0].pause()
+        })
       })
 
       scrollTl.fromTo(img, { yPercent: -5 }, { yPercent: 5 })
