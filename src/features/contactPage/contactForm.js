@@ -74,7 +74,10 @@ export default function initContactForm() {
 
       const itemTl = gsap.timeline({ paused: true, defaults: { duration: 0.5, ease: 'power3.inOut' } })
 
-      itemTl.to(innerContent, { padding: '0 0.5rem' }).to(arrowIcon, { rotate: -45 }, '<')
+      itemTl.to(innerContent, { padding: '0 0.5rem' })
+      if (arrowIcon.length > 0) {
+        itemTl.to(arrowIcon, { rotate: -45 }, '<')
+      }
 
       $(item).on('mouseenter', (event) => {
         const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
