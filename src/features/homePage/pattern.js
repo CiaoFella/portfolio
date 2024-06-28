@@ -1,17 +1,32 @@
 import gsap from 'gsap'
+import { isLandscape, isTablet } from '../../utils/variables'
 
 let ctx
+
+const mm = gsap.matchMedia()
 
 export default function initPattern() {
   ctx = gsap.context(() => {
     const patternWrap = document.querySelector('[data-pattern=wrap]')
     const patternElementWraps = patternWrap.querySelectorAll('[data-pattern=element-wrap]')
-    const maxDistance = 200 // Adjust the maximum distance for scaling change as needed
-    const maxScale = 3 // Maximum scale factor
-    const minScale = 1 // Minimum scale factor
+    let maxDistance = 200 // Adjust the maximum distance for scaling change as needed
+    let maxScale = 3 // Maximum scale factor
+    let minScale = 1 // Minimum scale factor
+
+    let eventListener = 'mousemove'
+
+    mm.add(isLandscape, () => {
+      maxDistance = 100
+      maxScale = 2
+      minScale = 1
+    })
+
+    mm.add(isTablet, () => {
+      eventListener = 'touchmove'
+    })
 
     // Add mousemove event listener to change font weight based on mouse position
-    window.addEventListener('mousemove', (event) => {
+    window.addEventListener(eventListener, (event) => {
       // Get the mouse position
       const mouseX = event.pageX
       const mouseY = event.pageY
