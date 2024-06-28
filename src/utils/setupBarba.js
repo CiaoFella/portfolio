@@ -63,6 +63,7 @@ function setupBarba() {
       cursor.init()
       magneticCursor()
     })
+    helperFunctions.handleResponsiveElementRemoval()
   })
   barba.hooks.beforeLeave(() => {
     animatePageTransitions.setTransitionLogoPositions(transitionLogo)
@@ -77,15 +78,15 @@ function setupBarba() {
   })
 
   barba.hooks.once(() => {
-    let resizeTimeout
-    function handleResize() {
-      clearTimeout(resizeTimeout)
-      resizeTimeout = setTimeout(function () {
-        helperFunctions.removeElementOnMobile()
+    let removalResizeTimeout
+    function handleRemovalResize() {
+      clearTimeout(removalResizeTimeout)
+      removalResizeTimeout = setTimeout(function () {
+        helperFunctions.handleResponsiveElementRemoval()
       }, 250)
     }
-    helperFunctions.removeElementOnMobile()
-    window.addEventListener('resize', handleResize)
+    helperFunctions.handleResponsiveElementRemoval()
+    window.addEventListener('resize', handleRemovalResize)
 
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     document.addEventListener('onPageReady', (event) => {
