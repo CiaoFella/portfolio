@@ -15,6 +15,7 @@ export default function initReducedTeaser() {
     const allTeaser = section.find('[data-animate=reduced-teaser]')
 
     allTeaser.each((index, teaser) => {
+      const imgWrap = $(teaser).find('[data-animate=reduced-teaser-img-wrap]')
       const img = $(teaser).find('[data-animate=reduced-teaser-img]')
       const videoWrap = $(teaser).find('[data-animate=reduced-teaser-video-wrap]')
       const video = $(teaser).find('[data-animate=reduced-teaser-video]')
@@ -27,7 +28,7 @@ export default function initReducedTeaser() {
 
       mm.add(isDesktop, () => {
         teaserTl
-          .to(img, { height: '120%', filter: 'blur(5px)' })
+          .to(imgWrap, { scale: 1.1, filter: 'blur(5px)' })
           .from(headlineSplit.chars, { yPercent: 100, duration: 0.5, stagger: 0.0075 }, '<')
 
         if (videoWrap.length > 0) {
@@ -49,7 +50,7 @@ export default function initReducedTeaser() {
         })
       })
 
-      scrollTl.fromTo(img, { yPercent: -5 }, { yPercent: 5 })
+      scrollTl.fromTo(imgWrap, { yPercent: -5 }, { yPercent: 5 })
 
       gsap.set(teaser, { clipPath: centerHalfClipPath })
 
