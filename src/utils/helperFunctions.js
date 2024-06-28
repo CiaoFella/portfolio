@@ -73,6 +73,9 @@ function handleCardHoverIn(mouseDirection, allDirections) {
     } else if (mouseDirection === 'bottom') {
       start = svgStartFromBottom
       end = svgEndFromBottom
+    } else {
+      start = svgStartFromTop
+      end = svgEndFromTop
     }
   }
 
@@ -103,6 +106,9 @@ function handleCardHoverOut(mouseDirection, allDirections) {
     } else if (mouseDirection === 'bottom') {
       start = svgStartToBottom
       end = svgEndToBottom
+    } else {
+      start = svgStartToTop
+      end = svgEndToTop
     }
   }
 
@@ -110,15 +116,17 @@ function handleCardHoverOut(mouseDirection, allDirections) {
 }
 
 function animateCardHover(element, start, end) {
-  return gsap.fromTo(
-    element,
-    { attr: { d: start } },
-    {
-      attr: { d: end },
-      duration: 0.5,
-      ease: 'power3.out',
-    }
-  )
+  if (start && end) {
+    return gsap.fromTo(
+      element,
+      { attr: { d: start } },
+      {
+        attr: { d: end },
+        duration: 0.5,
+        ease: 'power3.out',
+      }
+    )
+  }
 }
 
 function animateCountdown(item, duration, startNumber) {
