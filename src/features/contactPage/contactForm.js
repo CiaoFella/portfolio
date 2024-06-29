@@ -211,8 +211,12 @@ function initValidation() {
         return // Exit function if GA script is not loaded
       } else {
         gtag('event', 'form_submission', {
-          event_category: 'Contact Form',
-          event_label: 'Contact Form Submission',
+          form_category: 'Contact Form',
+          form_label: 'Contact Form Submission',
+          form_contactOrigin: contactOrigin,
+          form_services: services,
+          form_startDate: start,
+          form_deadline: deadline,
           value: 1,
         })
       }
