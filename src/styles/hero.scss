@@ -31,6 +31,9 @@
   [data-hero-element=scroll] {
     transform: translate(0px, 100%);
   }
+  [data-pattern=element-wrap] {
+    transform: scale(0);
+  }
 }
 
 // Detail Hero
