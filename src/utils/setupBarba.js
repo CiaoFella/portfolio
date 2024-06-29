@@ -185,14 +185,13 @@ function setupBarba() {
       },
       {
         namespace: 'detail-page',
-        afterEnter() {
+        afterEnterEnter() {
           requestAnimationFrame(() => {
             initDetailPage()
             helperFunctions.refreshScrollTriggers()
           })
         },
         beforeLeave() {
-          ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
           killDetailPage()
         },
       },
@@ -203,22 +202,23 @@ function setupBarba() {
           namespace: ['about-page', 'home-page', 'list-page', 'award-page', 'contact-page', 'legal-page'],
         },
         async leave(data) {
-          lenis.stop()
           await transitions.transitionIn()
+          lenis.start()
+          lenis.scrollTo(0, { duration: 0, immediate: true })
           $(data.current.container).hide()
         },
         async enter() {
           await transitions.transitionOut(false)
-        },
-        after() {
-          lenis.start()
+          lenis.scrollTo(0, { duration: 0, immediate: true })
         },
       },
       {
         once: () => {
           if (is404Page()) return
-          animateTransitions.loader(3)
-          lenis.scrollTo(0, { duration: 0.5 })
+          animateTransitions.loader(1)
+          requestAnimationFrame(() => {
+            lenis.scrollTo(0, { duration: 0.25 })
+          })
           matchMedia.add(isDesktop, () => {
             cursor.init()
             magneticCursor()
@@ -263,17 +263,13 @@ function setupBarba() {
         from: {
           namespace: ['detail-page'],
         },
-        enter() {
+        leave() {
           proxy.pageReady = false
         },
-        afterEnter() {
-          // Leave empty
-        },
         after() {
-          requestAnimationFrame(() => {
-            lenis.scrollTo(0, { duration: 0, immediate: true })
+          setTimeout(() => {
             proxy.pageReady = true
-          })
+          }, 50)
         },
       },
     ],
