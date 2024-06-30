@@ -293,8 +293,11 @@ function setTransitionLogoPositions(transitionLogo) {
     x: (viewportWidth - logoRightBBox.width) / 2 + 0.35 * logoRightBBox.width,
   }
 
-  transitionLogoLeft.css('transform', `translate(${positionLeftPath.x}px,${positionLeftPath.y}px)`)
-  transitionLogoRight.css('transform', `translate(${positionRightPath.x}px,${positionRightPath.y}px)`)
+  gsap.set(transitionLogoLeft, { x: positionLeftPath.x, y: positionLeftPath.y })
+  gsap.set(transitionLogoRight, { x: positionRightPath.x, y: positionRightPath.y })
+
+  transitionLogoLeft[0].style.transform = `translate(${positionLeftPath.x}px, ${positionLeftPath.y}px)`
+  transitionLogoRight[0].style.transform = `translate(${positionRightPath.x}px, ${positionRightPath.y}px)`
 }
 
 window.addEventListener('resize', () =>
