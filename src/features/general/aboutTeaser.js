@@ -27,7 +27,12 @@ export default function initAboutTeaser() {
         { yPercent: 0, clipPath: fullClipPath, stagger: 0.05 },
         '<'
       )
-      .fromTo(imgWrap, { clipPath: topClipPath }, { clipPath: fullClipPath, duration: 1.5, ease: 'power4.inOut' }, '<-0.2')
+      .fromTo(
+        imgWrap,
+        { clipPath: topClipPath },
+        { clipPath: fullClipPath, duration: 1.5, ease: 'power4.inOut', force3D: true },
+        '<-0.2'
+      )
 
     ScrollTrigger.create({
       animation: aboutTeaserTl,
