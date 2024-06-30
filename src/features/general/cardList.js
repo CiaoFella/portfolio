@@ -41,7 +41,7 @@ export default function initCardList() {
 
       cardListItem.each((index, item) => {
         const bgFillPath = $(item).find('[data-animate=card-fill-path]')
-        const headline = $(item).find('.card-list_item-headline')
+        const headline = $(item).find('[data-animate=card-item-headline')
         const arrow = $(item).find('.arrow-icon-right')
         const arrowData = arrow.data('direction')
         const animation = $(item).find('[data-animate=card-animation]')
@@ -53,7 +53,7 @@ export default function initCardList() {
 
         if (headline.length > 0) {
           itemTl.to(headline, {
-            xPercent: 5,
+            x: '0.5rem',
           })
         }
         if (animation.length > 0) {
