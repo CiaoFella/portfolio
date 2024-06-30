@@ -23,7 +23,6 @@ const loadMobileComponents = () =>
     import('../../features/aboutPage/passion'),
     import('../../features/general/images'),
     import('../../features/general/scrollCounter'),
-    import('../../features/general/headlineScroll'),
     import('../../features/general/connectScroll'),
     import('../../features/general/footer'),
     import('./initSharedComponents'),
