@@ -3,11 +3,13 @@ let $ = window.$
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitType from 'split-type'
-import { bottomClipPath, fullClipPath } from '../../utils/variables'
+import { bottomClipPath, fullClipPath, isDesktop, isLandscape } from '../../utils/variables'
 
 gsap.registerPlugin(ScrollTrigger)
 
 let ctx
+
+const mm = gsap.matchMedia()
 
 export default function initMyProcess() {
   ctx = gsap.context(() => {
@@ -27,12 +29,23 @@ export default function initMyProcess() {
       const myProcessStepNumber = $(step).find('[data-animate=process-step-number]')
       const descriptionSplit = new SplitType(myProcessDescription, { types: 'lines' })
 
-      myProcessTl.fromTo(
-        [myProcessStepNumber, myProcessHeadline, descriptionSplit.lines],
-        { yPercent: 100, clipPath: bottomClipPath },
-        { yPercent: 0, clipPath: fullClipPath, stagger: 0.01, duration: 0.15 },
-        '<+0.2'
-      )
+      mm.add(isLandscape, () => {
+        myProcessTl.fromTo(
+          [myProcessStepNumber, myProcessHeadline, descriptionSplit.lines],
+          { yPercent: 100, opacity: 0 },
+          { yPercent: 0, opacity: 1, stagger: 0.01, duration: 0.15 },
+          '<+0.2'
+        )
+      })
+
+      mm.add(isDesktop, () => {
+        myProcessTl.fromTo(
+          [myProcessStepNumber, myProcessHeadline, descriptionSplit.lines],
+          { yPercent: 100, clipPath: bottomClipPath },
+          { yPercent: 0, clipPath: fullClipPath, stagger: 0.01, duration: 0.15 },
+          '<+0.2'
+        )
+      })
     })
 
     ScrollTrigger.create({
