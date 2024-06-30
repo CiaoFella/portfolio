@@ -19,7 +19,7 @@ export default function initMyProcess() {
 
     const myProcessTl = gsap.timeline()
 
-    myProcessTl.from(headlineSplit.chars, { yPercent: 100, stagger: 0.005, duration: 0.1, force3D: true }, 0)
+    myProcessTl.from(headlineSplit.chars, { yPercent: 100, stagger: 0.005, duration: 0.1 }, 0)
 
     myProcessSteps.each((index, step) => {
       const myProcessDescription = $(step).find('[data-animate=process-step-description]')
@@ -30,7 +30,7 @@ export default function initMyProcess() {
       myProcessTl.fromTo(
         [myProcessStepNumber, myProcessHeadline, descriptionSplit.lines],
         { yPercent: 100, clipPath: bottomClipPath },
-        { yPercent: 0, clipPath: fullClipPath, stagger: 0.01, duration: 0.15, force3D: true },
+        { yPercent: 0, clipPath: fullClipPath, stagger: 0.01, duration: 0.15 },
         '<+0.2'
       )
     })
