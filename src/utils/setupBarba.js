@@ -185,7 +185,7 @@ function setupBarba() {
       },
       {
         namespace: 'detail-page',
-        afterEnterEnter() {
+        beforeEnter() {
           requestAnimationFrame(() => {
             initDetailPage()
             helperFunctions.refreshScrollTriggers()
