@@ -5,28 +5,7 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-import {
-  svgStartToRight,
-  svgEndToRight,
-  svgStartFromLeft,
-  svgEndFromLeft,
-  svgStartFromRight,
-  svgEndFromRight,
-  svgStartToLeft,
-  svgEndToLeft,
-  svgStartFromTop,
-  svgEndFromTop,
-  svgEndFromBottom,
-  svgStartFromBottom,
-  svgStartToTop,
-  svgEndToTop,
-  svgStartToBottom,
-  svgEndToBottom,
-  centerVerticalClipPath,
-  fullClipPath,
-  centerHorizontalClipPath,
-  bottomClipPath,
-} from '../../utils/variables'
+import { centerVerticalClipPath, fullClipPath, centerHorizontalClipPath, bottomClipPath } from '../../utils/variables'
 import helperFunctions from '../../utils/helperFunctions'
 import SplitType from 'split-type'
 
@@ -35,6 +14,8 @@ let ctx
 export default function initCardList() {
   ctx = gsap.context(() => {
     const cardList = $('[data-animate=card-list-wrap]')
+    const lottie = Webflow.require('lottie').lottie
+    const animations = lottie.getRegisteredAnimations()
 
     cardList.each((index, list) => {
       const cardListItem = $(list).find('[data-animate=card-list-item]')
@@ -45,6 +26,12 @@ export default function initCardList() {
         const arrow = $(item).find('.arrow-icon-right')
         const arrowData = arrow.data('direction')
         const animation = $(item).find('[data-animate=card-animation]')
+        let lottieAnim
+        animations.forEach((anim) => {
+          if (anim.wrapper === animation[0]) {
+            lottieAnim = anim
+          }
+        })
 
         const itemTl = gsap.timeline({
           paused: true,
@@ -78,6 +65,19 @@ export default function initCardList() {
         }
 
         $(item).on('mouseenter', (event) => {
+          if (lottieAnim) {
+            let playCount = 0
+            function playHandler() {
+              playCount++
+              if (playCount < 2) {
+                lottieAnim.goToAndPlay(0, true)
+              } else {
+                lottieAnim.removeEventListener('complete', playHandler)
+              }
+            }
+            lottieAnim.addEventListener('complete', playHandler)
+            lottieAnim.goToAndPlay(0, true)
+          }
           itemTl.timeScale(1).play()
           const mouseDirection = helperFunctions.getMouseEnterDirection(event, item)
           const pathDirection = helperFunctions.handleCardHoverIn(mouseDirection, true)
