@@ -24,7 +24,7 @@ export default function initImageScroll() {
       mm.add(isDesktop, () => {
         gsap.set(imageWrap, { clipPath: centerHalfClipPath })
       })
-      imageTl.to(image, { scale: 1.2, duration: 1 })
+      imageTl.to(image, { scale: 1.1, duration: 1 })
 
       ScrollTrigger.create({
         animation: imageTl,
@@ -36,7 +36,7 @@ export default function initImageScroll() {
             gsap.fromTo(image, { filter: 'blur(5px)' }, { filter: 'blur(0px)', duration: 1.5, ease: 'expo.out' })
           })
         },
-        start: 'top 90%',
+        start: 'top bottom',
         end: 'bottom top',
         scrub: true,
       })
