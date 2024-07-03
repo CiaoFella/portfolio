@@ -185,11 +185,13 @@ function setupBarba() {
       },
       {
         namespace: 'detail-page',
-        beforeEnter() {
+        afterEnter() {
           requestAnimationFrame(() => {
             initDetailPage()
-            helperFunctions.refreshScrollTriggers()
           })
+          setTimeout(() => {
+            helperFunctions.refreshScrollTriggers()
+          }, 1000)
         },
         beforeLeave() {
           killDetailPage()
@@ -215,7 +217,7 @@ function setupBarba() {
       {
         once: () => {
           if (is404Page()) return
-          animateTransitions.loader(1)
+          animateTransitions.loader(4)
           requestAnimationFrame(() => {
             lenis.scrollTo(0, { duration: 0.25 })
           })
