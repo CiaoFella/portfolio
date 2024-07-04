@@ -2,6 +2,7 @@ const loadDesktopComponents = () =>
   Promise.all([
     import('../../features/detailPage/detailDescription'),
     import('../../features/general/cardList'),
+    import('../../features/detailPage/fullScreenImage'),
     import('../../features/detailPage/imageScroll'),
     import('../../features/general/textContent'),
     import('../../features/detailPage/nextProject'),
@@ -12,6 +13,7 @@ const loadMobileComponents = () =>
   Promise.all([
     import('../../features/detailPage/detailDescription'),
     import('../../features/general/cardList'),
+    import('../../features/detailPage/fullScreenImage'),
     import('../../features/detailPage/imageScroll'),
     import('../../features/general/textContent'),
     import('../../features/detailPage/nextProject'),
@@ -28,25 +30,43 @@ export default function initDetailPage() {
     const [
       { default: detailDescription },
       { default: cardList },
+      { default: initFullScreenImage },
       { default: imageScroll },
       { default: textContent },
       { default: nextProject },
       { default: initSharedComponents },
     ] = await loadDesktopComponents()
 
-    return [detailDescription(), cardList(), imageScroll(), textContent(), nextProject(), initSharedComponents()]
+    return [
+      detailDescription(),
+      cardList(),
+      initFullScreenImage(),
+      imageScroll(),
+      textContent(),
+      nextProject(),
+      initSharedComponents(),
+    ]
   })
 
   mm.add(isLandscape, async () => {
     const [
       { default: detailDescription },
       { default: cardList },
+      { default: initFullScreenImage },
       { default: imageScroll },
       { default: textContent },
       { default: nextProject },
       { default: initSharedComponents },
     ] = await loadMobileComponents()
 
-    return [detailDescription(), cardList(), imageScroll(), textContent(), nextProject(), initSharedComponents()]
+    return [
+      detailDescription(),
+      cardList(),
+      initFullScreenImage(),
+      imageScroll(),
+      textContent(),
+      nextProject(),
+      initSharedComponents(),
+    ]
   })
 }
