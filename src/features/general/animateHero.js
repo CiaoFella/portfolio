@@ -21,6 +21,8 @@ export default function animateHero() {
     defaults: { immediateRender: true, duration: 1, ease: 'expo.out' },
   })
 
+  heroTl.set(heroHeadline, { visibility: 'visible' }, 0)
+
   switch (heroType) {
     case 'text':
       const headlineTextSplit = new SplitType(heroHeadline, { types: 'chars' })
