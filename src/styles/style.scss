@@ -43,14 +43,6 @@
   top: 0;
 }
 
-[data-animate=font-weight] {
-    cursor: none;
-}
-
-a [data-animate=font-weight] {
-  cursor: inherit;
-}
-
 .line {
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
