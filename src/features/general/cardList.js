@@ -141,7 +141,7 @@ export default function initCardList() {
 }
 
 export function killCardList() {
-  if (ctx) {
+  if(ctx) {
     ctx.revert()
   }
 }
