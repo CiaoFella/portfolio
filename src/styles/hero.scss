@@ -25,6 +25,9 @@
       scale: 0.95;
     }
   }
+  [data-hero-element=trust]{
+    transform: translate(0px, 110%);
+  }
   [data-hero-element=cta] {
     clip-path: variables.$bottomClipPath;
   }

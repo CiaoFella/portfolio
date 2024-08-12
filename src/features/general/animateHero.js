@@ -49,7 +49,7 @@ export default function animateHero() {
           { clipPath: fullClipPath, yPercent: 0, duration: 1.5, stagger: 0.1 },
           '<+25%'
         )
-        .from(trustElements, { yPercent: 110, duration: 1, stagger: 0.1 }, '>-50%')
+        .to(trustElements, { y: 0, duration: 1, stagger: 0.1 }, '>-50%')
       patternLines.each((index, line) => {
         const elements = $(line).find('[data-pattern=element-wrap]')
         heroTl.to(elements, { scale: 1, duration: 2, stagger: 0.025, ease: 'power2.out' }, '<')
