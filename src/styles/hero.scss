@@ -8,8 +8,6 @@
   }
 }
 
-// Home Hero
-
 [data-hero=home] {
   [data-hero-element=paragraph]  {
     .line {
@@ -38,8 +36,6 @@
     transform: scale(0);
   }
 }
-
-// Detail Hero
 
 [data-hero=detail] {
   [data-flip-element=end]:not(.is-hidden) {
