@@ -32,6 +32,7 @@ export default function animateHero() {
       const headlineHomeSplit = new SplitType(heroHeadline, { types: 'chars' })
       const paragraphSplit = new SplitType(heroParagraph, { types: 'lines' })
       const heroPattern = $('[data-hero-element=pattern]')
+      const trustElements = heroPattern.find('[data-hero-element=trust]')
       const patternLines = heroPattern.find('[data-pattern=line]')
       heroTl
         .to([headlineHomeSplit.chars, heroHeadline], { y: 0, duration: 1, delay: 0.2, stagger: 0.03 }, 0)
@@ -48,6 +49,7 @@ export default function animateHero() {
           { clipPath: fullClipPath, yPercent: 0, duration: 1.5, stagger: 0.1 },
           '<+25%'
         )
+        .from(trustElements, { yPercent: 110, duration: 1, stagger: 0.1 }, '>-50%')
       patternLines.each((index, line) => {
         const elements = $(line).find('[data-pattern=element-wrap]')
         heroTl.to(elements, { scale: 1, duration: 2, stagger: 0.025, ease: 'power2.out' }, '<')
