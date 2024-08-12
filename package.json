@@ -23,6 +23,7 @@
     "webpack": "^5.93.0"
   },
   "dependencies": {
+    "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@barba/core": "^2.9.7",
     "@studio-freight/lenis": "^1.0.42",
