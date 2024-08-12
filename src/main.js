@@ -1,5 +1,5 @@
 import initMenu from './features/general/menu.js'
-// import './styles/style.scss'
+import './styles/style.scss'
 import setupBarba from './utils/setupBarba.js'
 
 initMenu()

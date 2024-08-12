@@ -8,4 +8,4 @@ function cleanup() {
   shared.cleanup()
 }
 
-export { init, cleanup }
+export default { init, cleanup }

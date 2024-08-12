@@ -32,15 +32,18 @@ export default function animateHero() {
       const heroPattern = $('[data-hero-element=pattern]')
       const trustElements = $('[data-hero-element=trust]')
       const patternLines = heroPattern.find('[data-pattern=line]')
+      heroTl.to([headlineHomeSplit.chars, heroHeadline], { y: 0, duration: 1, delay: 0.2, stagger: 0.03 }, 0)
+      if (heroTeaser.length > 0) {
+        heroTl
+          .fromTo(
+            heroTeaser,
+            { clipPath: centerVerticalClipPath },
+            { clipPath: fullClipPath, duration: 1.5, stagger: 0.1 },
+            '<+50%'
+          )
+          .to(heroTeaserImg, { scale: 1.05, stagger: 0.1, duration: 2, ease: 'power2.out' }, '<+10%')
+      }
       heroTl
-        .to([headlineHomeSplit.chars, heroHeadline], { y: 0, duration: 1, delay: 0.2, stagger: 0.03 }, 0)
-        .fromTo(
-          heroTeaser,
-          { clipPath: centerVerticalClipPath },
-          { clipPath: fullClipPath, duration: 1.5, stagger: 0.1 },
-          '<+50%'
-        )
-        .to(heroTeaserImg, { scale: 1.05, stagger: 0.1, duration: 2, ease: 'power2.out' }, '<+10%')
         .fromTo(
           paragraphSplit.lines,
           { clipPath: topClipPath, yPercent: 100 },

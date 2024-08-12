@@ -72,7 +72,6 @@ function setupBarba() {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     document.addEventListener('onPageReady', (event) => {
       if (event.detail === true) {
-        console.log('page ready')
         animateHero().play()
         if (currentPage === 'detail-page') {
           const navBar = $('[data-animate=nav-bar]')
