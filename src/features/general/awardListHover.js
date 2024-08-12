@@ -1,8 +1,8 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import helperFunctions from '../../utils/helperFunctions'
-import { isDesktop } from '../../utils/variables'
+import { gsap } from '../../vendor.js'
+import helperFunctions from '../../utils/helperFunctions.js'
+import { isDesktop } from '../../utils/variables.js'
 
 let ctx
 const mm = gsap.matchMedia()

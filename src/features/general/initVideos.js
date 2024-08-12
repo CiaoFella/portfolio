@@ -1,6 +1,6 @@
 let $ = window.$
 
-import { cursor } from '../../utils/customCursor/index'
+import { cursor } from '../../utils/customCursor/index.js'
 
 export default function initVideos() {
   const allVideos = $('.w-background-video')

@@ -1,38 +1,19 @@
 let $ = window.$
 
-import barba from '@barba/core'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import { gsap, barba } from '../vendor.js'
 
-import { isDesktop } from './variables'
-import { cursor, magneticCursor } from './customCursor/index'
-import transitions from './animatePageTransitions'
-import animateTransitions from './animatePageTransitions'
-import animateHero from '../features/general/animateHero'
-import helperFunctions from './helperFunctions'
-import { proxy } from './pageReadyHandler'
+import { isDesktop } from './variables.js'
+import { cursor, magneticCursor } from './customCursor/index.js'
+import transitions from './animatePageTransitions.js'
+import animateTransitions from './animatePageTransitions.js'
+import animateHero from '../features/general/animateHero.js'
+import helperFunctions from './helperFunctions.js'
+import { proxy } from './pageReadyHandler.js'
 
-import initDetailPage from '../pages/initPages/initDetailPage'
-import killDetailPage from '../pages/killPages/killDetailPage'
-import initHomePage from '../pages/initPages/initHomePage'
-import initAboutPage from '../pages/initPages/initAboutPage'
-import killAboutPage from '../pages/killPages/killAboutPage'
-import initAwardPage from '../pages/initPages/initAwardPage'
-import killAwardPage from '../pages/killPages/killAwardPage'
-import initListPage from '../pages/initPages/initListPage'
-import killListPage from '../pages/killPages/killListPage'
-import { closeMenu } from '../features/general/menu'
-import lenis from './smoothScroll'
-import initContactPage from '../pages/initPages/initContactPage'
-import killContactPage from '../pages/killPages/killContactPage'
-import { animateContactForm } from '../features/contactPage/contactForm'
-import animatePageTransitions from './animatePageTransitions'
-import initLegalPage from '../pages/initPages/initLegalPage'
-import killLegalPage from '../pages/killPages/killLegalPage'
-import init404Page from '../pages/initPages/init404Page'
-import kill404Page from '../pages/killPages/kill404Page'
-
-gsap.registerPlugin(ScrollTrigger)
+import { closeMenu } from '../features/general/menu.js'
+import lenis from './smoothScroll.js'
+import { animateContactForm } from '../features/contactPage/contactForm.js'
+import animatePageTransitions from './animatePageTransitions.js'
 
 const matchMedia = gsap.matchMedia()
 
@@ -91,6 +72,7 @@ function setupBarba() {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     document.addEventListener('onPageReady', (event) => {
       if (event.detail === true) {
+        console.log('page ready')
         animateHero().play()
         if (currentPage === 'detail-page') {
           const navBar = $('[data-animate=nav-bar]')
@@ -111,90 +93,90 @@ function setupBarba() {
         namespace: 'home-page',
         beforeEnter() {
           helperFunctions.fadeInPage(0.5)
-          initHomePage()
+          // initHomePage()
         },
         beforeLeave() {
           helperFunctions.fadeOutPage(0.5)
-          killDetailPage()
+          // killDetailPage()
         },
       },
       {
         namespace: 'about-page',
         beforeEnter() {
           helperFunctions.fadeInPage(0.5)
-          initAboutPage()
+          // initAboutPage()
         },
         beforeLeave() {
           helperFunctions.fadeOutPage(0.5)
-          killAboutPage()
+          // killAboutPage()
         },
       },
       {
         namespace: 'list-page',
         beforeEnter() {
           helperFunctions.fadeInPage(0.5)
-          initListPage()
+          // initListPage()
         },
         beforeLeave() {
           helperFunctions.fadeOutPage(0.5)
-          killListPage()
+          // killListPage()
         },
       },
       {
         namespace: 'award-page',
         beforeEnter() {
           helperFunctions.fadeInPage(0.5)
-          initAwardPage()
+          // initAwardPage()
         },
         beforeLeave() {
           helperFunctions.fadeOutPage(0.5)
-          killAwardPage()
+          // killAwardPage()
         },
       },
       {
         namespace: 'contact-page',
         beforeEnter() {
           helperFunctions.fadeInPage(0.5)
-          initContactPage()
+          // initContactPage()
         },
         beforeLeave() {
           helperFunctions.fadeOutPage(0.5)
-          killContactPage()
+          // killContactPage()
         },
       },
       {
         namespace: 'legal-page',
         beforeEnter() {
           helperFunctions.fadeInPage(0.5)
-          initLegalPage()
+          // initLegalPage()
         },
         beforeLeave() {
           helperFunctions.fadeOutPage(0.5)
-          killLegalPage()
+          // killLegalPage()
           lenis.scrollTo(0, { immediate: true })
         },
       },
       {
         namespace: '404-page',
         beforeEnter() {
-          init404Page()
+          // init404Page()
         },
         beforeLeave() {
-          kill404Page()
+          // kill404Page()
         },
       },
       {
         namespace: 'detail-page',
         afterEnter() {
           requestAnimationFrame(() => {
-            initDetailPage()
+            // initDetailPage()
           })
           setTimeout(() => {
             helperFunctions.refreshScrollTriggers()
           }, 1000)
         },
         beforeLeave() {
-          killDetailPage()
+          // killDetailPage()
         },
       },
     ],
@@ -276,6 +258,8 @@ function setupBarba() {
       },
     ],
   })
+
+  return barba
 }
 
 export default setupBarba

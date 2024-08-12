@@ -1,6 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
+import { gsap } from '../../vendor.js'
 
 export default class Magnetic {
   constructor(el, options = {}) {

@@ -1,7 +1,7 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import { fullClipPath, leftQuarterClipPath, rightQuarterClipPath } from '../../utils/variables'
+import { gsap } from '../../vendor.js'
+import { fullClipPath, leftQuarterClipPath, rightQuarterClipPath } from '../../utils/variables.js'
 
 let ctx
 

@@ -1,11 +1,7 @@
 let $ = window.$
 
-import barba from '@barba/core'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import { gsap, ScrollTrigger, barba } from '../../vendor.js'
 import lenis from '../../utils/smoothScroll'
-
-gsap.registerPlugin(ScrollTrigger)
 
 let ctx
 

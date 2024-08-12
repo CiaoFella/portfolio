@@ -1,6 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
+import { gsap } from '../../vendor.js'
 
 let ctx
 

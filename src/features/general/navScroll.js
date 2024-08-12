@@ -1,8 +1,8 @@
 let $ = window.$
 
-import gsap from 'gsap' // eslint-disable-line
-import { fullClipPath, rightSideClipPath } from '../../utils/variables'
-import lenis from '../../utils/smoothScroll'
+import { gsap } from '../../vendor.js'
+import { fullClipPath, rightSideClipPath } from '../../utils/variables.js'
+import lenis from '../../utils/smoothScroll.js'
 
 let ctx
 let isPlaying = false
@@ -10,7 +10,7 @@ let navBar
 let detailNav
 let navBarScrollTl
 
-export default function initNavScroll(data) {
+export default function initNavScroll() {
   ctx = gsap.context(() => {
     navBar = $('[data-animate=nav-bar]')
     detailNav = $('[data-animate=detail-nav-wrap]')

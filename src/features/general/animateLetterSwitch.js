@@ -1,7 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import SplitType from 'split-type'
+import { gsap, SplitType } from '../../vendor.js'
 
 function setLetterSwitch(item) {
   const letterSwitchElement = $(item)

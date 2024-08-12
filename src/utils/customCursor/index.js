@@ -1,10 +1,9 @@
 let $ = window.$
 
-import gsap from 'gsap'
-
-import Cursor from './cursor'
-import Magnetic from './magnetic'
-import { isDesktop } from '../variables'
+import { gsap } from '../../vendor.js'
+import Cursor from './cursor.js'
+import Magnetic from './magnetic.js'
+import { isDesktop } from '../variables.js'
 
 const mm = gsap.matchMedia()
 
@@ -20,8 +19,6 @@ mm.add(isDesktop, () => {
     visibleTimeout: 300, // disappear timeout
   })
 })
-
-
 
 export const magneticCursor = () => {
   const allMagnetic = $('[data-magnetic]')
@@ -55,4 +52,3 @@ export const magneticCursor = () => {
     }
   })
 }
-

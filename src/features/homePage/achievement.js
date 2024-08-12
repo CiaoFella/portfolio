@@ -1,9 +1,7 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { fullClipPath, topClipPath } from '../../utils/variables'
-import SplitType from 'split-type'
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
+import { fullClipPath, topClipPath } from '../../utils/variables.js'
 
 let ctx
 

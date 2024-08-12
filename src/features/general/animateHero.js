@@ -1,9 +1,7 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import SplitType from 'split-type'
-import { bottomClipPath, centerVerticalClipPath, fullClipPath, leftClipPath, topClipPath } from '../../utils/variables'
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
+import { bottomClipPath, centerVerticalClipPath, fullClipPath, topClipPath } from '../../utils/variables.js'
 
 gsap.registerPlugin(ScrollTrigger)
 

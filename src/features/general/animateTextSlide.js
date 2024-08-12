@@ -1,7 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import SplitType from 'split-type'
+import { gsap, SplitType } from '../../vendor.js'
 
 export default function animateTextSlide(items, duration) {
   $(items).each((index, wrap) => {

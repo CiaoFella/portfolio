@@ -1,9 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import SplitType from 'split-type'
-
-import { varBlack } from '../../utils/variables'
+import { gsap, SplitType } from '../../vendor.js'
 
 let ctx
 

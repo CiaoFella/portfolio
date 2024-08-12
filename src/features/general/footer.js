@@ -1,11 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import SplitType from 'split-type'
-import initCurrentTime, { killCurrentTime } from './currentTime'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
 let ctx
 

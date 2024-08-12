@@ -1,4 +1,4 @@
-import SplitType from 'split-type'
+import { SplitType } from '../vendor.js'
 
 let $ = window.$
 

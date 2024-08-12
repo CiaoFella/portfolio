@@ -1,7 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import { gsap, ScrollTrigger } from '../../vendor.js'
 import {
   bottomClipPath,
   centerClipPath,
@@ -10,8 +9,7 @@ import {
   leftClipPath,
   rightClipPath,
   topClipPath,
-} from '../../utils/variables'
-gsap.registerPlugin(ScrollTrigger)
+} from '../../utils/variables.js'
 
 let ctx
 

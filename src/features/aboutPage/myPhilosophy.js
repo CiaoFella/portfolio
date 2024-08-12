@@ -1,6 +1,5 @@
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { isDesktop, isMobile, isTablet } from '../../utils/variables'
+import { gsap, ScrollTrigger } from '../../vendor.js'
+import { isDesktop, isMobile, isTablet } from '../../utils/variables.js'
 
 gsap.registerPlugin(ScrollTrigger)
 

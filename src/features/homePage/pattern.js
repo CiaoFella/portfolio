@@ -1,5 +1,5 @@
-import gsap from 'gsap'
-import { isLandscape, isTablet } from '../../utils/variables'
+import { gsap } from '../../vendor.js'
+import { isLandscape, isTablet } from '../../utils/variables.js'
 
 let ctx
 

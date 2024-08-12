@@ -1,10 +1,8 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import SplitType from 'split-type'
-import { bottomClipPath, centerHorizontalClipPath, centerVerticalClipPath, fullClipPath } from '../../utils/variables'
-import helperFunctions from '../../utils/helperFunctions'
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
+import { bottomClipPath, centerHorizontalClipPath, fullClipPath } from '../../utils/variables.js'
+import helperFunctions from '../../utils/helperFunctions.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,7 +41,6 @@ export default function initAwardListScroll() {
         )
         .call(() => helperFunctions.animateCountdown(count, 3, 0), [], 0)
     }
-
 
     if (scrollIcon.length > 0) {
       scrubTl.to(scrollIcon, { rotateZ: 720, duration: 1 })

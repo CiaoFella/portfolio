@@ -1,6 +1,6 @@
 let $ = window.$
 
-import gsap from 'gsap'
+import { gsap } from '../../vendor.js'
 
 const pointerColletion = 'a,input,textarea,button,.menu-trigger'
 
@@ -41,12 +41,8 @@ export default class Cursor {
       })
       .on('mousemove', (e) => {
         this.pos = {
-          x: this.stick
-            ? this.stick.x - (this.stick.x - e.clientX) * 0.15
-            : e.clientX,
-          y: this.stick
-            ? this.stick.y - (this.stick.y - e.clientY) * 0.15
-            : e.clientY,
+          x: this.stick ? this.stick.x - (this.stick.x - e.clientX) * 0.15 : e.clientX,
+          y: this.stick ? this.stick.y - (this.stick.y - e.clientY) * 0.15 : e.clientY,
         }
         this.update()
       })
@@ -149,9 +145,6 @@ export default class Cursor {
   hide() {
     clearInterval(this.visibleInt)
     this.el.removeClass('-visible')
-    this.visibleInt = setTimeout(
-      () => (this.visible = false),
-      this.options.visibleTimeout
-    )
+    this.visibleInt = setTimeout(() => (this.visible = false), this.options.visibleTimeout)
   }
 }

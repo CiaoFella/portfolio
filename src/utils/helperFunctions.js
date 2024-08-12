@@ -1,6 +1,5 @@
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import SplitType from 'split-type'
+import { gsap, ScrollTrigger, SplitType } from '../vendor.js'
+
 import {
   isLandscape,
   isMobile,
@@ -21,7 +20,7 @@ import {
   svgStartToLeft,
   svgStartToRight,
   svgStartToTop,
-} from './variables'
+} from './variables.js'
 
 let pageReady = false
 

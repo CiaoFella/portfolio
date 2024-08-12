@@ -1,12 +1,8 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import axios from 'axios'
-import JustValidate from 'just-validate'
-import helperFunctions from '../../utils/helperFunctions'
-import SplitType from 'split-type'
-import { gtag } from 'ga-gtag'
-import { fullClipPath, rightClipPath, topClipPath } from '../../utils/variables'
+import helperFunctions from '../../utils/helperFunctions.js'
+import { gsap, SplitType, axios, JustValidate, gtag } from '../../vendor.js'
+import { fullClipPath, rightClipPath, topClipPath } from '../../utils/variables.js'
 
 let ctx
 let validation

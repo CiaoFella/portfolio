@@ -1,9 +1,7 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import helperFunctions from '../../utils/helperFunctions'
-gsap.registerPlugin(ScrollTrigger)
+import { gsap, ScrollTrigger } from '../../vendor.js'
+import helperFunctions from '../../utils/helperFunctions.js'
 
 let ctx
 

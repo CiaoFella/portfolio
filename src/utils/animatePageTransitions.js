@@ -1,11 +1,10 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import { Flip } from 'gsap/Flip'
-import animateTextSlide from '../features/general/animateTextSlide'
-import helperFunctions from './helperFunctions'
-import { proxy } from './pageReadyHandler'
-import { isDesktop, isMobile, isTablet } from './variables'
+import { gsap, Flip } from '../vendor.js'
+import animateTextSlide from '../features/general/animateTextSlide.js'
+import helperFunctions from './helperFunctions.js'
+import { proxy } from './pageReadyHandler.js'
+import { isDesktop, isMobile, isTablet } from './variables.js'
 
 let innerWrapStartGap = '70%'
 let logoPathStartPercentage = 35
@@ -22,8 +21,6 @@ const transitionSection = $('[data-animate=transition]')
 const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
 const navBar = $('[data-animate=nav-bar]')
 const loadingIndicator = transitionSection.find('[data-animate=preload-indicator]')
-
-gsap.registerPlugin(Flip)
 
 function loader(duration) {
   const transitionInnerWrap = transitionSection.find('[data-animate=transition-inner-wrap]')

@@ -1,6 +1,5 @@
-import gsap from 'gsap'
-import { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events, Body } from 'matter-js'
-import { isDesktop, isLandscape, isMobile, isTablet } from './variables'
+import { gsap, Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events, Body } from '../vendor.js'
+import { isDesktop, isLandscape, isMobile, isTablet } from './variables.js'
 
 const mm = gsap.matchMedia()
 

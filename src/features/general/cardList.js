@@ -1,13 +1,8 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-import { centerVerticalClipPath, fullClipPath, centerHorizontalClipPath, bottomClipPath } from '../../utils/variables'
-import helperFunctions from '../../utils/helperFunctions'
-import SplitType from 'split-type'
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
+import { centerVerticalClipPath, fullClipPath, centerHorizontalClipPath, bottomClipPath } from '../../utils/variables.js'
+import helperFunctions from '../../utils/helperFunctions.js'
 
 let ctx
 
@@ -141,7 +136,7 @@ export default function initCardList() {
 }
 
 export function killCardList() {
-  if(ctx) {
+  if (ctx) {
     ctx.revert()
   }
 }

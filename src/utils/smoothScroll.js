@@ -1,6 +1,6 @@
 let $ = window.$
 
-import Lenis from '@studio-freight/lenis'
+import { Lenis } from '../vendor.js'
 
 const lenis = new Lenis({
   lerp: 0.075,

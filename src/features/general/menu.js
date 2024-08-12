@@ -1,8 +1,7 @@
 let $ = window.$
 
-import gsap from 'gsap'
-import SplitType from 'split-type'
-import lenis from '../../utils/smoothScroll'
+import { gsap, SplitType } from '../../vendor.js'
+import lenis from '../../utils/smoothScroll.js'
 
 export default function initMenu() {
   const navigationSection = $('[data-animate=navigation-section]')
