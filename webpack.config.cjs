@@ -2,14 +2,11 @@ const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 module.exports = {
   entry: {
     index: './src/index.js',
     vendor: './src/vendor.js',
-    styles: './src/styles/style.scss', // Add this line to include your SCSS file
   },
   output: {
     filename: '[name].js',
@@ -49,8 +46,12 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        test: /\.scss$/, // Process .scss files
+        use: [
+          'style-loader', // Injects styles into DOM
+          'css-loader', // Turns CSS into CommonJS
+          'sass-loader', // Compiles Sass to CSS
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/,
@@ -68,9 +69,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css', // Output the CSS file with the same name as the entry point
-    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -97,7 +95,6 @@ module.exports = {
         },
         extractComments: false,
       }),
-      new CssMinimizerPlugin(),
     ],
     splitChunks: {
       cacheGroups: {

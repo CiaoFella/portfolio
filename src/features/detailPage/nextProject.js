@@ -1,7 +1,7 @@
 let $ = window.$
 
 import { gsap, ScrollTrigger, barba } from '../../vendor.js'
-import lenis from '../../utils/smoothScroll'
+import lenis from '../../utils/smoothScroll.js'
 
 let ctx
 

@@ -7,3 +7,4 @@ dist-ssr
 .env
 .eslintcache
 yarn-error.log
+/src/style.css

@@ -1,8 +1,12 @@
 import initMenu from './features/general/menu.js'
-import './styles/style.scss'
+import createInitialState from './utils/createInitialState.js'
 import setupBarba from './utils/setupBarba.js'
 
 initMenu()
+
+const barba = setupBarba()
+
+createInitialState()
 
 let currentAnimationModule = null
 
@@ -41,11 +45,11 @@ function loadPageModule(pageName) {
 const initialPageName = document.querySelector('[data-barba="container"]').dataset.barbaNamespace
 loadPageModule(initialPageName)
 
-setupBarba().hooks.beforeEnter(({ next }) => {
+barba.hooks.beforeEnter(({ next }) => {
   cleanupCurrentModule()
 })
 
-setupBarba().hooks.after(({ next }) => {
+barba.hooks.afterLeave(({ next }) => {
   const pageName = next.namespace
   loadPageModule(pageName)
 })

@@ -14,6 +14,7 @@ import { closeMenu } from '../features/general/menu.js'
 import lenis from './smoothScroll.js'
 import { animateContactForm } from '../features/contactPage/contactForm.js'
 import animatePageTransitions from './animatePageTransitions.js'
+import createInitialState from './createInitialState.js'
 
 const matchMedia = gsap.matchMedia()
 

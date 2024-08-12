@@ -5,12 +5,16 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack serve --mode development",
-    "build": "webpack --config webpack.config.cjs",
+    "build-css": "sass --style=compressed --no-source-map src/styles/style.scss dist/style.css && sass --style=compressed --no-source-map src/styles/style.scss src/style.css",
+    "watch-css": "concurrently \"sass --style=compressed --no-source-map --watch src/styles/style.scss:dist/style.css\" \"sass --style=compressed --no-source-map --watch src/styles/style.scss:src/style.css\"",
+    "build-js": "webpack --config webpack.config.cjs",
+    "build": "npm run build-js && npm run build-css",
     "start": "webpack-dev-server --config webpack.config.cjs",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet",
     "format": "prettier --write 'src/**/*.{js,ts,css}'"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "eslint": "^8.7.0",
