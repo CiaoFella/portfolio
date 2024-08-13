@@ -10,6 +10,7 @@ initMenu()
 
 const barba = setupBarba()
 const matchMedia = gsap.matchMedia()
+gsap.config({ force3D: true })
 
 createInitialState()
 
