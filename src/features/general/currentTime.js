@@ -49,7 +49,7 @@ export default function initCurrentTime() {
     }
 
     function createColonElement() {
-      const colon = document.createElement('strong')
+      const colon = document.createElement('span')
       colon.id = 'colon'
       timeElement.appendChild(colon)
       return colon
