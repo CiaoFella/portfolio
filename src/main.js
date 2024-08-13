@@ -71,9 +71,12 @@ barba.hooks.beforeEnter(({ next }) => {
   })
 })
 
+barba.hooks.beforeLeave(() => {
+  animatePageTransitions.setTransitionLogoPositions(transitionLogo)
+  closeMenu(true)
+})
+
 barba.hooks.afterLeave(({ next }) => {
   const pageName = next.namespace
   loadPageModule(pageName)
-  animatePageTransitions.setTransitionLogoPositions(transitionLogo)
-  closeMenu(true)
 })
