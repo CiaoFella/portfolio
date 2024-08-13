@@ -39,10 +39,10 @@ function setupBarba() {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
     resetWebflow(data)
     matchMedia.add(isDesktop, () => {
-      const $customCrusor = $('.cb-cursor')
-      $customCrusor.remove()
-      cursor.init()
-      magneticCursor()
+      // const $customCrusor = $('.cb-cursor')
+      // $customCrusor.remove()
+      // cursor.init()
+      // magneticCursor()
     })
     helperFunctions.handleResponsiveElementRemoval()
   })
@@ -203,8 +203,8 @@ function setupBarba() {
             lenis.scrollTo(0, { duration: 0.25 })
           })
           matchMedia.add(isDesktop, () => {
-            cursor.init()
-            magneticCursor()
+            // cursor.init()
+            // magneticCursor()
           })
         },
       },
