@@ -66,7 +66,7 @@ module.exports = {
         {
           from: 'src',
           globOptions: {
-            ignore: ['**/vendor.js', 'src/index.js'],
+            ignore: ['**/index.js', '**/vendor.js'],
           },
         },
         { from: '_headers', to: '' },
