@@ -1,11 +1,24 @@
 import initMenu, { closeMenu } from './features/general/menu.js'
 import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
+import { magneticCursor, cursor } from './utils/customCursor/customCursor.js'
 import helperFunctions from './utils/helperFunctions.js'
 import setupBarba from './utils/setupBarba.js'
 import lenis from './utils/smoothScroll.js'
 import { isDesktop, isTablet } from './utils/variables.js'
 import { gsap } from './vendor.js'
+
+function resetWebflow(data) {
+  let parser = new DOMParser()
+  let dom = parser.parseFromString(data.next.html, 'text/html')
+  let webflowPageId = $(dom).find('html').attr('data-wf-page')
+  $('html').attr('data-wf-page', webflowPageId)
+  window.Webflow && window.Webflow.destroy()
+  console.log(window.Webflow)
+  window.Webflow && window.Webflow.window.Webflow && window.Webflow.ready()
+  window.Webflow && window.Webflow.require('ix2').init()
+  window.Webflow && window.Webflow.require('lottie').init()
+}
 
 initMenu()
 
@@ -71,18 +84,16 @@ const initialPageName = document.querySelector('[data-barba="container"]').datas
 loadPageModule(initialPageName)
 
 barba.hooks.once(() => {
-  // if (is404Page()) return
-  animatePageTransitions.loader(3)
   requestAnimationFrame(() => {
     lenis.scrollTo(0, { duration: 0.25 })
   })
   matchMedia.add(isDesktop, () => {
-    // cursor.init()
-    // magneticCursor()
+    cursor.init()
+    magneticCursor()
   })
 })
 
-barba.hooks.beforeEnter(({}) => {
+barba.hooks.beforeEnter((data) => {
   cleanupCurrentModule()
 })
 
@@ -102,4 +113,8 @@ barba.hooks.beforeLeave(() => {
 barba.hooks.afterLeave(({ next }) => {
   const pageName = next.namespace
   loadPageModule(pageName)
+})
+
+barba.hooks.after(({ data }) => {
+  resetWebflow(data)
 })

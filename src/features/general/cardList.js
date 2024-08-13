@@ -7,10 +7,11 @@ import helperFunctions from '../../utils/helperFunctions.js'
 let ctx
 
 export default function initCardList() {
+  const lottie = Webflow.require('lottie').lottie
+  const animations = lottie.getRegisteredAnimations()
+
   ctx = gsap.context(() => {
     const cardList = $('[data-animate=card-list-wrap]')
-    const lottie = Webflow.require('lottie').lottie
-    const animations = lottie.getRegisteredAnimations()
 
     cardList.each((index, list) => {
       const cardListItem = $(list).find('[data-animate=card-list-item]')

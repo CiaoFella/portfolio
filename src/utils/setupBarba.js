@@ -10,18 +10,10 @@ import helperFunctions from './helperFunctions.js'
 import { proxy } from './pageReadyHandler.js'
 import lenis from './smoothScroll.js'
 import { animateContactForm } from '../features/contactPage/contactForm.js'
+import animatePageTransitions from './animatePageTransitions.js'
+import { cursor, magneticCursor } from './customCursor/customCursor.js'
 
 const matchMedia = gsap.matchMedia()
-
-function resetWebflow(data) {
-  let parser = new DOMParser()
-  let dom = parser.parseFromString(data.next.html, 'text/html')
-  let webflowPageId = $(dom).find('html').attr('data-wf-page')
-  $('html').attr('data-wf-page', webflowPageId)
-  window.Webflow && window.Webflow.destroy()
-  window.Webflow && window.Webflow.ready()
-  window.Webflow && window.Webflow.require('ix2').init()
-}
 
 function setupBarba() {
   let currentPage
@@ -30,17 +22,18 @@ function setupBarba() {
 
   barba.hooks.after((data) => {
     currentPage = $('[data-barba-namespace]').data('barbaNamespace')
-    resetWebflow(data)
     matchMedia.add(isDesktop, () => {
-      // const $customCrusor = $('.cb-cursor')
-      // $customCrusor.remove()
-      // cursor.init()
-      // magneticCursor()
+      const $customCursor = $('.cb-cursor')
+      $customCursor.remove()
+      cursor.init()
+      magneticCursor()
     })
     helperFunctions.handleResponsiveElementRemoval()
   })
 
   barba.hooks.once(() => {
+    if (is404Page()) return
+    animatePageTransitions.loader(3)
     let removalResizeTimeout
     function handleRemovalResize() {
       clearTimeout(removalResizeTimeout)
