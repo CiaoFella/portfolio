@@ -1,4 +1,3 @@
-import initCurrentTime, { killCurrentTime } from './features/general/currentTime.js'
 import initMenu, { closeMenu } from './features/general/menu.js'
 import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
@@ -64,7 +63,6 @@ barba.hooks.once(() => {
 })
 
 barba.hooks.beforeEnter(({ next }) => {
-  killCurrentTime()
   cleanupCurrentModule()
   animatePageTransitions.setTransitionLogoPositions(transitionLogo)
   lenis.scrollTo(0, { duration: 0, immediate: true })
@@ -81,8 +79,4 @@ barba.hooks.beforeLeave(() => {
 barba.hooks.afterLeave(({ next }) => {
   const pageName = next.namespace
   loadPageModule(pageName)
-})
-
-barba.hooks.after(() => {
-  initCurrentTime()
 })
