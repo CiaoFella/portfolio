@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
-    index: './src/index.js',
     vendor: './src/vendor.js',
   },
   output: {
@@ -74,7 +73,7 @@ module.exports = {
         {
           from: 'src',
           globOptions: {
-            ignore: ['**/index.js', '**/vendor.js'],
+            ignore: ['**/vendor.js'],
           },
         },
         { from: '_headers', to: '' },
