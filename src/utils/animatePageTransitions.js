@@ -63,15 +63,15 @@ function loader(duration) {
       },
       '<'
     )
-    .from(
-      transitionLogoLeft,
-      {
-        xPercent: -logoPathStartPercentage * 2,
-        ease: 'expo.inOut',
-      },
-      '<'
-    )
-    .from(transitionLogoRight, { xPercent: logoPathStartPercentage * 2, ease: 'expo.inOut' }, '<')
+    // .from(
+    //   transitionLogoLeft,
+    //   {
+    //     xPercent: -logoPathStartPercentage * 2,
+    //     ease: 'expo.inOut',
+    //   },
+    //   '<'
+    // )
+    // .from(transitionLogoRight, { xPercent: logoPathStartPercentage * 2, ease: 'expo.inOut' }, '<')
     .call(() => animateTextSlide(textSlideWraps, 1.5), [], `>-25%`)
     .call(() => transitionOut(true), [], '>+1')
 
