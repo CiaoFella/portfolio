@@ -23,7 +23,6 @@ const navBar = $('[data-animate=nav-bar]')
 const loadingIndicator = transitionSection.find('[data-animate=preload-indicator]')
 
 function loader(duration) {
-  console.log(duration)
   const transitionInnerWrap = transitionSection.find('[data-animate=transition-inner-wrap]')
 
   const textSlideWraps = transitionSection.find('[data-animate=text-slide-wrap]')
