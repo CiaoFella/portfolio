@@ -1,69 +1,71 @@
-let $ = window.$
 import { gsap } from '../../vendor.js'
 
 let ctx
 let timeElement
-let formatter
-let colonAnimation
 
 export default function initCurrentTime() {
-  // Create the formatter once and reuse it
-  formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Europe/Berlin',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-
-  // Find the time element once and store it
-  timeElement = document.querySelector('[data-time=element]')
-
-  if (!timeElement) return
-
   ctx = gsap.context(() => {
-    function updateTime() {
+    // Find the time element once and store it
+    const timeElement = document.querySelector('[data-time=element]')
+
+    console.log(timeElement)
+
+    if (!timeElement) return
+
+    function formatRomeTime() {
       const now = new Date()
-      const parts = formatter.formatToParts(now)
 
-      const dateString = `${parts.find((part) => part.type === 'month').value} ${
-        parts.find((part) => part.type === 'day').value
-      }`
-      const hours = parts.find((part) => part.type === 'hour').value
-      const minutes = parts.find((part) => part.type === 'minute').value
+      // Format date and time separately
+      const dateOptions = { timeZone: 'Europe/Rome', month: 'long', day: 'numeric' }
+      const timeOptions = { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', hour12: false }
 
-      timeElement.innerHTML = `${dateString}, ${hours}<strong id="colon">:</strong>${minutes}`
+      const dateInRome = now.toLocaleDateString('en-US', dateOptions)
+      const timeInRome = now.toLocaleTimeString('en-US', timeOptions)
 
-      // Start the GSAP animation once, if it's not already running
-      if (!colonAnimation) {
-        colonAnimation = gsap.to('#colon', {
-          opacity: 0.5,
-          duration: 1,
-          ease: 'none',
-          repeat: -1,
-          yoyo: true,
-        })
+      // Extract date and time
+      const [monthDay, day] = dateInRome.split(' ')
+      const [hours, minutes] = timeInRome.split(':')
+
+      // Add day suffix
+      const daySuffix = getDaySuffix(parseInt(day, 10))
+
+      // Construct formatted time
+      const formattedTime = `${monthDay} ${day}${daySuffix} ${hours}:${minutes}`
+
+      return formattedTime.replace(':', '<span class="colon">:</span>')
+    }
+
+    function getDaySuffix(day) {
+      if (day > 3 && day < 21) return 'th'
+      switch (day % 10) {
+        case 1:
+          return 'st'
+        case 2:
+          return 'nd'
+        case 3:
+          return 'rd'
+        default:
+          return 'th'
       }
     }
 
-    // Use requestAnimationFrame for more efficient updates
-    function tick() {
-      updateTime()
-      requestAnimationFrame(tick)
+    function updateTime(element) {
+      element.innerHTML = formatRomeTime()
+
+      // GSAP animation for the colon
+      gsap.fromTo('.colon', { opacity: 0 }, { opacity: 1, duration: 0.8, repeat: -1, yoyo: true })
     }
 
-    // Start updating the time
-    tick()
+    // Initial time setting
+    updateTime(timeElement)
+
+    // Update time every minute without blocking page load
+    setInterval(() => updateTime(timeElement), 60000)
   })
 }
 
 export function killCurrentTime() {
   if (ctx) {
     ctx.revert()
-  }
-  if (colonAnimation) {
-    colonAnimation.kill()
-    colonAnimation = null
   }
 }
