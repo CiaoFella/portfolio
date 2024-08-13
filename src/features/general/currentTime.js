@@ -2,24 +2,27 @@ let $ = window.$
 import { gsap } from '../../vendor.js'
 
 let ctx
+let timeElement
+let formatter
+let colonAnimation
 
 export default function initCurrentTime() {
+  // Create the formatter once and reuse it
+  formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Europe/Berlin',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+
+  // Find the time element once and store it
+  timeElement = document.querySelector('[data-time=element]')
+
+  if (!timeElement) return
+
   ctx = gsap.context(() => {
-    const timeElements = document.querySelectorAll('[data-time=element]')
-    const timeElement = timeElements.length > 1 ? timeElements[timeElements.length - 1] : timeElements[0]
-
-    // Create a single formatter instance
-    const options = {
-      timeZone: 'Europe/Berlin',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-      locale: 'en-US',
-    }
-    const formatter = new Intl.DateTimeFormat('en-US', options)
-
     function updateTime() {
       const now = new Date()
       const parts = formatter.formatToParts(now)
@@ -30,40 +33,37 @@ export default function initCurrentTime() {
       const hours = parts.find((part) => part.type === 'hour').value
       const minutes = parts.find((part) => part.type === 'minute').value
 
-      // Avoid using innerHTML for performance reasons
-      timeElement.textContent = `${dateString}, ${hours}:`
-      const colonElement = document.getElementById('colon') || createColonElement()
-      colonElement.textContent = minutes
+      timeElement.innerHTML = `${dateString}, ${hours}<strong id="colon">:</strong>${minutes}`
 
-      // Only set the animation once
-      if (!colonElement.dataset.initialized) {
-        gsap.to(colonElement, {
+      // Start the GSAP animation once, if it's not already running
+      if (!colonAnimation) {
+        colonAnimation = gsap.to('#colon', {
           opacity: 0.5,
           duration: 1,
           ease: 'none',
           repeat: -1,
           yoyo: true,
         })
-        colonElement.dataset.initialized = true // Flag to prevent re-initialization
       }
     }
 
-    function createColonElement() {
-      const colon = document.createElement('span')
-      colon.id = 'colon'
-      timeElement.appendChild(colon)
-      return colon
+    // Use requestAnimationFrame for more efficient updates
+    function tick() {
+      updateTime()
+      requestAnimationFrame(tick)
     }
 
-    if (timeElement) {
-      updateTime()
-      setInterval(updateTime, 1000)
-    }
+    // Start updating the time
+    tick()
   })
 }
 
 export function killCurrentTime() {
   if (ctx) {
     ctx.revert()
+  }
+  if (colonAnimation) {
+    colonAnimation.kill()
+    colonAnimation = null
   }
 }
