@@ -1,5 +1,4 @@
 import initButtons, { killButtons } from '../features/general/buttons.js'
-import initCurrentTime from '../features/general/currentTime.js'
 import initIcons, { killIcons } from '../features/general/icons.js'
 import initLogo, { killLogo } from '../features/general/logo.js'
 import initNavScroll, { killNavScroll } from '../features/general/navScroll.js'
@@ -15,7 +14,7 @@ function init() {
   initIcons()
   initLogo()
   initVariableFontWeight()
-  initCurrentTime()
+  // initCurrentTime()
 }
 
 function cleanup() {
@@ -25,6 +24,7 @@ function cleanup() {
   killIcons()
   killLogo()
   killVariableFontWeight()
+  // killCurrentTime()
 }
 
 export default { init, cleanup }
