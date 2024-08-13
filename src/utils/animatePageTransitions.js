@@ -297,10 +297,17 @@ function setTransitionLogoPositions(transitionLogo) {
   transitionLogoRight[0].style.transform = `translate(${positionRightPath.x}px, ${positionRightPath.y}px)`
 }
 
-window.addEventListener('resize', () =>
-  setTimeout(() => {
-    setTransitionLogoPositions(transitionLogo)
-  }, 100)
+function debounce(func, wait) {
+  let timeout
+  return function (...args) {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(this, args), wait)
+  }
+}
+
+window.addEventListener(
+  'resize',
+  debounce(() => setTransitionLogoPositions(transitionLogo), 150)
 )
 
 export default { loader, transitionOut, transitionIn, makeItemActive, flipAnimation, setTransitionLogoPositions }
