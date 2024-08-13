@@ -15,7 +15,6 @@ function init() {
   initIcons()
   initLogo()
   initVariableFontWeight()
-  initCurrentTime()
 }
 
 function cleanup() {
@@ -25,7 +24,6 @@ function cleanup() {
   killIcons()
   killLogo()
   killVariableFontWeight()
-  killCurrentTime()
 }
 
 export default { init, cleanup }

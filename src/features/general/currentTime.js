@@ -8,8 +8,6 @@ export default function initCurrentTime() {
     // Find the time element once and store it
     const timeElement = document.querySelector('[data-time=element]')
 
-    console.log(timeElement)
-
     if (!timeElement) return
 
     function formatRomeTime() {
