@@ -5,6 +5,7 @@ import initNavScroll, { killNavScroll } from '../features/general/navScroll.js'
 import initSectionScale, { killSectionScale } from '../features/general/sectionScale.js'
 import initVariableFontWeight, { killVariableFontWeight } from '../features/general/variableFontWeight.js'
 import createInitialState from '../utils/createInitialState.js'
+import initCurrentTime, { killCurrentTime } from '../features/general/currentTime'
 
 function init() {
   initNavScroll()
@@ -14,7 +15,7 @@ function init() {
   initIcons()
   initLogo()
   initVariableFontWeight()
-  // initCurrentTime()
+  initCurrentTime()
 }
 
 function cleanup() {
@@ -24,7 +25,7 @@ function cleanup() {
   killIcons()
   killLogo()
   killVariableFontWeight()
-  // killCurrentTime()
+  killCurrentTime()
 }
 
 export default { init, cleanup }
