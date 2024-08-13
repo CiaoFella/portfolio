@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
+    index: './src/index.js',
     vendor: './src/vendor.js',
   },
   output: {
@@ -45,14 +46,6 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/, // Process .scss files
-        use: [
-          'style-loader', // Injects styles into DOM
-          'css-loader', // Turns CSS into CommonJS
-          'sass-loader', // Compiles Sass to CSS
-        ],
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)$/,
         use: [
           {
@@ -73,7 +66,7 @@ module.exports = {
         {
           from: 'src',
           globOptions: {
-            ignore: ['**/vendor.js'],
+            ignore: ['**/index.js', '**/vendor.js'],
           },
         },
         { from: '_headers', to: '' },
