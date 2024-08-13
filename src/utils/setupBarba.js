@@ -3,7 +3,7 @@ let $ = window.$
 import { gsap, barba } from '../vendor.js'
 
 import { isDesktop } from './variables.js'
-import { cursor, magneticCursor } from './customCursor/index.js'
+import { cursor, magneticCursor } from './customCursor/customCursor.js'
 import transitions from './animatePageTransitions.js'
 import animateTransitions from './animatePageTransitions.js'
 import animateHero from '../features/general/animateHero.js'
