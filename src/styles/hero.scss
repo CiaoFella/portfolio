@@ -23,12 +23,11 @@
       scale: 0.95;
     }
   }
-  @media (max-width: variables.$breakpoint-mobile) {
-    [data-hero-element=trust]{
+ 
+  [data-hero-element=trust]{
+    @media (max-width: variables.$breakpoint-mobile) {
       transform: translate(0px, 300%);
     }
-  }
-  [data-hero-element=trust]{
     transform: translate(0px, 110%);
   }
   [data-hero-element=cta] {
