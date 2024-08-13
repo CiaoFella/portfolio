@@ -24,18 +24,6 @@ function init() {
   shared.init()
 }
 
-function mobileInit() {
-  initMyProcess()
-  initMyPhilosophy()
-  initCardList()
-  initPassions()
-  initImages()
-  initScrollCounter()
-  initConnectScroll()
-  initFooter()
-  shared.mobileInit()
-}
-
 function cleanup() {
   killTextContent()
   killMyProcess()
@@ -50,16 +38,4 @@ function cleanup() {
   shared.cleanup()
 }
 
-function mobileCleanup() {
-  killMyProcess()
-  killMyPhilosophy()
-  killCardList()
-  killPassions()
-  killImages()
-  killScrollCounter()
-  killConnectScroll()
-  killFooter()
-  shared.mobileCleanup()
-}
-
-export default { init, cleanup, mobileInit, mobileCleanup }
+export default { init, cleanup }

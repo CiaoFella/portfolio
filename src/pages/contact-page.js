@@ -6,19 +6,9 @@ function init() {
   shared.init()
 }
 
-function mobileInit() {
-  initContactForm()
-  shared.mobileInit()
-}
-
 function cleanup() {
   killContactForm()
   shared.cleanup()
 }
 
-function mobileCleanup() {
-  killContactForm()
-  shared.mobileCleanup()
-}
-
-export default { init, cleanup, mobileInit, mobileCleanup }
+export default { init, cleanup }

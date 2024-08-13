@@ -3,7 +3,7 @@ let $ = window.$
 import { gsap, barba } from '../vendor.js'
 
 import { isDesktop } from './variables.js'
-import { cursor, magneticCursor } from './customCursor/export.js'
+import { cursor, magneticCursor } from './customCursor/index.js'
 import transitions from './animatePageTransitions.js'
 import animateTransitions from './animatePageTransitions.js'
 import animateHero from '../features/general/animateHero.js'
@@ -14,6 +14,7 @@ import { closeMenu } from '../features/general/menu.js'
 import lenis from './smoothScroll.js'
 import { animateContactForm } from '../features/contactPage/contactForm.js'
 import animatePageTransitions from './animatePageTransitions.js'
+import createInitialState from './createInitialState.js'
 
 const matchMedia = gsap.matchMedia()
 

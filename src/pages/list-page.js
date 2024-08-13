@@ -6,19 +6,9 @@ function init() {
   shared.init()
 }
 
-function mobileInit() {
-  initReducedTeaser()
-  shared.mobileInit()
-}
-
 function cleanup() {
   killReducedTeaser()
   shared.cleanup()
 }
 
-function mobileCleanup() {
-  killReducedTeaser()
-  shared.mobileCleanup()
-}
-
-export default { init, cleanup, mobileInit, mobileCleanup }
+export default { init, cleanup }

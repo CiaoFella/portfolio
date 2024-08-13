@@ -16,16 +16,6 @@ function init() {
   shared.init()
 }
 
-function mobileInit() {
-  initAwardListHover()
-  initAwardListScroll()
-  initFooter()
-  initConnectScroll()
-  initHeadlineScroll()
-  initMatter()
-  shared.mobileInit()
-}
-
 function cleanup() {
   killMatter()
   killAwardListHover()
@@ -36,14 +26,4 @@ function cleanup() {
   shared.cleanup()
 }
 
-function mobileCleanup() {
-  killMatter()
-  killAwardListHover()
-  killAwardListScroll()
-  killHeadlineScroll()
-  killConnectScroll()
-  killFooter()
-  shared.mobileCleanup()
-}
-
-export default { init, cleanup, mobileInit, mobileCleanup }
+export default { init, cleanup }

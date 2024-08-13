@@ -28,18 +28,6 @@ function init() {
   shared.init()
 }
 
-function mobileInit() {
-  initTextOnScroll()
-  initCardList()
-  initConnectScroll()
-  initFooter()
-  initAwardListScroll()
-  initAboutTeaser()
-  initPattern()
-  initReducedTeaser()
-  shared.mobileInit()
-}
-
 function cleanup() {
   killTextOnScroll()
   killAwardListScroll()
@@ -55,16 +43,4 @@ function cleanup() {
   shared.cleanup()
 }
 
-function mobileCleanup() {
-  killTextOnScroll()
-  killCardList()
-  killConnectScroll()
-  killFooter()
-  killAwardListScroll()
-  killAboutTeaser()
-  killPattern()
-  killReducedTeaser()
-  shared.mobileCleanup()
-}
-
-export default { init, cleanup, mobileInit, mobileCleanup }
+export default { init, cleanup }
