@@ -27,9 +27,6 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.require('ix2').init()
 }
 
-const transitionSection = $('[data-animate=transition]')
-const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
-
 function setupBarba() {
   let currentPage
 
@@ -45,17 +42,6 @@ function setupBarba() {
       // magneticCursor()
     })
     helperFunctions.handleResponsiveElementRemoval()
-  })
-  barba.hooks.beforeLeave(() => {
-    animatePageTransitions.setTransitionLogoPositions(transitionLogo)
-    closeMenu(true)
-  })
-  barba.hooks.afterEnter(() => {
-    animatePageTransitions.setTransitionLogoPositions(transitionLogo)
-    lenis.scrollTo(0, { duration: 0, immediate: true })
-    requestAnimationFrame(() => {
-      helperFunctions.refreshScrollTriggers()
-    })
   })
 
   barba.hooks.once(() => {
@@ -196,17 +182,7 @@ function setupBarba() {
         },
       },
       {
-        once: () => {
-          if (is404Page()) return
-          animateTransitions.loader(4)
-          requestAnimationFrame(() => {
-            lenis.scrollTo(0, { duration: 0.25 })
-          })
-          matchMedia.add(isDesktop, () => {
-            // cursor.init()
-            // magneticCursor()
-          })
-        },
+        once: () => {},
       },
       {
         name: 'list-detail-transition',

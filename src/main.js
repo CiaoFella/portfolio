@@ -1,14 +1,20 @@
-import initMenu from './features/general/menu.js'
+import initMenu, { closeMenu } from './features/general/menu.js'
+import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
 import setupBarba from './utils/setupBarba.js'
+import lenis from './utils/smoothScroll.js'
+import { gsap } from './vendor.js'
 
 initMenu()
 
 const barba = setupBarba()
+const matchMedia = gsap.matchMedia()
 
 createInitialState()
 
 let currentAnimationModule = null
+const transitionSection = $('[data-animate=transition]')
+const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
 
 function cleanupCurrentModule() {
   if (currentAnimationModule && currentAnimationModule.cleanup) {
@@ -44,11 +50,30 @@ function loadPageModule(pageName) {
 const initialPageName = document.querySelector('[data-barba="container"]').dataset.barbaNamespace
 loadPageModule(initialPageName)
 
+barba.hooks.once(() => {
+  // if (is404Page()) return
+  animatePageTransitions.loader(4)
+  requestAnimationFrame(() => {
+    lenis.scrollTo(0, { duration: 0.25 })
+  })
+  matchMedia.add(isDesktop, () => {
+    // cursor.init()
+    // magneticCursor()
+  })
+})
+
 barba.hooks.beforeEnter(({ next }) => {
   cleanupCurrentModule()
+  animatePageTransitions.setTransitionLogoPositions(transitionLogo)
+  lenis.scrollTo(0, { duration: 0, immediate: true })
+  requestAnimationFrame(() => {
+    helperFunctions.refreshScrollTriggers()
+  })
 })
 
 barba.hooks.afterLeave(({ next }) => {
   const pageName = next.namespace
   loadPageModule(pageName)
+  animatePageTransitions.setTransitionLogoPositions(transitionLogo)
+  closeMenu(true)
 })
