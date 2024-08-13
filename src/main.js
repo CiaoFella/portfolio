@@ -1,6 +1,7 @@
 import initMenu, { closeMenu } from './features/general/menu.js'
 import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
+import helperFunctions from './utils/helperFunctions.js'
 import setupBarba from './utils/setupBarba.js'
 import lenis from './utils/smoothScroll.js'
 import { isDesktop, isTablet } from './utils/variables.js'
@@ -81,8 +82,11 @@ barba.hooks.once(() => {
   })
 })
 
-barba.hooks.beforeEnter(({ next }) => {
+barba.hooks.beforeEnter(({}) => {
   cleanupCurrentModule()
+})
+
+barba.hooks.afterEnter(({}) => {
   animatePageTransitions.setTransitionLogoPositions(transitionLogo)
   lenis.scrollTo(0, { duration: 0, immediate: true })
   requestAnimationFrame(() => {
