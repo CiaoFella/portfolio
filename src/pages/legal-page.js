@@ -4,8 +4,16 @@ function init() {
   shared.init()
 }
 
+function mobileInit() {
+  shared.mobileInit()
+}
+
 function cleanup() {
   shared.cleanup()
 }
 
-export default { init, cleanup }
+function mobileCleanup() {
+  shared.mobileCleanup()
+}
+
+export default { init, cleanup, mobileInit, mobileCleanup }

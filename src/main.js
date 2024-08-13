@@ -3,6 +3,7 @@ import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
 import setupBarba from './utils/setupBarba.js'
 import lenis from './utils/smoothScroll.js'
+import { isDesktop, isTablet } from './utils/variables.js'
 import { gsap } from './vendor.js'
 
 initMenu()
@@ -17,8 +18,18 @@ const transitionSection = $('[data-animate=transition]')
 const transitionLogo = transitionSection.find('[data-animate=transition-logo]')
 
 function cleanupCurrentModule() {
-  if (currentAnimationModule && currentAnimationModule.cleanup) {
-    currentAnimationModule.cleanup()
+  if (currentAnimationModule) {
+    matchMedia.add(isDesktop, () => {
+      if (typeof currentAnimationModule.cleanup === 'function') {
+        currentAnimationModule.cleanup() // Desktop cleanup
+      }
+    })
+
+    matchMedia.add(isTablet, () => {
+      if (typeof currentAnimationModule.mobileCleanup === 'function') {
+        currentAnimationModule.mobileCleanup() // Mobile cleanup
+      }
+    })
   }
 }
 
@@ -34,10 +45,17 @@ function loadPageModule(pageName) {
   import(/* webpackIgnore: true */ `${baseUrl}pages/${pageName}.js`)
     .then((module) => {
       currentAnimationModule = module.default || {}
-      if (typeof currentAnimationModule.init === 'function') {
-        currentAnimationModule.init()
+
+      if (typeof currentAnimationModule.init === 'function' && typeof currentAnimationModule.mobileInit === 'function') {
+        matchMedia.add(isDesktop, () => {
+          currentAnimationModule.init() // Desktop init
+        })
+
+        matchMedia.add(isTablet, () => {
+          currentAnimationModule.mobileInit() // Mobile init
+        })
       } else {
-        console.warn(`Module for page ${pageName} does not have an init function.`)
+        console.warn(`Module for page ${pageName} does not have an init or mobileInit function.`)
       }
     })
     .catch((err) => {
