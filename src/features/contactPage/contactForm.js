@@ -319,7 +319,7 @@ function animateSubmitFeedback(isSuccess) {
 
 export function killContactForm() {
   if (ctx) {
-    ctx.reverse()
+    ctx.revert()
   }
   if (validation) {
     validation.destroy()
