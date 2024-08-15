@@ -15,7 +15,6 @@ function init() {
   initIcons()
   initLogo()
   initVariableFontWeight()
-  initCurrentTime()
 }
 
 function mobileInit() {
@@ -23,7 +22,6 @@ function mobileInit() {
   initSectionScale()
   initIcons()
   initNavScroll()
-  initCurrentTime()
 }
 
 function cleanup() {
@@ -33,14 +31,12 @@ function cleanup() {
   killIcons()
   killLogo()
   killVariableFontWeight()
-  killCurrentTime()
 }
 
 function mobileCleanup() {
   killSectionScale()
   killIcons()
   killNavScroll()
-  killCurrentTime()
 }
 
 export default { init, cleanup, mobileInit, mobileCleanup }
