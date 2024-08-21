@@ -46,6 +46,12 @@ function cleanupCurrentModule() {
       }
     })
   }
+
+  // Clean up any lingering ScrollTriggers
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+
+  // Reset the current animation module reference
+  currentAnimationModule = null
 }
 
 function getBaseUrl() {
