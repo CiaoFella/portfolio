@@ -207,6 +207,33 @@ function handleResponsiveElementRemoval() {
   }
 }
 
+export function resetWebflow() {
+  window.Webflow && window.Webflow.destroy()
+  window.Webflow && window.Webflow.ready()
+  window.Webflow && window.Webflow.require('ix2').init()
+  window.Webflow && window.Webflow.require('lottie').init()
+  resetLottieAnimations()
+}
+
+function resetLottieAnimations() {
+  const lottieElements = document.querySelectorAll('[data-animation-type="lottie"]')
+
+  if (lottieElements) {
+    lottieElements.forEach((el) => {
+      const lottieInstance = window.Webflow.require('lottie').createInstance(el)
+
+      // Destroy existing Lottie instances to prevent duplication or conflicts
+      if (lottieInstance) {
+        lottieInstance.destroy()
+      }
+
+      // Recreate the Lottie instance for the element
+      window.Webflow.require('lottie').init()
+      lottieInstance.play()
+    })
+  }
+}
+
 export default {
   pageReady,
   getMouseEnterDirection,

@@ -2,18 +2,11 @@ import initMenu, { closeMenu } from './features/general/menu.js'
 import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
 import { magneticCursor, cursor } from './utils/customCursor/customCursor.js'
-import helperFunctions from './utils/helperFunctions.js'
+import helperFunctions, { resetWebflow } from './utils/helperFunctions.js'
 import setupBarba from './utils/setupBarba.js'
 import lenis from './utils/smoothScroll.js'
 import { isDesktop, isTablet } from './utils/variables.js'
 import { gsap } from './vendor.js'
-
-function resetWebflow(data) {
-  window.Webflow && window.Webflow.destroy()
-  window.Webflow && window.Webflow.ready()
-  window.Webflow && window.Webflow.require('ix2').init()
-  window.Webflow && window.Webflow.require('lottie').init()
-}
 
 initMenu()
 
@@ -111,11 +104,8 @@ barba.hooks.beforeLeave(() => {
   closeMenu(true)
 })
 
-barba.hooks.afterLeave(({ next }) => {
+barba.hooks.after(({ next }) => {
   const pageName = next.namespace
+  resetWebflow()
   loadPageModule(pageName)
-})
-
-barba.hooks.after(({ data }) => {
-  resetWebflow(data)
 })
