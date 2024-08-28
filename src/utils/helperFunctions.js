@@ -211,7 +211,6 @@ export function resetWebflow() {
   window.Webflow && window.Webflow.destroy()
   window.Webflow && window.Webflow.ready()
   window.Webflow && window.Webflow.require('ix2').init()
-  window.Webflow && window.Webflow.require('lottie').init()
   resetLottieAnimations()
 }
 
@@ -229,7 +228,6 @@ function resetLottieAnimations() {
 
       // Recreate the Lottie instance for the element
       window.Webflow.require('lottie').init()
-      lottieInstance.play()
     })
   }
 }
