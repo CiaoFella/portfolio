@@ -9,13 +9,10 @@ import { isDesktop, isTablet } from './utils/variables.js'
 import { gsap } from './vendor.js'
 
 function resetWebflow(data) {
-  // let parser = new DOMParser()
-  // let dom = parser.parseFromString(data.next.html, 'text/html')
-  // let webflowPageId = $(dom).find('html').attr('data-wf-page')
-  // document.querySelector('html').setAttribute('data-wf-page', webflowPageId)
   window.Webflow && window.Webflow.destroy()
   window.Webflow && window.Webflow.ready()
   window.Webflow && window.Webflow.require('ix2').init()
+  window.Webflow && window.Webflow.require('lottie').init()
 }
 
 initMenu()
