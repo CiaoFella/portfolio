@@ -155,7 +155,6 @@ async function transitionOut(isLoader) {
     onComplete: () => {
       requestAnimationFrame(() => {
         proxy.pageReady = true
-        resetWebflow()
       })
     },
   })

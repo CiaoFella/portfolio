@@ -110,7 +110,5 @@ barba.hooks.afterLeave(({ next }) => {
 })
 
 barba.hooks.after(() => {
-  requestAnimationFrame(() => {
-    resetWebflow()
-  })
+  resetWebflow()
 })
