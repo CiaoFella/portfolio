@@ -2,7 +2,7 @@ let $ = window.$
 
 import { gsap, Flip } from '../vendor.js'
 import animateTextSlide from '../features/general/animateTextSlide.js'
-import helperFunctions from './helperFunctions.js'
+import helperFunctions, { resetWebflow } from './helperFunctions.js'
 import { proxy } from './pageReadyHandler.js'
 import { isDesktop, isMobile, isTablet } from './variables.js'
 
@@ -155,6 +155,7 @@ async function transitionOut(isLoader) {
     onComplete: () => {
       requestAnimationFrame(() => {
         proxy.pageReady = true
+        resetWebflow()
       })
     },
   })
