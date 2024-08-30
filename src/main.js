@@ -104,8 +104,11 @@ barba.hooks.beforeLeave(() => {
   closeMenu(true)
 })
 
-barba.hooks.after(({ next }) => {
+barba.hooks.afterLeave(({ next }) => {
   const pageName = next.namespace
-  resetWebflow()
   loadPageModule(pageName)
+})
+
+barba.hooks.after(() => {
+  resetWebflow()
 })
