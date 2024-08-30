@@ -94,6 +94,7 @@ barba.hooks.beforeEnter((data) => {
 barba.hooks.afterEnter(({}) => {
   animatePageTransitions.setTransitionLogoPositions(transitionLogo)
   lenis.scrollTo(0, { duration: 0, immediate: true })
+  resetWebflow()
   requestAnimationFrame(() => {
     helperFunctions.refreshScrollTriggers()
   })
@@ -109,6 +110,4 @@ barba.hooks.afterLeave(({ next }) => {
   loadPageModule(pageName)
 })
 
-barba.hooks.after(() => {
-  resetWebflow()
-})
+barba.hooks.after(() => {})
