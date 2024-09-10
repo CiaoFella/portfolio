@@ -10,6 +10,16 @@ import { gsap } from './vendor.js'
 
 initMenu()
 
+function resetWebflow(data) {
+  let parser = new DOMParser()
+  let dom = parser.parseFromString(data.next.html, 'text/html')
+  let webflowPageId = $(dom).find('html').attr('data-wf-page')
+  $('html').attr('data-wf-page', webflowPageId)
+  window.Webflow && window.Webflow.destroy()
+  window.Webflow && window.Webflow.ready()
+  window.Webflow && window.Webflow.require('ix2').init()
+}
+
 const barba = setupBarba()
 const matchMedia = gsap.matchMedia()
 gsap.config({ force3D: true })
@@ -91,12 +101,13 @@ barba.hooks.beforeEnter((data) => {
   cleanupCurrentModule()
 })
 
-barba.hooks.afterEnter(({}) => {
+barba.hooks.afterEnter((data) => {
   animatePageTransitions.setTransitionLogoPositions(transitionLogo)
   lenis.scrollTo(0, { duration: 0, immediate: true })
   requestAnimationFrame(() => {
     helperFunctions.refreshScrollTriggers()
   })
+  resetWebflow(data)
 })
 
 barba.hooks.beforeLeave(() => {
@@ -104,17 +115,7 @@ barba.hooks.beforeLeave(() => {
   closeMenu(true)
 })
 
-barba.hooks.afterLeave(({ next }) => {
-  const pageName = next.namespace
+barba.hooks.afterLeave((data) => {
+  const pageName = data.next.namespace
   loadPageModule(pageName)
-})
-
-barba.hooks.after((data) => {
-  let parser = new DOMParser()
-  let dom = parser.parseFromString(data.next.html, 'text/html')
-  let webflowPageId = $(dom).find('html').attr('data-wf-page')
-  $('html').attr('data-wf-page', webflowPageId)
-  window.Webflow && window.Webflow.destroy()
-  window.Webflow && window.Webflow.ready()
-  window.Webflow && window.Webflow.require('ix2').init()
 })
