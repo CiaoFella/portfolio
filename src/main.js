@@ -2,7 +2,7 @@ import initMenu, { closeMenu } from './features/general/menu.js'
 import animatePageTransitions from './utils/animatePageTransitions.js'
 import createInitialState from './utils/createInitialState.js'
 import { magneticCursor, cursor } from './utils/customCursor/customCursor.js'
-import helperFunctions, { resetWebflow } from './utils/helperFunctions.js'
+import helperFunctions from './utils/helperFunctions.js'
 import setupBarba from './utils/setupBarba.js'
 import lenis from './utils/smoothScroll.js'
 import { isDesktop, isTablet } from './utils/variables.js'
@@ -94,7 +94,6 @@ barba.hooks.beforeEnter((data) => {
 barba.hooks.afterEnter(({}) => {
   animatePageTransitions.setTransitionLogoPositions(transitionLogo)
   lenis.scrollTo(0, { duration: 0, immediate: true })
-  resetWebflow()
   requestAnimationFrame(() => {
     helperFunctions.refreshScrollTriggers()
   })
@@ -110,4 +109,12 @@ barba.hooks.afterLeave(({ next }) => {
   loadPageModule(pageName)
 })
 
-barba.hooks.after(() => {})
+barba.hooks.after((data) => {
+  let parser = new DOMParser()
+  let dom = parser.parseFromString(data.next.html, 'text/html')
+  let webflowPageId = $(dom).find('html').attr('data-wf-page')
+  $('html').attr('data-wf-page', webflowPageId)
+  window.Webflow && window.Webflow.destroy()
+  window.Webflow && window.Webflow.ready()
+  window.Webflow && window.Webflow.require('ix2').init()
+})
